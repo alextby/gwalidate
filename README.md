@@ -1,3 +1,3 @@
-gwt-ui-validate
+GWalidate
 ===============
 Work-in-progress
