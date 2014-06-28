@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <artifactId>gwalidate</artifactId>
+        <groupId>com.github.alextby.ui.gwt</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <name>GWalidate Demo Playground App</name>
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>war</packaging>
+
+    <artifactId>gwalidate-playground</artifactId>
+
+    <properties>
+
+        <gwalidate.demo.jetty.port>10008</gwalidate.demo.jetty.port>
+        <gwalidate.demo.war.name>gwalidate-playground</gwalidate.demo.war.name>
+
+        <plugin.jetty.version>8.0.0.M2.l1</plugin.jetty.version>
+        <dependency.gwt.bootstrap.version>2.3.2.0</dependency.gwt.bootstrap.version>
+
+        <gwalidate.demo.gwt.module.name>com.github.alextby.ui.gwt.gwalidate.demo.GWalidateDemo</gwalidate.demo.gwt.module.name>
+        <gwt.local.workers>2</gwt.local.workers>
+        <gwt.draft.compile>false</gwt.draft.compile>
+        <gwt.module.suffix/>
+
+    </properties>
+
+    <build>
+
+        <plugins>
+
+            <plugin>
+
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <warName>${gwalidate.demo.war.name}</warName>
+                    <overlays/>
+                    <archive>
+                        <manifestEntries>
+                            <Component-Name>${project.artifactId}</Component-Name>
+                            <Component-Version>${project.version}</Component-Version>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+
+            </plugin>
+
+            <plugin>
+
+                <artifactId>appassembler-plugin</artifactId>
+                <groupId>iv.maven.plugins</groupId>
+                <version>0.2.9</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>war-assemble</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+            </plugin>
+
+            <plugin>
+
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>gwt-maven-plugin</artifactId>
+
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+                <configuration>
+                    <localWorkers>${gwt.local.workers}</localWorkers>
+                    <draftCompile>${gwt.draft.compile}</draftCompile>
+                    <extraJvmArgs>-Xmx1024m</extraJvmArgs>
+                    <encoding>UTF-8</encoding>
+                    <modules>
+                        <module>${gwalidate.demo.gwt.module.name}</module>
+                    </modules>
+                    <logLevel>INFO</logLevel>
+                    <failOnError>true</failOnError>
+                </configuration>
+
+            </plugin>
+
+            <plugin>
+
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>${plugin.jetty.version}</version>
+                <configuration>
+
+                    <webApp>${basedir}/target/${gwalidate.demo.war.name}.war</webApp>
+
+                    <stopKey>stop</stopKey>
+                    <stopPort>18991</stopPort>
+
+                    <systemProperties>
+                        <systemProperty>
+                            <name>logback.configurationFile</name>
+                            <value>./src/main/resources/logback.xml</value>
+                        </systemProperty>
+                        <systemProperty>
+                            <name>XX:MaxPermSize</name>
+                            <value>256m</value>
+                        </systemProperty>
+                    </systemProperties>
+                    <connectors>
+                        <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+                            <port>${gwalidate.demo.jetty.port}</port>
+                            <maxIdleTime>1000000</maxIdleTime>
+                        </connector>
+                    </connectors>
+                </configuration>
+
+                <dependencies>
+
+                    <dependency>
+                        <groupId>ch.qos.logback</groupId>
+                        <artifactId>logback-classic</artifactId>
+                        <version>1.1.2</version>
+                    </dependency>
+
+                    <dependency>
+                        <artifactId>slf4j-api</artifactId>
+                        <groupId>org.slf4j</groupId>
+                        <version>${dependency.slf4j.verion}</version>
+                    </dependency>
+
+                </dependencies>
+
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <dependencies>
+
+        <dependency>
+            <artifactId>gwalidate-core</artifactId>
+            <groupId>com.github.alextby.ui.gwt</groupId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- gwt-bootstrap -->
+        <dependency>
+            <artifactId>gwt-bootstrap</artifactId>
+            <groupId>com.github.gwtbootstrap</groupId>
+            <version>${dependency.gwt.bootstrap.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+    </dependencies>
+
+</project>
