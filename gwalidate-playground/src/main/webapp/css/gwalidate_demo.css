@@ -12,3 +12,18 @@
     -moz-border-radius: 0;
     -o-border-radius: 0;
 }
+
+.navbar-cases {
+    position: absolute;
+    top: 40px;
+}
+
+.subcontainer {
+    position: absolute;
+    top: 40px;
+    width: 100%;
+}
+
+.cases-container-inner {
+    padding-left: 30px;
+}

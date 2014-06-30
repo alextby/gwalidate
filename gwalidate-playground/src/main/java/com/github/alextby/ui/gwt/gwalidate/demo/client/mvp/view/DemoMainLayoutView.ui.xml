@@ -1,0 +1,48 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+        >
+
+    <g:HTMLPanel ui:field="rootPanel">
+
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"/>
+                    <a class="brand" href="#">GWalidate</a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav">
+                            <li ui:field="aboutLink">
+                                <a href="#about:">About</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <g:HTMLPanel addStyleNames="subcontainer">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"/>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li ui:field="basicCaseLink">
+                                    <a href="#basic_case:">Basic Case</a>
+                                </li>
+                                <li ui:field="dynamicCaseLink">
+                                    <a href="#dynamic_case:">Dynamic Case</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <g:SimplePanel ui:field="casesContainer" addStyleNames="cases-container-inner">
+            </g:SimplePanel>
+        </g:HTMLPanel>
+
+    </g:HTMLPanel>
+
+</ui:UiBinder>
