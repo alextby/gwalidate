@@ -29,7 +29,8 @@ public class DemoMainLayoutView extends Composite {
 
     private static final String CSS_ACTIVE = "active";
 
-    private final Map<Class<? extends Place>, MenuHandler> menuHandlers = new HashMap<Class<? extends Place>, MenuHandler>();
+    private final Map<Class<? extends Place>, MenuHandler> menuHandlers =
+            new HashMap<Class<? extends Place>, MenuHandler>();
 
     @Inject
     public DemoMainLayoutView(Binder binder, EventBus eventBus) {

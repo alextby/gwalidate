@@ -6,7 +6,7 @@ import com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.activity.DynamicUseCa
 
 public interface  ActivityFactory {
 
-    BasicUseCaseActivity simpleUseCaseActivity();
+    BasicUseCaseActivity basicUseCaseActivity();
 
     DynamicUseCaseActivity dynamicUseCaseActivity();
 
