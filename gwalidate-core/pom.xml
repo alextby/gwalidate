@@ -9,6 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
+    <name>GWalidate Core</name>
     <packaging>jar</packaging>
     <modelVersion>4.0.0</modelVersion>
 
