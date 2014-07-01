@@ -1,7 +1,15 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-             xmlns:gwt="urn:import:com.google.gwt.user.client.ui">
+             xmlns:g="urn:import:com.google.gwt.user.client.ui">
 
-    <gwt:Label text="#About"/>
+    <g:HTMLPanel addStyleNames="pull-left">
+
+        <div class="alert alert-info">
+            <h3>About</h3>
+            <p><strong>GWalidate</strong> is simple independent GWT validation framework.</p>
+            <p>This application is intended to demonstrate <strong>GWalidate's</strong> features.</p>
+        </div>
+
+    </g:HTMLPanel>
 
 </ui:UiBinder>

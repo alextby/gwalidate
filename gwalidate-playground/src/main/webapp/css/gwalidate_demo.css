@@ -25,5 +25,39 @@
 }
 
 .cases-container-inner {
-    padding-left: 30px;
+    padding-left: 20px;
+}
+
+.validation-panel {
+    width: 1000px;
+}
+
+.bs-docs-example:after {
+    background-color: #F5F5F5;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px 0 4px 0;
+    color: #9DA0A4;
+    content: "Validation Panel";
+    font-size: 12px;
+    font-weight: bold;
+    left: -1px;
+    padding: 3px 7px;
+    position: absolute;
+    top: -1px;
+}
+form.bs-docs-example {
+    padding-bottom: 19px;
+}
+
+.bs-docs-example {
+    background-color: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px 4px 4px 4px;
+    padding: 39px 19px 14px;
+    position: relative;
+}
+
+.left-help-panel {
+    width: 400px;
+    margin-right: 20px;
 }

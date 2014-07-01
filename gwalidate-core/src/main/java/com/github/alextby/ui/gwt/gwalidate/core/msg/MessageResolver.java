@@ -2,7 +2,6 @@ package com.github.alextby.ui.gwt.gwalidate.core.msg;
 
 import com.github.alextby.ui.gwt.gwalidate.core.util.StringUtils;
 import com.google.inject.Inject;
-import org.hibernate.validator.ValidationMessages;
 
 import java.util.MissingResourceException;
 

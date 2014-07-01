@@ -12,6 +12,8 @@
     <inherits name="com.google.gwt.place.Place"/>
     <inherits name="com.google.common.collect.Collect"/>
 
+    <inherits name="com.github.alextby.ui.gwt.gwalidate.GWalidate"/>
+
     <inherits name="com.github.gwtbootstrap.BootstrapNoResources"/>
 
     <source path="client"/>
@@ -25,7 +27,6 @@
     <set-configuration-property name="UiBinder.useSafeHtmlTemplates" value="true"/>
 
     <extend-property name="locale" values="default"/>
-    <extend-property name="locale" values="en"/>
 
     <define-configuration-property name="messageBundles" is-multi-valued="true"/>
 

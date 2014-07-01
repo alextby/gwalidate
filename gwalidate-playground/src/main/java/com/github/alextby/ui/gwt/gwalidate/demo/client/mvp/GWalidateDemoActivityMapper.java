@@ -14,13 +14,10 @@ import java.util.Map;
 
 public class GWalidateDemoActivityMapper implements ActivityMapper {
 
-    private final ActivityFactory activityFactory;
-
     private final Map<Class<? extends Place>, Activity> placesMapping = Maps.newHashMap();
 
     @Inject
     public GWalidateDemoActivityMapper(ActivityFactory activityFactory) {
-        this.activityFactory = activityFactory;
         placesMapping.put(null, null);
         placesMapping.put(BasicUseCasePlace.class, activityFactory.basicUseCaseActivity());
         placesMapping.put(DynamicUseCasePlace.class, activityFactory.dynamicUseCaseActivity());
