@@ -54,21 +54,6 @@
 
             <plugin>
 
-                <artifactId>appassembler-plugin</artifactId>
-                <groupId>iv.maven.plugins</groupId>
-                <version>0.2.9</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>war-assemble</goal>
-                        </goals>
-                    </execution>
-                </executions>
-
-            </plugin>
-
-            <plugin>
-
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>gwt-maven-plugin</artifactId>
 

@@ -6,7 +6,7 @@
 
         <div class="alert alert-info">
             <h3>About</h3>
-            <p><strong>GWalidate</strong> is simple independent GWT validation framework.</p>
+            <p><strong>GWalidate</strong> is a simple lightweight GWT validation framework.</p>
             <p>This application is intended to demonstrate <strong>GWalidate's</strong> features.</p>
         </div>
 

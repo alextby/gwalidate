@@ -19,7 +19,7 @@
                       The form on the right contains 2 fields:<br/>
                         <ul>
                           <li>Required name field with the maximum allowed length = 10</li>
-                          <li>optional age field with the [0, 100) allowed integer interval</li>
+                          <li>Optional age field with the (0, 150] allowed integer interval</li>
                         </ul>
                     </p>
                     <p>
@@ -41,7 +41,7 @@
                         </demo:TextFormField>
 
                         <demo:TextFormField ui:field="secondField" label="Age" placeholder="optional">
-                            <v:Range min="0" max="100"/>
+                            <v:Range min="0" max="150" minOut="true" maxOut="false"/>
                         </demo:TextFormField>
 
                         <div class="controls">
