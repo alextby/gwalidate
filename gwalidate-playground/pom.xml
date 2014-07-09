@@ -20,7 +20,7 @@
         <gwalidate.demo.jetty.port>10008</gwalidate.demo.jetty.port>
         <gwalidate.demo.war.name>gwalidate-playground</gwalidate.demo.war.name>
 
-        <plugin.jetty.version>8.0.0.M2.l1</plugin.jetty.version>
+        <plugin.jetty.version>8.0.0.M2</plugin.jetty.version>
         <dependency.gwt.bootstrap.version>2.3.2.0</dependency.gwt.bootstrap.version>
 
         <gwalidate.demo.gwt.module.name>com.github.alextby.ui.gwt.gwalidate.demo.GWalidateDemo</gwalidate.demo.gwt.module.name>
