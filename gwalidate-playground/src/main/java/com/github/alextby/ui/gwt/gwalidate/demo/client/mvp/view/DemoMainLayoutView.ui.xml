@@ -9,9 +9,12 @@
             <div class="navbar-inner">
                 <div class="container-fluid">
                     <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"/>
-                    <a class="brand" href="#">GWalidate</a>
-                    <div class="nav-collapse collapse">
+                    <a class="brand" href="https://github.com/alextby/gwalidate">GWalidate</a>
+                    <div class="nav-collapse collapse topmenu">
                         <ul class="nav">
+                            <li>
+                                <a class="gwalidate-version" ui:field="gwalidateVersion"/>
+                            </li>
                             <li ui:field="aboutLink">
                                 <a href="#about:">About</a>
                             </li>

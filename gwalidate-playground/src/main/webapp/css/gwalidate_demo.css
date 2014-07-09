@@ -2,6 +2,14 @@ body {
     background-color: rgb(245, 245, 245);
 }
 
+a {
+    outline: none !important;
+}
+
+button {
+    outline: none !important;
+}
+
 #nav.affix {
     position: fixed;
     top: 0;
@@ -64,4 +72,14 @@ form.bs-docs-example {
 .left-help-panel {
     width: 400px;
     margin-right: 20px;
+}
+
+div.topmenu ul.nav a.gwalidate-version {
+    color: rgb(122, 180, 226) !important;
+    margin-left: -20px;
+    padding-left: 10px;
+}
+
+div.topmenu ul.nav li.active a {
+    background-color: rgb(91, 103, 116) !important;
 }

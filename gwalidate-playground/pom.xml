@@ -6,22 +6,25 @@
     <parent>
         <artifactId>gwalidate</artifactId>
         <groupId>com.github.alextby.ui.gwt</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
     </parent>
 
     <name>GWalidate Demo</name>
     <modelVersion>4.0.0</modelVersion>
     <packaging>war</packaging>
+    <version>0.1.5</version>
 
     <artifactId>gwalidate-playground</artifactId>
 
     <properties>
 
+        <gwalidate.core.version>1.1</gwalidate.core.version>
         <gwalidate.demo.jetty.port>10008</gwalidate.demo.jetty.port>
         <gwalidate.demo.war.name>gwalidate-playground</gwalidate.demo.war.name>
 
         <plugin.jetty.version>8.0.0.M2</plugin.jetty.version>
         <dependency.gwt.bootstrap.version>2.3.2.0</dependency.gwt.bootstrap.version>
+        <dependency.logback.version>1.1.2</dependency.logback.version>
 
         <gwalidate.demo.gwt.module.name>com.github.alextby.ui.gwt.gwalidate.demo.GWalidateDemo</gwalidate.demo.gwt.module.name>
         <gwt.local.workers>2</gwt.local.workers>
@@ -31,6 +34,13 @@
     </properties>
 
     <build>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
 
         <plugins>
 
@@ -60,6 +70,8 @@
                 <executions>
                     <execution>
                         <goals>
+                            <goal>i18n</goal>
+                            <goal>resources</goal>
                             <goal>compile</goal>
                         </goals>
                     </execution>
@@ -69,6 +81,11 @@
                     <localWorkers>${gwt.local.workers}</localWorkers>
                     <draftCompile>${gwt.draft.compile}</draftCompile>
                     <extraJvmArgs>-Xmx1024m</extraJvmArgs>
+                    <i18nConstantsWithLookupBundles>
+                        <i18nConstantsWithLookupBundle>
+                            com.github.alextby.ui.gwt.gwalidate.demo.client.GWalidateContext
+                        </i18nConstantsWithLookupBundle>
+                    </i18nConstantsWithLookupBundles>
                     <encoding>UTF-8</encoding>
                     <modules>
                         <module>${gwalidate.demo.gwt.module.name}</module>
@@ -114,7 +131,7 @@
                     <dependency>
                         <groupId>ch.qos.logback</groupId>
                         <artifactId>logback-classic</artifactId>
-                        <version>1.1.2</version>
+                        <version>${dependency.logback.version}</version>
                     </dependency>
 
                     <dependency>
@@ -128,6 +145,7 @@
             </plugin>
 
         </plugins>
+
     </build>
 
     <dependencies>
@@ -135,7 +153,7 @@
         <dependency>
             <artifactId>gwalidate-core</artifactId>
             <groupId>com.github.alextby.ui.gwt</groupId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${gwalidate.core.version}</version>
         </dependency>
 
         <!-- gwt-bootstrap -->
