@@ -3,7 +3,8 @@
              xmlns:g="urn:import:com.google.gwt.user.client.ui"
              xmlns:demo="urn:import:com.github.alextby.ui.gwt.gwalidate.demo.client.validate.widget"
              xmlns:v="urn:import:com.github.alextby.ui.gwt.gwalidate.core.dom"
-             xmlns:vpanel="urn:import:com.github.alextby.ui.gwt.gwalidate.core.engine">
+             xmlns:vpanel="urn:import:com.github.alextby.ui.gwt.gwalidate.core.engine"
+             xmlns:bs="urn:import:com.github.gwtbootstrap.client.ui">
 
 
     <g:HTMLPanel>
@@ -14,16 +15,35 @@
 
                 <div class="alert alert-info">
                     <h3>Case Description</h3>
-                    <p>The purpose of this use case is to give a good feeling of what GWalidator actully does.</p>
+                    <p>The purpose of this use case is to give a good feeling of what <b><i>GWalidate</i></b> actully does.</p>
                     <p>
-                      The form on the right contains 2 fields:<br/>
+                        The form on the right contains fields:
+                        <br/>
                         <ul>
-                          <li>Required name field with the maximum allowed length = 10</li>
-                          <li>Optional age field with the (0, 150] allowed integer interval</li>
+                            <li>
+                                <i>Required</i>
+                                <b>Name</b>
+                                field with the maximum allowed length=10
+                            </li>
+                            <li>
+                                <i>Optional</i>
+                                <b>Age</b>
+                                field with the (0, 150] allowed integer interval
+                            </li>
+                            <li>
+                                <i>Required</i>
+                                <b>Gender</b>
+                                field
+                            </li>
+                            <li>
+                                <i>Optional</i>
+                                <b>Comment</b>
+                                field with the maximum allowed length=32
+                            </li>
                         </ul>
                     </p>
                     <p>
-                       Click the "Validate" button in order to check the inputs.
+                        Click the <b>Validate</b> button in order to check the inputs.
                     </p>
 
                 </div>
@@ -32,17 +52,36 @@
 
             <vpanel:ValidationPanel ui:field="validationPanel" styleName="validation-panel pull-left">
 
-                <g:FormPanel styleName="bs-docs-example form-inline form-horizontal">
+                <g:HTMLPanel styleName="bs-docs-example form-inline form-horizontal">
 
                     <g:HTMLPanel tag="fieldset">
 
-                        <demo:TextFormField ui:field="firstField" label="Name" required="true" placeholder="required">
+                        <demo:ValidatedField label="Name" required="true">
+                            <demo:widget>
+                                <bs:TextBox/>
+                            </demo:widget>
                             <v:Size max="10"/>
-                        </demo:TextFormField>
+                        </demo:ValidatedField>
 
-                        <demo:TextFormField ui:field="secondField" label="Age" placeholder="optional">
+                        <demo:ValidatedField label="Age">
+                            <demo:widget>
+                                <bs:TextBox/>
+                            </demo:widget>
                             <v:Range min="0" max="150" minOut="true" maxOut="false"/>
-                        </demo:TextFormField>
+                        </demo:ValidatedField>
+
+                        <demo:ValidatedField label="Gender" required="true">
+                            <demo:widget>
+                                <bs:ValueListBox ui:field="genderField"/>
+                            </demo:widget>
+                        </demo:ValidatedField>
+
+                        <demo:ValidatedField label="Comment">
+                            <demo:widget>
+                                <bs:TextArea size="5" height="100px"/>
+                            </demo:widget>
+                            <v:Size max="32"/>
+                        </demo:ValidatedField>
 
                         <div class="controls">
                             <g:SubmitButton styleName="btn btn-success" ui:field="validateBtn">Validate</g:SubmitButton>
@@ -50,7 +89,7 @@
 
                     </g:HTMLPanel>
 
-                </g:FormPanel>
+                </g:HTMLPanel>
 
             </vpanel:ValidationPanel>
 

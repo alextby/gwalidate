@@ -6,7 +6,7 @@
 
         <g:Label ui:field="label" styleName="control-label"/>
         <div class="controls">
-            <g:TextBox ui:field="input" styleName="input-medium"/>
+            <g:HTMLPanel tag="span" ui:field="fieldPlaceholder"/>
             <span ui:field="help" class="help-inline"/>
         </div>
         <!-- keeps the validation config -->

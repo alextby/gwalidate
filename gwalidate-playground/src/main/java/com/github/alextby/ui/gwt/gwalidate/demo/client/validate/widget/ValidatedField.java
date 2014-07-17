@@ -6,27 +6,26 @@ import com.github.alextby.ui.gwt.gwalidate.core.model.Violation;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.SpanElement;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.TakesValue;
+import com.google.gwt.user.client.ui.*;
 
 import java.util.Iterator;
 import java.util.List;
 
 /**
- * {@code TextBox} with {@code ValidatableWidget} features
+ * Form field with {@code ValidatableWidget} features
  */
-public class TextFormField extends Composite implements ValidatableWidget, HasWidgets {
+public class ValidatedField<T>
+        extends Composite
+        implements ValidatableWidget, HasWidgets {
 
-    interface TextFormFieldBinder extends UiBinder<HTMLPanel, TextFormField> { }
+    interface FormFieldBinder extends UiBinder<HTMLPanel, ValidatedField> {
+    }
 
-    private final TextFormFieldBinder BINDER = GWT.create(TextFormFieldBinder.class);
+    private final FormFieldBinder BINDER = GWT.create(FormFieldBinder.class);
 
     private boolean isRequired;
 
@@ -42,8 +41,10 @@ public class TextFormField extends Composite implements ValidatableWidget, HasWi
     @UiField
     Label label;
 
+    TakesValue<T> field;
+
     @UiField
-    TextBox input;
+    HTMLPanel fieldPlaceholder;
 
     @UiField
     SpanElement help;
@@ -52,7 +53,7 @@ public class TextFormField extends Composite implements ValidatableWidget, HasWi
     FlowPanel vKeeper;
 
     @UiConstructor
-    public TextFormField() {
+    public ValidatedField() {
         initWidget(BINDER.createAndBindUi(this));
     }
 
@@ -79,12 +80,12 @@ public class TextFormField extends Composite implements ValidatableWidget, HasWi
 
     @Override
     public Object getSourceValue() {
-        return input.getText();
+        return isTextual() ? ((HasText) field).getText() : field.getValue();
     }
 
     @Override
     public boolean isTextual() {
-        return true;
+        return field instanceof HasText;
     }
 
     public void setLabel(String label) {
@@ -96,8 +97,13 @@ public class TextFormField extends Composite implements ValidatableWidget, HasWi
         return label.getText();
     }
 
-    public void setPlaceholder(String placeholder) {
-        input.getElement().setAttribute("placeholder", placeholder);
+    @UiChild(limit = 1, tagname = "widget")
+    public void addValidatedWidget(TakesValue<T> widget) {
+        this.field = widget;
+        if (field instanceof IsWidget) {
+            fieldPlaceholder.clear();
+            fieldPlaceholder.add((IsWidget) field);
+        }
     }
 
     public void setRequired(boolean required) {
