@@ -1,15 +1,11 @@
 package com.github.alextby.ui.gwt.gwalidate.core.dom;
 
+import com.github.alextby.ui.gwt.gwalidate.core.convert.TextConverter;
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.ui.SimplePanel;
-import com.github.alextby.ui.gwt.gwalidate.core.convert.TextConverter;
 
 /**
- * <p>
  * DOM-level {@code TextConverter} config element.
- * </p>
- *
- *
  */
 public class Convert extends SimplePanel implements HasDomConfiguration {
 

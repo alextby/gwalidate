@@ -19,7 +19,7 @@ public interface ValidationRuleFactory {
 
     RegexpRule regexp(@Assisted String pattern);
 
-    MatchRule match(@Assisted com.github.alextby.ui.gwt.gwalidate.core.rule.Patterns pattern);
+    MatchRule match(@Assisted Patterns pattern);
 
     DigitsRule digits(@Assisted("integer") Integer integer, @Assisted("fraction") Integer fraction);
 }

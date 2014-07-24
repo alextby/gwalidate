@@ -1,0 +1,32 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:vpanel="urn:import:com.github.alextby.ui.gwt.gwalidate.core.engine"
+             xmlns:v="urn:import:com.github.alextby.ui.gwt.gwalidate.core.dom"
+             xmlns:widget="urn:import:com.github.alextby.ui.gwt.gwalidate.test.client.widget"
+        >
+
+    <g:HTMLPanel>
+
+        <vpanel:ValidationPanel ui:field="validationPanel">
+
+            <g:FlowPanel>
+
+                <widget:ValidatedTextField ui:field="name">
+                    <v:Size max="30"/>
+                </widget:ValidatedTextField>
+
+                <widget:ValidatedTextField ui:field="age">
+                    <v:Range min="1" max="150" ui:field="ageRange"/>
+                </widget:ValidatedTextField>
+
+                <g:Button ui:field="validateButton"/>
+
+            </g:FlowPanel>
+
+        </vpanel:ValidationPanel>
+
+    </g:HTMLPanel>
+
+
+</ui:UiBinder>

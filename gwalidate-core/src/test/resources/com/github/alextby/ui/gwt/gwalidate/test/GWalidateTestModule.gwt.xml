@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<module>
+
+    <inherits name="com.google.gwt.user.User"/>
+    <inherits name="com.google.gwt.inject.Inject"/>
+
+    <inherits name="com.github.alextby.ui.gwt.gwalidate.GWalidate"/>
+
+    <source path="client"/>
+
+</module>

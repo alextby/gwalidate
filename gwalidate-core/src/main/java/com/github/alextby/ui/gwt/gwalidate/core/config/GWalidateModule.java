@@ -2,10 +2,12 @@ package com.github.alextby.ui.gwt.gwalidate.core.config;
 
 import com.github.alextby.ui.gwt.gwalidate.core.convert.BigIntegerConverter;
 import com.github.alextby.ui.gwt.gwalidate.core.convert.ConverterFactory;
+import com.github.alextby.ui.gwt.gwalidate.core.convert.ConverterPlugin;
 import com.github.alextby.ui.gwt.gwalidate.core.convert.ConverterProvider;
 import com.github.alextby.ui.gwt.gwalidate.core.convert.DoubleConverter;
 import com.github.alextby.ui.gwt.gwalidate.core.convert.IntegerConverter;
 import com.github.alextby.ui.gwt.gwalidate.core.convert.LongConverter;
+import com.github.alextby.ui.gwt.gwalidate.core.convert.NativeConverterPlugin;
 import com.github.alextby.ui.gwt.gwalidate.core.convert.TextToStringConverter;
 import com.github.alextby.ui.gwt.gwalidate.core.dom.DomPlanScanner;
 import com.github.alextby.ui.gwt.gwalidate.core.engine.InactiveValidator;
@@ -13,35 +15,35 @@ import com.github.alextby.ui.gwt.gwalidate.core.engine.ValidationDriver;
 import com.github.alextby.ui.gwt.gwalidate.core.engine.ValidationPanel;
 import com.github.alextby.ui.gwt.gwalidate.core.engine.ValidationServices;
 import com.github.alextby.ui.gwt.gwalidate.core.engine.Validator;
+import com.github.alextby.ui.gwt.gwalidate.core.msg.MessageResolver;
 import com.github.alextby.ui.gwt.gwalidate.core.rule.RequiredRule;
 import com.github.alextby.ui.gwt.gwalidate.core.rule.ValidationRuleFactory;
-import com.github.alextby.ui.gwt.gwalidate.core.msg.MessageResolver;
 import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.gwt.inject.client.GinModule;
 import com.google.gwt.inject.client.assistedinject.GinFactoryModuleBuilder;
 import com.google.inject.Singleton;
 
 /**
- * GIN Validation Module
+ * GWalidate GIN Module
  */
-public class ValidationModule extends AbstractGinModule {
+public class GWalidateModule extends AbstractGinModule {
 
     private boolean off;
 
     private GinModule converterModule;
 
-    public ValidationModule() {
+    public GWalidateModule() {
     }
 
-    public ValidationModule(boolean off) {
+    public GWalidateModule(boolean off) {
         this.off = off;
     }
 
-    public ValidationModule(GinModule converterModule) {
+    public GWalidateModule(GinModule converterModule) {
         this.converterModule = converterModule;
     }
 
-    public ValidationModule(boolean off, GinModule converterModule) {
+    public GWalidateModule(boolean off, GinModule converterModule) {
         this.off = off;
         this.converterModule = converterModule;
     }
@@ -59,6 +61,7 @@ public class ValidationModule extends AbstractGinModule {
         bind(BigIntegerConverter.class).in(Singleton.class);
         bind(DoubleConverter.class).in(Singleton.class);
 
+        bindConverterPlugin();
         bind(ConverterProvider.class).in(Singleton.class);
 
         if (converterModule == null) {
@@ -85,5 +88,9 @@ public class ValidationModule extends AbstractGinModule {
         }
 
         bind(ValidationPanel.class);
+    }
+
+    protected void bindConverterPlugin() {
+        bind(ConverterPlugin.class).to(NativeConverterPlugin.class).in(Singleton.class);
     }
 }

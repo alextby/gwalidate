@@ -116,11 +116,11 @@ public final class ValidationDriver implements AttachEvent.Handler, Validator {
             throw new IllegalStateException("Wrong scanpoint identified");
         }
         if (event.isAttached()) {
-            DebugUtils.trace("Validator: [ON ATTACH] Scanpoint=" + scanpoint.getElement().getTagName());
+            // DebugUtils.trace("Validator: [ON ATTACH] Scanpoint=" + scanpoint.getElement().getTagName());
             reset(false);
             if (scanOnAttach) scanDom();
         } else {
-            DebugUtils.trace("Validator: [ON DETACH]");
+            // DebugUtils.trace("Validator: [ON DETACH]");
             reset(false);
         }
     }
@@ -424,7 +424,7 @@ public final class ValidationDriver implements AttachEvent.Handler, Validator {
      */
     private void scanDom() {
 
-        DebugUtils.trace("Validator: [DOM] Scan Started");
+        // DebugUtils.trace("Validator: [DOM] Scan Started");
         LinkedList<Widget> queue = new LinkedList<Widget>();
 
         for (Widget widget : scanpoint) {
@@ -494,31 +494,17 @@ public final class ValidationDriver implements AttachEvent.Handler, Validator {
         if (sourceWidget != null && sourceWidget instanceof ValueBoxBase) {
             ValueBoxBase valueBox = (ValueBoxBase) sourceWidget;
             if (givenConverter != null) {
-                forceConverter(valueBox, givenConverter);
+                services.getConverterPlugin().plugIn(valueBox, givenConverter);
             } else {
                 TextConverter autoConverter = services.getValueBoxConverters().forBox(valueBox);
                 if (autoConverter != null) {
-                    forceConverter(valueBox, autoConverter);
+                    services.getConverterPlugin().plugIn(valueBox, autoConverter);
                     result = autoConverter;
                 }
             }
         }
         return result;
     }
-
-    /**
-     * Hacks visibility of the private fields of the given {@code ValueBoxBase}
-     * by injecting the given {@code TextConverter} into the corresponding renderer/parser fields
-     *
-     * @param box       - {@code ValueBoxBase}
-     * @param converter - {@code TextConverter}
-     */
-    private native void forceConverter(ValueBoxBase box, TextConverter converter) /*-{
-        if (box && converter) {
-            box.@com.google.gwt.user.client.ui.ValueBoxBase::renderer = converter;
-            box.@com.google.gwt.user.client.ui.ValueBoxBase::parser = converter;
-        }
-    }-*/;
 
     /**
      * Forcedly grabs the top-most widget of a {@code Composite} skipping
@@ -546,7 +532,7 @@ public final class ValidationDriver implements AttachEvent.Handler, Validator {
         if (config.getPlan(target) == null || !config.isDomConfigured(target)) {
             // we never scan DOM configuration twice for the same target
             // since we know that frequent attach/unattach requests will take place
-            DebugUtils.trace("Validator: [DOM] Validatable");
+            // DebugUtils.trace("Validator: [DOM] Validatable");
             config.mergePlanIn(domPlanScanner.scan(target, planFor(target)), true);
             processConverter(target);
         }

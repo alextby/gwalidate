@@ -1,6 +1,6 @@
 package com.github.alextby.ui.gwt.gwalidate.demo.client.gin;
 
-import com.github.alextby.ui.gwt.gwalidate.core.config.ValidationModule;
+import com.github.alextby.ui.gwt.gwalidate.core.config.GWalidateModule;
 import com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.GWalidateDemoActivityMapper;
 import com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.GWalidateDemoPlaceHistoryMapper;
 import com.google.gwt.inject.client.AbstractGinModule;
@@ -25,6 +25,6 @@ public class GWalidateDemoGinModule extends AbstractGinModule {
         install(new GinFactoryModuleBuilder().build(ViewFactory.class));
         bind(ViewFactory.class).asEagerSingleton();
 
-        install(new ValidationModule());
+        install(new GWalidateModule());
     }
 }

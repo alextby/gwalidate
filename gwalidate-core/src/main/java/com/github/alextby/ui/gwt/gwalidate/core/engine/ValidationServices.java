@@ -1,6 +1,7 @@
 package com.github.alextby.ui.gwt.gwalidate.core.engine;
 
 import com.github.alextby.ui.gwt.gwalidate.core.convert.ConverterFactory;
+import com.github.alextby.ui.gwt.gwalidate.core.convert.ConverterPlugin;
 import com.github.alextby.ui.gwt.gwalidate.core.convert.ValueBoxConverters;
 import com.github.alextby.ui.gwt.gwalidate.core.msg.MessageResolver;
 import com.github.alextby.ui.gwt.gwalidate.core.rule.ValidationRules;
@@ -13,6 +14,8 @@ public class ValidationServices {
 
     private ConverterFactory converterFactory;
 
+    private ConverterPlugin converterPlugin;
+
     private MessageResolver messageResolver;
 
     private ValidationRules validationRules;
@@ -23,11 +26,13 @@ public class ValidationServices {
     public ValidationServices(ConverterFactory converterFactory,
                               MessageResolver messageResolver,
                               ValidationRules validationRules,
-                              ValueBoxConverters valueBoxConverters) {
+                              ValueBoxConverters valueBoxConverters,
+                              ConverterPlugin converterPlugin) {
         this.converterFactory = converterFactory;
         this.messageResolver = messageResolver;
         this.validationRules = validationRules;
         this.valueBoxConverters = valueBoxConverters;
+        this.converterPlugin = converterPlugin;
     }
 
     /**
@@ -64,5 +69,13 @@ public class ValidationServices {
      */
     public ValueBoxConverters getValueBoxConverters() {
         return valueBoxConverters;
+    }
+
+    /**
+     * Returns the {@code ConverterPlugin}
+     * @return - converter plugin
+     */
+    public ConverterPlugin getConverterPlugin() {
+        return converterPlugin;
     }
 }
