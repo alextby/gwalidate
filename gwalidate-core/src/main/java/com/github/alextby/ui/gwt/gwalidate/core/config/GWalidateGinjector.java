@@ -4,9 +4,7 @@ import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.inject.client.Ginjector;
 
 /**
- * Simpliest {@code Ginjector} for GWalidate
- *
- * @author Alex Tsikhanovich
+ * Simpliest {@code Ginjector} for {@code GWalidateModule}.
  */
 @GinModules(GWalidateModule.class)
 public interface GWalidateGinjector extends Ginjector {

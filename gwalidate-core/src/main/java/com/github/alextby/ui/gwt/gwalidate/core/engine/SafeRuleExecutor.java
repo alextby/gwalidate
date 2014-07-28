@@ -6,7 +6,7 @@ import com.github.alextby.ui.gwt.gwalidate.core.model.RuleException;
 import com.github.alextby.ui.gwt.gwalidate.core.model.ValidatableWidget;
 import com.github.alextby.ui.gwt.gwalidate.core.model.ValidationRule;
 import com.github.alextby.ui.gwt.gwalidate.core.model.Violation;
-import com.github.alextby.ui.gwt.gwalidate.core.msg.MessageResolver;
+import com.github.alextby.ui.gwt.gwalidate.core.msg.MessagesResolver;
 import com.github.alextby.ui.gwt.gwalidate.core.rule.CrossFieldRule;
 import com.github.alextby.ui.gwt.gwalidate.core.rule.RequiredRule;
 import com.github.alextby.ui.gwt.gwalidate.core.rule.RuleExecutor;
@@ -56,7 +56,7 @@ public class SafeRuleExecutor implements RuleExecutor {
             crossFieldRule.check(target, secureContext);
         } catch (RuleException e) {
             context.reportViolation(new Violation(target, e.getMessage()));
-        } catch (Throwable t) {
+        } catch (Exception t) {
             reportUnexpectedFailure(t, target);
         }
     }
@@ -86,7 +86,7 @@ public class SafeRuleExecutor implements RuleExecutor {
             context.setConverted(target, converterRule.convert((String) target.getSourceValue(), target, secureContext));
         } catch (RuleException e) {
             context.reportViolation(new Violation(target, e.getMessage()));
-        } catch (Throwable t) {
+        } catch (Exception t) {
             reportUnexpectedFailure(t, target);
         }
     }
@@ -106,7 +106,7 @@ public class SafeRuleExecutor implements RuleExecutor {
                 requiredRule.check(target.getSourceValue(), target, context);
             } catch (RuleException e) {
                 context.reportViolation(new Violation(target, e.getMessage()));
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 reportUnexpectedFailure(t, target);
             }
         } else if (RequiredRule.isEmpty(target.getSourceValue())) {
@@ -129,7 +129,7 @@ public class SafeRuleExecutor implements RuleExecutor {
             rule.check(converted != null ? converted : target.getSourceValue(), target, ruleContext);
         } catch (RuleException e) {
             context.reportViolation(new Violation(target, e.getMessage()));
-        } catch (Throwable t) {
+        } catch (Exception t) {
             reportUnexpectedFailure(t, target);
         }
     }
@@ -152,7 +152,7 @@ public class SafeRuleExecutor implements RuleExecutor {
     private class SecureRuleContext implements RuleContext {
 
         @Override
-        public MessageResolver messages() {
+        public MessagesResolver messages() {
             return context.messages();
         }
 

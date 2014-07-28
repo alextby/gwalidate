@@ -1,33 +1,31 @@
-package com.github.alextby.ui.gwt.gwalidate.test.client.view;
+package com.github.alextby.ui.gwt.gwalidate.test.client.view.form;
 
 import com.github.alextby.ui.gwt.gwalidate.core.dom.Range;
-import com.github.alextby.ui.gwt.gwalidate.core.engine.ValidationPanel;
 import com.github.alextby.ui.gwt.gwalidate.test.client.widget.ValidatedTextField;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 /**
- * View for {@code SimpleValidatorTest}.
- *
- * @author Alex Tsikhanovich
+ * View for {@code SimpleFormViewTest}.
  */
-public class SimpleValidatorTestView extends Composite {
+public class SimpleTestForm extends Composite {
 
-    interface TestPanelBinder extends UiBinder<HTMLPanel, SimpleValidatorTestView> {
+    public static final String DEFAULT_NAME = "default-test-name";
+
+    public static final String DEFAULT_AGE = "89";
+
+    interface TestPanelBinder extends UiBinder<FlowPanel, SimpleTestForm> {
     }
 
     private static TestPanelBinder uiBinder = GWT.create(TestPanelBinder.class);
-
-    @UiField(provided = true)
-    ValidationPanel validationPanel;
 
     @UiField(provided = true)
     ValidatedTextField name;
@@ -38,27 +36,23 @@ public class SimpleValidatorTestView extends Composite {
     @UiField
     Range ageRange;
 
-    @UiField
-    Button validateButton;
-
-    public SimpleValidatorTestView(ValidationPanel panel) {
-
-        this.validationPanel = panel;
+    public SimpleTestForm() {
         initFields();
         initWidget(uiBinder.createAndBindUi(this));
         initRules();
     }
 
-    private void initFields() {
+    protected void initFields() {
 
         name = createAttached(new ValidatedTextField());
-        name.setRequired(true);
-
         age = createAttached(new ValidatedTextField());
-        age.setRequired(true);
+        name.getSourceWidget().setText(DEFAULT_NAME);
+        age.getSourceWidget().setText(DEFAULT_AGE);
     }
 
-    private void initRules() {
+    protected void initRules() {
+        name.setRequired(true);
+        age.setRequired(true);
         ageRange.setMin(0);
         ageRange.setMax(150);
     }
@@ -69,13 +63,19 @@ public class SimpleValidatorTestView extends Composite {
         return spiedWidget;
     }
 
-
-
-    public ValidatedTextField getNameField() {
+    public ValidatedTextField getNameWidget() {
         return name;
     }
 
-    public ValidatedTextField getAgeField() {
+    public ValidatedTextField getAgeWidget() {
         return age;
+    }
+
+    public TextBox getNameBox() {
+        return name.getSourceWidget();
+    }
+
+    public TextBox getAgeBox() {
+        return age.getSourceWidget();
     }
 }

@@ -3,7 +3,7 @@ package com.github.alextby.ui.gwt.gwalidate.core.rule;
 import com.github.alextby.ui.gwt.gwalidate.core.model.RuleContext;
 import com.github.alextby.ui.gwt.gwalidate.core.model.RuleException;
 import com.github.alextby.ui.gwt.gwalidate.core.model.Validatable;
-import com.github.alextby.ui.gwt.gwalidate.core.msg.MessageResolver;
+import com.github.alextby.ui.gwt.gwalidate.core.msg.MessagesResolver;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 
@@ -46,7 +46,7 @@ public final class SizeRule extends IntervalRule<Object, Integer> {
             return;
         }
 
-        MessageResolver messageResolver = context.messages();
+        MessagesResolver messageResolver = context.messages();
         if (value instanceof String) {
 
             if (sizeIsWrong(((String) value).length())) {

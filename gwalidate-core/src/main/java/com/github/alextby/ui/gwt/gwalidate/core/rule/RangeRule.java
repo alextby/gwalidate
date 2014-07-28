@@ -4,7 +4,7 @@ import com.github.alextby.ui.gwt.gwalidate.core.convert.LongConverter;
 import com.github.alextby.ui.gwt.gwalidate.core.model.RuleContext;
 import com.github.alextby.ui.gwt.gwalidate.core.model.RuleException;
 import com.github.alextby.ui.gwt.gwalidate.core.model.Validatable;
-import com.github.alextby.ui.gwt.gwalidate.core.msg.MessageResolver;
+import com.github.alextby.ui.gwt.gwalidate.core.msg.MessagesResolver;
 import com.google.inject.Inject;
 
 import java.text.ParseException;
@@ -26,7 +26,7 @@ public final class RangeRule extends IntervalRule<Object, Long> {
     public void check(Object value, Validatable target, RuleContext context) throws RuleException {
 
         Long longValue;
-        MessageResolver messageResolver = context.messages();
+        MessagesResolver messageResolver = context.messages();
         if (value instanceof String) {
             LongConverter converter = context.converters().forLong();
             try {

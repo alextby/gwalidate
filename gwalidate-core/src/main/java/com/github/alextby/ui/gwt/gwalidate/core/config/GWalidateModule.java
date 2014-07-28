@@ -10,27 +10,36 @@ import com.github.alextby.ui.gwt.gwalidate.core.convert.LongConverter;
 import com.github.alextby.ui.gwt.gwalidate.core.convert.NativeConverterPlugin;
 import com.github.alextby.ui.gwt.gwalidate.core.convert.TextToStringConverter;
 import com.github.alextby.ui.gwt.gwalidate.core.dom.DomPlanScanner;
+import com.github.alextby.ui.gwt.gwalidate.core.engine.CompositeVisitor;
 import com.github.alextby.ui.gwt.gwalidate.core.engine.InactiveValidator;
+import com.github.alextby.ui.gwt.gwalidate.core.engine.NativeCompositeVisitor;
 import com.github.alextby.ui.gwt.gwalidate.core.engine.ValidationDriver;
 import com.github.alextby.ui.gwt.gwalidate.core.engine.ValidationPanel;
 import com.github.alextby.ui.gwt.gwalidate.core.engine.ValidationServices;
 import com.github.alextby.ui.gwt.gwalidate.core.engine.Validator;
-import com.github.alextby.ui.gwt.gwalidate.core.msg.MessageResolver;
+import com.github.alextby.ui.gwt.gwalidate.core.msg.DefaultMessageResolver;
+import com.github.alextby.ui.gwt.gwalidate.core.msg.MessagesResolver;
 import com.github.alextby.ui.gwt.gwalidate.core.rule.RequiredRule;
 import com.github.alextby.ui.gwt.gwalidate.core.rule.ValidationRuleFactory;
 import com.google.gwt.inject.client.AbstractGinModule;
-import com.google.gwt.inject.client.GinModule;
 import com.google.gwt.inject.client.assistedinject.GinFactoryModuleBuilder;
 import com.google.inject.Singleton;
 
 /**
- * GWalidate GIN Module
+ * GWalidate GIN Module.<br/>
+ * <ul>
+ *   <li>binds {@code DefaultMessageResolver}</li>
+ *   <li>binds converters</li>
+ *   <li>installs {@code ValidationRuleFactory}</li>
+ *   <li>binds validations rules</li>
+ *   <li>binds various validation services</li>
+ *   <li>binds {@code Validator} and a {@code ValidationPanel}</li>
+ * </ul>
  */
 public class GWalidateModule extends AbstractGinModule {
 
+    // validator turned off?
     private boolean off;
-
-    private GinModule converterModule;
 
     public GWalidateModule() {
     }
@@ -39,37 +48,12 @@ public class GWalidateModule extends AbstractGinModule {
         this.off = off;
     }
 
-    public GWalidateModule(GinModule converterModule) {
-        this.converterModule = converterModule;
-    }
-
-    public GWalidateModule(boolean off, GinModule converterModule) {
-        this.off = off;
-        this.converterModule = converterModule;
-    }
-
     @Override
     protected void configure() {
 
-        // validation messages resolver
-        bind(MessageResolver.class).in(Singleton.class);
+        bindMessageResolver();
 
-        // 1 instance of converter per type
-        bind(TextToStringConverter.class).in(Singleton.class);
-        bind(LongConverter.class).in(Singleton.class);
-        bind(IntegerConverter.class).in(Singleton.class);
-        bind(BigIntegerConverter.class).in(Singleton.class);
-        bind(DoubleConverter.class).in(Singleton.class);
-
-        bindConverterPlugin();
-        bind(ConverterProvider.class).in(Singleton.class);
-
-        if (converterModule == null) {
-            install(new GinFactoryModuleBuilder().build(ConverterFactory.class));
-        } else {
-            // this is an external converter module
-            install(converterModule);
-        }
+        bindConverters();
 
         // validation rules factory
         install(new GinFactoryModuleBuilder().build(ValidationRuleFactory.class));
@@ -77,9 +61,11 @@ public class GWalidateModule extends AbstractGinModule {
         // -- singleton rules
         bind(RequiredRule.class).in(Singleton.class);
 
-        bind(DomPlanScanner.class);
+        bind(DomPlanScanner.class).in(Singleton.class);
 
         bind(ValidationServices.class).in(Singleton.class);
+
+        bindCompositeVisitor();
 
         if (off) {
             bind(Validator.class).to(InactiveValidator.class);
@@ -90,7 +76,44 @@ public class GWalidateModule extends AbstractGinModule {
         bind(ValidationPanel.class);
     }
 
+    /**
+     * Configures converters:<br/>
+     * <ul>
+     *  <li>binds {@code TextConverter}s</li>
+     *  <li>binds {@code ConverterPlugin}</li>
+     *  <li>binds {@code ConverterProvider}</li>
+     *  <li>installed the default {@code ConverterFactory}</li>
+     * </ul>
+     * Allows children to override this configuration.
+     */
+    protected void bindConverters() {
+
+        // 1 instance of converter per type
+        bind(TextToStringConverter.class).in(Singleton.class);
+        bind(LongConverter.class).in(Singleton.class);
+        bind(IntegerConverter.class).in(Singleton.class);
+        bind(BigIntegerConverter.class).in(Singleton.class);
+        bind(DoubleConverter.class).in(Singleton.class);
+
+        bindConverterPlugin();
+
+        bind(ConverterProvider.class).in(Singleton.class);
+
+        install(new GinFactoryModuleBuilder().build(ConverterFactory.class));
+    }
+
+    /**
+     * Binds {@code ConverterPlugin} to the default {@code NativeConverterPlugin} impl.
+     */
     protected void bindConverterPlugin() {
         bind(ConverterPlugin.class).to(NativeConverterPlugin.class).in(Singleton.class);
+    }
+
+    protected void bindMessageResolver() {
+        bind(MessagesResolver.class).to(DefaultMessageResolver.class).in(Singleton.class);
+    }
+
+    protected void bindCompositeVisitor() {
+        bind(CompositeVisitor.class).to(NativeCompositeVisitor.class).in(Singleton.class);
     }
 }

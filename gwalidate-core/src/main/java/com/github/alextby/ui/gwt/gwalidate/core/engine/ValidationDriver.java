@@ -13,7 +13,6 @@ import com.github.alextby.ui.gwt.gwalidate.core.rule.RuleExecutor;
 import com.github.alextby.ui.gwt.gwalidate.core.rule.TextConversionRule;
 import com.github.alextby.ui.gwt.gwalidate.core.rule.TextConverterRule;
 import com.github.alextby.ui.gwt.gwalidate.core.rule.ValidationRules;
-import com.github.alextby.ui.gwt.gwalidate.core.util.DebugUtils;
 import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Composite;
@@ -71,6 +70,9 @@ public final class ValidationDriver implements AttachEvent.Handler, Validator {
     // scanpoint attach/detach handler
     private HandlerRegistration attachHandler;
 
+    // composite visitor
+    private CompositeVisitor compositeVisitor;
+
     // should skip hidden fields ?
     private boolean skipHidden = false;
 
@@ -78,12 +80,14 @@ public final class ValidationDriver implements AttachEvent.Handler, Validator {
 
     @Inject
     public ValidationDriver(final DomPlanScanner domPlanScanner,
-                            final ValidationServices validationServices) {
+                            final ValidationServices validationServices,
+                            final CompositeVisitor compositeVisitor) {
 
         this.config = new ValidationConfig();
         this.context = new ValidationContext(config, validationServices);
         this.domPlanScanner = domPlanScanner;
         this.services = validationServices;
+        this.compositeVisitor = compositeVisitor;
     }
 
     // -------------------------------------------------------------------------------------
@@ -455,10 +459,11 @@ public final class ValidationDriver implements AttachEvent.Handler, Validator {
                 for (Widget o : (HasWidgets) widget) {
                     queue.add(o);
                 }
+
             } else if (widget instanceof Composite) {
                 // special case for composites:
                 // need to get its top-most widget in order to scan in-depth
-                Widget topLevelWidget = getTopmostWidget((Composite) widget);
+                Widget topLevelWidget = compositeVisitor.getWidgeOfComposite((Composite) widget);
                 if (topLevelWidget instanceof HasWidgets) {
                     for (Widget o : (HasWidgets) topLevelWidget) {
                         queue.add(o);
@@ -506,21 +511,10 @@ public final class ValidationDriver implements AttachEvent.Handler, Validator {
         return result;
     }
 
-    /**
-     * Forcedly grabs the top-most widget of a {@code Composite} skipping
-     * the visibility rules of {@code Composite#getWidget}.
-     *
-     * @param composite - {@code Composite}
-     * @return - {@code Widget}
-     */
-    private native Widget getTopmostWidget(Composite composite) /*-{
-        return composite.@com.google.gwt.user.client.ui.Composite::getWidget()();
-    }-*/;
-
     private void acceptPanel(ValidationPanel validationPanel) {
         assert validationPanel != null;
         // stop scanning this sub-tree - we have an inner validator
-        DebugUtils.trace("Validator: [DOM Scan] Panel");
+        // DebugUtils.trace("Validator: [DOM Scan] Panel");
         final Validator validator = validationPanel.validator;
         if (validator != null && validator instanceof ValidationDriver) {
             config.acceptValidator((ValidationDriver) validator);

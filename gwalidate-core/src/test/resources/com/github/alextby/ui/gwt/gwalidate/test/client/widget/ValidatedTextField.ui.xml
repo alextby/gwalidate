@@ -10,7 +10,7 @@
             <span ui:field="help"/>
         </div>
         <!-- keeps the validation config -->
-        <g:FlowPanel ui:field="vKeeper" visible="false"/>
+        <g:FlowPanel ui:field="body" visible="false"/>
 
     </g:HTMLPanel>
 

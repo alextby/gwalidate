@@ -85,7 +85,7 @@ public final class StringUtils {
         checkNotNull(value);
         checkNotNull(token);
         if (value.trim().length() == 0) {
-            return new String[]{};
+            return new String[] { };
         }
         return value.split(token);
     }

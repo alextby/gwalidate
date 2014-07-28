@@ -1,0 +1,24 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:v="urn:import:com.github.alextby.ui.gwt.gwalidate.core.dom"
+             xmlns:widget="urn:import:com.github.alextby.ui.gwt.gwalidate.test.client.widget"
+        >
+
+        <ui:import field="com.github.alextby.ui.gwt.gwalidate.test.client.view.form.CategoriesTestForm.*"/>
+
+        <g:FlowPanel>
+
+            <widget:ValidatedTextField ui:field="name">
+                <v:Size max="30"/>
+            </widget:ValidatedTextField>
+
+            <widget:ValidatedTextField ui:field="age" required="true">
+                <v:Range ui:field="ageRange"/>
+                <v:Category ui:field="ageCategories" in="{CATEGORY_ADULTS}, {CATEGORY_MEN}"/>
+            </widget:ValidatedTextField>
+
+        </g:FlowPanel>
+
+
+</ui:UiBinder>

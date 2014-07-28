@@ -2,7 +2,8 @@ package com.github.alextby.ui.gwt.gwalidate.core.rule;
 
 import com.github.alextby.ui.gwt.gwalidate.core.model.Validatable;
 import com.github.alextby.ui.gwt.gwalidate.core.model.ValidatableWidget;
-import com.github.alextby.ui.gwt.gwalidate.core.msg.MessageResolver;
+import com.github.alextby.ui.gwt.gwalidate.core.msg.MessagesResolver;
+import com.github.alextby.ui.gwt.gwalidate.core.util.StringUtils;
 
 /**
  * Base class for all field-level rules (single field rules).
@@ -37,12 +38,12 @@ public abstract class SingleFieldRule implements ExecutableRule {
      * @param params      - message parameters
      * @return - message text
      */
-    protected String deriveMessage(MessageResolver msgResolver, String key, Object... params) {
-        assert msgResolver != null;
-        assert key != null;
+    protected String deriveMessage(MessagesResolver msgResolver, String key, Object... params) {
+
         if (message != null) {
             // use the given message
-            return msgResolver.withGiven(message, params);
+            return StringUtils.formatIndexed(message, params);
+
         } else {
             // get by key (converter type)
             String msg = msgResolver.getMessage(key, params);

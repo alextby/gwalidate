@@ -8,7 +8,7 @@ import com.github.alextby.ui.gwt.gwalidate.core.model.RuleContext;
 import com.github.alextby.ui.gwt.gwalidate.core.model.ValidatableWidget;
 import com.github.alextby.ui.gwt.gwalidate.core.model.ValidationStatus;
 import com.github.alextby.ui.gwt.gwalidate.core.model.Violation;
-import com.github.alextby.ui.gwt.gwalidate.core.msg.MessageResolver;
+import com.github.alextby.ui.gwt.gwalidate.core.msg.MessagesResolver;
 import com.github.alextby.ui.gwt.gwalidate.core.plan.IsPlanStep;
 import com.github.alextby.ui.gwt.gwalidate.core.plan.ValidationPlan;
 import com.github.alextby.ui.gwt.gwalidate.core.rule.RuleExecutor;
@@ -82,7 +82,7 @@ public class ValidationContext
     }
 
     @Override
-    public MessageResolver messages() {
+    public MessagesResolver messages() {
         return services.getMessageResolver();
     }
 

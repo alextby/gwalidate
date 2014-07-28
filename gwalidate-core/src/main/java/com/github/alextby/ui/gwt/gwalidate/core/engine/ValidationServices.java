@@ -3,7 +3,7 @@ package com.github.alextby.ui.gwt.gwalidate.core.engine;
 import com.github.alextby.ui.gwt.gwalidate.core.convert.ConverterFactory;
 import com.github.alextby.ui.gwt.gwalidate.core.convert.ConverterPlugin;
 import com.github.alextby.ui.gwt.gwalidate.core.convert.ValueBoxConverters;
-import com.github.alextby.ui.gwt.gwalidate.core.msg.MessageResolver;
+import com.github.alextby.ui.gwt.gwalidate.core.msg.MessagesResolver;
 import com.github.alextby.ui.gwt.gwalidate.core.rule.ValidationRules;
 import com.google.inject.Inject;
 
@@ -16,7 +16,7 @@ public class ValidationServices {
 
     private ConverterPlugin converterPlugin;
 
-    private MessageResolver messageResolver;
+    private MessagesResolver messageResolver;
 
     private ValidationRules validationRules;
 
@@ -24,7 +24,7 @@ public class ValidationServices {
 
     @Inject
     public ValidationServices(ConverterFactory converterFactory,
-                              MessageResolver messageResolver,
+                              MessagesResolver messageResolver,
                               ValidationRules validationRules,
                               ValueBoxConverters valueBoxConverters,
                               ConverterPlugin converterPlugin) {
@@ -36,11 +36,11 @@ public class ValidationServices {
     }
 
     /**
-     * Returns {@code MessageResolver}
+     * Returns {@code DefaultMessageResolver}
      *
-     * @return {@code MessageResolver}
+     * @return {@code DefaultMessageResolver}
      */
-    public MessageResolver getMessageResolver() {
+    public MessagesResolver getMessageResolver() {
         return messageResolver;
     }
 

@@ -4,11 +4,9 @@ import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.ui.SimplePanel;
 
 /**
- * Allows to specify a set of categories supported.
+ * Allows to specify a set of supported categories (comma-separated)
  */
 public class Category extends SimplePanel implements HasDomConfiguration {
-
-    public static final String DELIM = ",";
 
     private String in;
 

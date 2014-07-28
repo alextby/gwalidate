@@ -3,7 +3,6 @@ package com.github.alextby.ui.gwt.gwalidate.core.engine;
 import com.github.alextby.ui.gwt.gwalidate.core.model.FieldRegistry;
 import com.github.alextby.ui.gwt.gwalidate.core.model.ValidatableWidget;
 import com.github.alextby.ui.gwt.gwalidate.core.plan.ValidationPlan;
-import com.github.alextby.ui.gwt.gwalidate.core.util.DebugUtils;
 import com.github.alextby.ui.gwt.gwalidate.core.util.StringUtils;
 
 import java.util.Collections;
@@ -65,7 +64,7 @@ public class ValidationConfig implements FieldRegistry {
 
     void injectDelegate(ValidatorDelegate delegate, HasValidatorDelegate withDelegate) {
         if (!withDelegates.contains(withDelegate)) {
-            DebugUtils.trace("Validator: ValidatorDelegate injected");
+            // DebugUtils.trace("Validator: ValidatorDelegate injected");
             withDelegate.setDelegate(delegate);
             withDelegates.add(withDelegate);
         }

@@ -32,6 +32,8 @@ public class DomPlanScanner {
 
     private ValidationPlan.Builder builder;
 
+    public static final String SPACE_DELIM = "\\s*,\\s*";
+
     @Inject
     public DomPlanScanner(ValidationRuleFactory ruleFactory, ConverterProvider converterProvider) {
         this.ruleFactory = ruleFactory;
@@ -107,7 +109,7 @@ public class DomPlanScanner {
 
     public void accept(Category category) {
         checkNonNull(category);
-        builder.category(StringUtils.tokenize(category.getIn(), Category.DELIM));
+        builder.category(StringUtils.tokenize(category.getIn(), SPACE_DELIM));
     }
 
     public void accept(BigRange bigRange) {
@@ -147,7 +149,7 @@ public class DomPlanScanner {
         assert baseRule != null;
         String[] categories = {};
         if (!StringUtils.isBlank(domRule.getCategories())) {
-            categories = StringUtils.tokenize(domRule.getCategories(), Category.DELIM);
+            categories = StringUtils.tokenize(domRule.getCategories(), SPACE_DELIM);
         }
         baseRule.setMessage(domRule.getMsg());
         builder.rule(baseRule, categories);

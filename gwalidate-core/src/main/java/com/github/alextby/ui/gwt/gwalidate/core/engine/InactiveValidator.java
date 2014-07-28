@@ -18,7 +18,7 @@ import java.util.List;
  * Most of the API methods are stubbed for inactivity.
  * This variant of {@code Validator} is for the development purposes mostly.
  */
-public class InactiveValidator implements Validator {
+public final class InactiveValidator implements Validator {
 
     private ValidationServices services;
 

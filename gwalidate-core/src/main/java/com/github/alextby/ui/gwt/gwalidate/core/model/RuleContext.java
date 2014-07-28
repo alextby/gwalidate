@@ -1,7 +1,7 @@
 package com.github.alextby.ui.gwt.gwalidate.core.model;
 
 import com.github.alextby.ui.gwt.gwalidate.core.convert.ConverterFactory;
-import com.github.alextby.ui.gwt.gwalidate.core.msg.MessageResolver;
+import com.github.alextby.ui.gwt.gwalidate.core.msg.MessagesResolver;
 
 import java.util.Set;
 
@@ -11,11 +11,11 @@ import java.util.Set;
 public interface RuleContext extends HasCategories {
 
     /**
-     * Returns {@code MessageResolver}
+     * Returns {@code DefaultMessageResolver}
      *
      * @return - message resolver
      */
-    MessageResolver messages();
+    MessagesResolver messages();
 
     /**
      * Returns {@code ConverterFactory}

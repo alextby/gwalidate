@@ -1,5 +1,7 @@
 package com.github.alextby.ui.gwt.gwalidate.test.client.widget;
 
+import com.github.alextby.ui.gwt.gwalidate.core.engine.HasValidatorDelegate;
+import com.github.alextby.ui.gwt.gwalidate.core.engine.ValidatorDelegate;
 import com.github.alextby.ui.gwt.gwalidate.core.model.ShowsViolations;
 import com.github.alextby.ui.gwt.gwalidate.core.model.ValidatableWidget;
 import com.github.alextby.ui.gwt.gwalidate.core.model.Violation;
@@ -24,7 +26,7 @@ import java.util.List;
  */
 public class ValidatedTextField
        extends Composite
-       implements ValidatableWidget, HasWidgets {
+       implements ValidatableWidget, HasWidgets, HasValidatorDelegate {
 
     interface FormFieldBinder extends UiBinder<HTMLPanel, ValidatedTextField> {
     }
@@ -46,7 +48,9 @@ public class ValidatedTextField
     SpanElement help;
 
     @UiField
-    FlowPanel vKeeper;
+    FlowPanel body;
+
+    ValidatorDelegate validatorDelegate;
 
     @UiConstructor
     public ValidatedTextField() {
@@ -102,21 +106,30 @@ public class ValidatedTextField
 
     @Override
     public void add(Widget widget) {
-        vKeeper.add(widget);
+        body.add(widget);
     }
 
     @Override
     public void clear() {
-        vKeeper.clear();
+        body.clear();
     }
 
     @Override
     public Iterator<Widget> iterator() {
-        return vKeeper.iterator();
+        return body.iterator();
     }
 
     @Override
     public boolean remove(Widget widget) {
-        return vKeeper.remove(widget);
+        return body.remove(widget);
+    }
+
+    @Override
+    public void setDelegate(ValidatorDelegate delegate) {
+        this.validatorDelegate = delegate;
+    }
+
+    public ValidatorDelegate getValidatorDelegate() {
+        return validatorDelegate;
     }
 }

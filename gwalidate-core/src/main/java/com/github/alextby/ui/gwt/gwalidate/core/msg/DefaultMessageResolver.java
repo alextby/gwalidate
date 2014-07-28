@@ -7,39 +7,38 @@ import java.util.MissingResourceException;
 
 /**
  * Helper class for accessing the validation messages.
- *
  */
-public class MessageResolver {
+public class DefaultMessageResolver implements MessagesResolver {
 
     public static final String KEY_INFO_SUFFIX = ".info";
 
     @Inject
     private ValidationMessages messages;
 
-    public String getMessage(String messageId) {
-        if (messageId == null) {
+    @Override
+    public String getMessage(String key) {
+        if (key == null) {
             throw new IllegalArgumentException();
         }
-        return getMessageSafely(messageId);
+        return getMessageSafely(key);
     }
 
+    @Override
     public String getMessage(String key, Object... params) {
         return StringUtils.formatIndexed(getMessage(key), params);
     }
 
-    public String withGiven(String given, Object... params) {
-        return StringUtils.formatIndexed(given, params);
-    }
-
-    public String getDetails(String messageKey) {
-        if (messageKey == null) {
+    @Override
+    public String getDetails(String key) {
+        if (key == null) {
             throw new IllegalArgumentException();
         }
-        return getMessageSafely(messageKey + KEY_INFO_SUFFIX);
+        return getMessageSafely(key + KEY_INFO_SUFFIX);
     }
 
-    public String getDetails(String messageId, Object... params) {
-        return StringUtils.formatIndexed(getDetails(messageId), params);
+    @Override
+    public String getDetails(String key, Object... params) {
+        return StringUtils.formatIndexed(getDetails(key), params);
     }
 
     private String getMessageSafely(String key) {
