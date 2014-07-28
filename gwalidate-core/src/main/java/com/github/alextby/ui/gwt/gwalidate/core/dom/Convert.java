@@ -17,7 +17,7 @@ public class Convert extends SimplePanel implements HasDomConfiguration {
     @UiConstructor
     public Convert(Class<? extends TextConverter> type) {
         this.type = type;
-        setVisible(false);
+        super.setVisible(false);
     }
 
     @Override

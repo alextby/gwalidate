@@ -11,7 +11,8 @@ import java.util.Random;
 
 import static com.github.alextby.ui.gwt.gwalidate.test.client.view.form.CategoriesTestForm.CATEGORY_ADULTS;
 import static com.github.alextby.ui.gwt.gwalidate.test.client.view.form.CategoriesTestForm.CATEGORY_MEN;
-import static junit.framework.Assert.assertNotNull;
+
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Validation Categories Test
@@ -36,9 +37,6 @@ public class CatergoriesFormViewTest extends GWalidateFormViewTest {
     public void beforeTestCase() throws Exception {
         super.beforeTestCase();
         validatorDelegate = getView().getValidatorDelegate();
-        testForm.getNameWidget().getValidatorDelegate();
-        assertNotNull(testForm.getNameWidget().getValidatorDelegate());
-        assertNotNull(testForm.getAgeWidget().getValidatorDelegate());
     }
 
     @Test

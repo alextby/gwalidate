@@ -463,7 +463,7 @@ public final class ValidationDriver implements AttachEvent.Handler, Validator {
             } else if (widget instanceof Composite) {
                 // special case for composites:
                 // need to get its top-most widget in order to scan in-depth
-                Widget topLevelWidget = compositeVisitor.getWidgeOfComposite((Composite) widget);
+                Widget topLevelWidget = compositeVisitor.getWidgetOfComposite((Composite) widget);
                 if (topLevelWidget instanceof HasWidgets) {
                     for (Widget o : (HasWidgets) topLevelWidget) {
                         queue.add(o);

@@ -56,7 +56,7 @@ public class GWalidateTestModule extends JukitoModule {
         private static final String FIELD_WIDGET = "widget";
 
         @Override
-        public Widget getWidgeOfComposite(Composite composite) {
+        public Widget getWidgetOfComposite(Composite composite) {
             return GwtReflectionUtils.getPrivateFieldValue(composite, FIELD_WIDGET);
         }
     }

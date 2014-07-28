@@ -57,6 +57,7 @@ public class ValidationContext
     private RuleExecutor ruleExecutor;
 
     ValidationContext(ValidationConfig config, ValidationServices validationServices) {
+
         this.config = config;
         mapping = new HashMap<ValidatableWidget, Memento>();
         byCauseViolations = new LinkedHashMap<ValidatableWidget, List<Violation>>();
@@ -174,14 +175,12 @@ public class ValidationContext
     public boolean isCategoryActive(ValidatableWidget widget) {
         ValidationPlan plan = config.getPlan(widget);
         Set<String> fieldCategories = plan.getCategories();
-        return !(!fieldCategories.isEmpty() &&
-                Collections.disjoint(fieldCategories, activeCategories));
+        return fieldCategories.isEmpty() || !Collections.disjoint(fieldCategories, activeCategories);
     }
 
     public boolean isStepCategoryActive(IsPlanStep planStep) {
         Set<String> fieldCategories = planStep.getCategories();
-        return !(!fieldCategories.isEmpty() &&
-                Collections.disjoint(fieldCategories, activeCategories));
+        return fieldCategories.isEmpty() || !Collections.disjoint(fieldCategories, activeCategories);
     }
 
     void setFinished(ValidatableWidget validatable) {

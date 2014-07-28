@@ -28,6 +28,4 @@
 
     <extend-property name="locale" values="default"/>
 
-    <define-configuration-property name="messageBundles" is-multi-valued="true"/>
-
 </module>

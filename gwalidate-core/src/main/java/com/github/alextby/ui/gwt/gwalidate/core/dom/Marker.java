@@ -13,7 +13,7 @@ public class Marker extends SimplePanel implements HasDomConfiguration {
     @UiConstructor
     public Marker(String alias) {
         this.alias = alias;
-        setVisible(false);
+        super.setVisible(false);
     }
 
     @Override

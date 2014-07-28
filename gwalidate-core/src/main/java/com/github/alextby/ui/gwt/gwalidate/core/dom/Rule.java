@@ -14,7 +14,7 @@ public abstract class Rule extends SimplePanel implements HasDomConfiguration {
     private String categories;
 
     public Rule() {
-        setVisible(false);
+        super.setVisible(false);
     }
 
     @Override

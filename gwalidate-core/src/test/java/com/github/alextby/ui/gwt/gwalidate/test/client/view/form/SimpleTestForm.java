@@ -43,7 +43,6 @@ public class SimpleTestForm extends Composite {
     }
 
     protected void initFields() {
-
         name = createAttached(new ValidatedTextField());
         age = createAttached(new ValidatedTextField());
         name.getSourceWidget().setText(DEFAULT_NAME);

@@ -8,5 +8,10 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public interface CompositeVisitor {
 
-    Widget getWidgeOfComposite(Composite composite);
+    /**
+     * Extracts the topmost widget of the given {@code Composite}
+     * @param composite - composite
+     * @return - {@code Widget} of the given {@code Composite}
+     */
+    Widget getWidgetOfComposite(Composite composite);
 }

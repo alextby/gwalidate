@@ -1,12 +1,13 @@
 package com.github.alextby.ui.gwt.gwalidate.test;
 
 import com.github.alextby.ui.gwt.gwalidate.test.client.view.form.SimpleTestForm;
+import com.github.alextby.ui.gwt.gwalidate.test.client.widget.ValidatedTextField;
 import com.github.alextby.ui.gwt.gwalidate.test.config.GWalidateTestModule;
 import com.google.gwt.user.client.ui.Widget;
 import org.junit.Before;
 import org.junit.Test;
 
-import static junit.framework.Assert.assertNotNull;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Simple validator test
@@ -73,5 +74,21 @@ public class SimpleFormViewTest extends GWalidateFormViewTest {
         simpleTestForm.getNameBox().setText("");
         simpleTestForm.getAgeBox().setText("nan");
         assertNotValid(simpleTestForm.getNameWidget(), simpleTestForm.getAgeWidget());
+    }
+
+    @Test
+    public void mustReactToRequiredStatusChanges() {
+        // set optional
+        ValidatedTextField nameWidget = simpleTestForm.getNameWidget();
+        nameWidget.setRequired(false);
+        // check empty
+        simpleTestForm.getNameBox().setText("");
+        assertValid();
+        // check null
+        simpleTestForm.getNameBox().setText(null);
+        assertValid();
+        // set required again
+        nameWidget.setRequired(true);
+        assertNotValid(nameWidget);
     }
 }

@@ -13,7 +13,7 @@ public class Category extends SimplePanel implements HasDomConfiguration {
     @UiConstructor
     public Category(String in) {
         this.in = in;
-        setVisible(false);
+        super.setVisible(false);
     }
 
     @Override

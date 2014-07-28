@@ -9,7 +9,7 @@ import com.google.gwt.user.client.ui.Widget;
 public class NativeCompositeVisitor implements CompositeVisitor {
 
     @Override
-    public Widget getWidgeOfComposite(Composite composite) {
+    public Widget getWidgetOfComposite(Composite composite) {
         return nativeGetWidgetOfComposite(composite);
     }
 
