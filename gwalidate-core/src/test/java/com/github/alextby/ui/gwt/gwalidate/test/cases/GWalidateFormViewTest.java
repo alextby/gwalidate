@@ -1,4 +1,4 @@
-package com.github.alextby.ui.gwt.gwalidate.test;
+package com.github.alextby.ui.gwt.gwalidate.test.cases;
 
 import com.github.alextby.ui.gwt.gwalidate.core.engine.ValidationPanel;
 import com.github.alextby.ui.gwt.gwalidate.core.engine.ValidatorDelegate;

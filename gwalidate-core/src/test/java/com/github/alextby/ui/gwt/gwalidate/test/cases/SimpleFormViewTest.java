@@ -1,4 +1,4 @@
-package com.github.alextby.ui.gwt.gwalidate.test;
+package com.github.alextby.ui.gwt.gwalidate.test.cases;
 
 import com.github.alextby.ui.gwt.gwalidate.core.model.ValidatableWidget;
 import com.github.alextby.ui.gwt.gwalidate.core.model.ValidationStatus;
