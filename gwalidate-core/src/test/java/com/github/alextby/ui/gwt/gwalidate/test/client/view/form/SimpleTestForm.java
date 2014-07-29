@@ -32,6 +32,8 @@ public class SimpleTestForm extends Composite implements HasValidatorDelegate {
 
     public static final int AGE_MAX = 150;
 
+    public static final String AGE_ALIAS = "age_field_alias";
+
     interface TestPanelBinder extends UiBinder<FlowPanel, SimpleTestForm> {
     }
 

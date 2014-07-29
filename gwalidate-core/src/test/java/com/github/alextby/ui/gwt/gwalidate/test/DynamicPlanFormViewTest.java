@@ -1,7 +1,9 @@
 package com.github.alextby.ui.gwt.gwalidate.test;
 
+import com.github.alextby.ui.gwt.gwalidate.core.model.ValidatableWidget;
 import com.github.alextby.ui.gwt.gwalidate.test.client.view.form.DynamicPlanTestForm;
 import com.github.alextby.ui.gwt.gwalidate.test.client.view.form.SimpleTestForm;
+import com.github.alextby.ui.gwt.gwalidate.test.client.widget.ValidatedTextField;
 import com.github.alextby.ui.gwt.gwalidate.test.config.GWalidateTestModule;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,7 +11,7 @@ import org.junit.Test;
 import static com.github.alextby.ui.gwt.gwalidate.test.client.util.TestUtils.sGreater;
 import static com.github.alextby.ui.gwt.gwalidate.test.client.util.TestUtils.sLess;
 import static com.github.alextby.ui.gwt.gwalidate.test.client.view.form.SimpleTestForm.NAME_LENGTH_MAX;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * Dynamic rules test
@@ -100,5 +102,17 @@ public class DynamicPlanFormViewTest extends GWalidateFormViewTest {
         // restore the origin size rule
         validatorDelegate.planFor(testForm.getNameWidget()).rule(validatorDelegate.rules().size(NAME_LENGTH_MAX)).done();
         assertNotValid(testForm.getNameWidget());
+    }
+
+    @Test
+    public void mustApplyAliasesToWidgetOnDemand() {
+
+        final String TEST_ALIAS = "name_field_alias";
+        final ValidatedTextField nameField = testForm.getNameWidget();
+        assertNull(validatorDelegate.fields().byAlias(TEST_ALIAS));
+        validatorDelegate.planFor(nameField).alias(TEST_ALIAS).done();
+        ValidatableWidget lookedUp = validatorDelegate.fields().byAlias(TEST_ALIAS);
+        assertNotNull(lookedUp);
+        assertEquals(lookedUp, nameField);
     }
 }

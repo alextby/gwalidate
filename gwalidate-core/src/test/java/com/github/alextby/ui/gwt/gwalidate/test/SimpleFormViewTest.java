@@ -1,5 +1,6 @@
 package com.github.alextby.ui.gwt.gwalidate.test;
 
+import com.github.alextby.ui.gwt.gwalidate.core.model.ValidatableWidget;
 import com.github.alextby.ui.gwt.gwalidate.core.model.ValidationStatus;
 import com.github.alextby.ui.gwt.gwalidate.core.model.Violation;
 import com.github.alextby.ui.gwt.gwalidate.core.rule.RangeRule;
@@ -85,7 +86,7 @@ public class SimpleFormViewTest extends GWalidateFormViewTest {
     }
 
     @Test
-    public void mustReactToRequiredStatusChanges() {
+    public void mustReactToRequiredStatusChange() {
         // set optional
         ValidatedTextField nameWidget = simpleTestForm.getNameWidget();
         nameWidget.setRequired(false);
@@ -101,9 +102,12 @@ public class SimpleFormViewTest extends GWalidateFormViewTest {
     }
 
     @Test
-    public void mustScanDomConfigurationNormally() {
+    public void mustDetectFullDomConfiguration() {
         assertTrue(validatorDelegate.isValidated(simpleTestForm.getNameWidget()));
         assertTrue(validatorDelegate.isValidated(simpleTestForm.getAgeWidget()));
+        ValidatableWidget lookedUpByAlias = validatorDelegate.fields().byAlias(SimpleTestForm.AGE_ALIAS);
+        assertNotNull(lookedUpByAlias);
+        assertEquals(lookedUpByAlias, simpleTestForm.getAgeWidget());
     }
 
     @Test

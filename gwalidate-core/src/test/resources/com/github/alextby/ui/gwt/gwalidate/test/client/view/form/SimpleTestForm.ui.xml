@@ -15,6 +15,7 @@
 
             <widget:ValidatedTextField ui:field="age">
                 <v:Range ui:field="ageRange"/>
+                <v:Marker alias="{AGE_ALIAS}"/>
             </widget:ValidatedTextField>
 
         </g:FlowPanel>
