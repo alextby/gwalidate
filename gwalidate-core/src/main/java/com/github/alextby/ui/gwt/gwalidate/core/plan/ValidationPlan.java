@@ -44,14 +44,18 @@ public class ValidationPlan {
     private ValidationPlan(ValidatableWidget target) {
 
         if (target == null) {
-            throw new IllegalArgumentException("Impossible to make up a validation plan without a target");
+            throw new IllegalArgumentException();
         }
         this.target = target;
         this.crossSteps = new HashSet<IsPlanStep>();
+
         final Comparator<IsPlanStep> byPriorityCmp = new Comparator<IsPlanStep>() {
+
             @Override
             public int compare(IsPlanStep o1, IsPlanStep o2) {
-                if (o1.equals(o2)) return 0;
+                if (o1.equals(o2)) {
+                    return 0;
+                }
                 if (o1.getPriority() != o2.getPriority()) {
                     return o1.getPriority().compareTo(o2.getPriority());
                 } else {
@@ -116,14 +120,21 @@ public class ValidationPlan {
      * @throws IllegalArgumentException if the targets don't match
      */
     public void merge(ValidationPlan plan) {
-        if (plan == null) return;
-        if (plan.getTarget() != target) {
-            throw new IllegalArgumentException("The given target does not match");
+
+        if (plan == null || plan.getTarget() != target) {
+            throw new IllegalArgumentException();
         }
+
+        // merge the steps
         steps.addAll(plan.getPlanSteps());
         if (plan.converterRule != null) {
             converterRule = plan.converterRule;
         }
+
+        // merge the categories
+        categories.addAll(plan.getCategories());
+
+        // reset the alias (if any)
         if (!StringUtils.isBlank(plan.alias)) {
             alias = plan.alias;
         }
@@ -172,7 +183,7 @@ public class ValidationPlan {
             plan.addPlanStep(
                 new PlanStep(
                     rule,
-                    new HashSet<String>(Arrays.asList(categories != null ? categories : new String[]{})),
+                    new HashSet<String>(Arrays.asList(categories != null ? categories : new String[] { } )),
                     RulePriority.DEFAULT
                 )
             );
@@ -188,10 +199,12 @@ public class ValidationPlan {
             if (rule == null) {
                 throw new IllegalArgumentException();
             }
-            plan.addCrossFieldRule(new PlanStep(
+            plan.addCrossFieldRule(
+                new PlanStep(
                     rule,
-                    new HashSet<String>(Arrays.asList(categories != null ? categories : new String[]{}))
-            ));
+                    new HashSet<String>(Arrays.asList(categories != null ? categories : new String[] { } ))
+                )
+            );
             return this;
         }
 

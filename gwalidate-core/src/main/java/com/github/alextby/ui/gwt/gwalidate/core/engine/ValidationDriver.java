@@ -28,6 +28,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
 
 /**
  * <p>
@@ -71,23 +72,26 @@ public final class ValidationDriver implements AttachEvent.Handler, Validator {
     private HandlerRegistration attachHandler;
 
     // composite visitor
-    private CompositeVisitor compositeVisitor;
+    private CompositeAdapter compositeAdapter;
 
     // should skip hidden fields ?
     private boolean skipHidden = false;
 
     private boolean scanOnAttach = false;
 
+    // execution errors LOG
+    private static Logger LOG = Logger.getLogger("ValidationDriver");
+
     @Inject
     public ValidationDriver(final DomPlanScanner domPlanScanner,
                             final ValidationServices validationServices,
-                            final CompositeVisitor compositeVisitor) {
+                            final CompositeAdapter compositeAdapter) {
 
         this.config = new ValidationConfig();
         this.context = new ValidationContext(config, validationServices);
         this.domPlanScanner = domPlanScanner;
         this.services = validationServices;
-        this.compositeVisitor = compositeVisitor;
+        this.compositeAdapter = compositeAdapter;
     }
 
     // -------------------------------------------------------------------------------------
@@ -119,12 +123,17 @@ public final class ValidationDriver implements AttachEvent.Handler, Validator {
         if (event.getSource() != scanpoint) {
             throw new IllegalStateException("Wrong scanpoint identified");
         }
+
         if (event.isAttached()) {
-            // DebugUtils.trace("Validator: [ON ATTACH] Scanpoint=" + scanpoint.getElement().getTagName());
+            LOG.fine("Attaching validator. Scanpoint = " + scanpoint.getElement().getTagName());
             reset(false);
-            if (scanOnAttach) scanDom();
+            if (scanOnAttach) {
+                // re-scan the DOM
+                scanDom();
+            }
+
         } else {
-            // DebugUtils.trace("Validator: [ON DETACH]");
+            LOG.fine("Detaching validator");
             reset(false);
         }
     }
@@ -293,11 +302,11 @@ public final class ValidationDriver implements AttachEvent.Handler, Validator {
      */
     @Override
     public void rescan(boolean force) {
+
         // convert if attached
         if (!scanpoint.isAttached() && !force) {
             throw new IllegalStateException("The scan start point has to be attached to DOM");
         }
-
         reset(false);
         scanDom();
     }
@@ -347,6 +356,7 @@ public final class ValidationDriver implements AttachEvent.Handler, Validator {
                 context.setFinished(target);
                 continue;
             }
+
             final RuleExecutor ruleExecutor = context.getRuleExecutor();
             // execute the required field and check if not further processing is needed
             ruleExecutor.execute(services.getRules().required(), target);
@@ -362,22 +372,32 @@ public final class ValidationDriver implements AttachEvent.Handler, Validator {
     }
 
     private void validateRules(ValidatableWidget target) {
+
         assert target != null;
+
         RuleExecutor ruleExecutor = context.getRuleExecutor();
         ValidationPlan plan = config.getPlan(target);
+
         // check the field-level rules
         for (IsPlanStep nextStep : plan.getPlanSteps()) {
-            if (!context.isStepCategoryActive(nextStep)) continue;
+            if (!context.isStepCategoryActive(nextStep)) {
+                continue;
+            }
             nextStep.getRule().execute(ruleExecutor, target);
         }
     }
 
     private void validateCrossRules(ValidatableWidget crossTarget) {
+
         assert crossTarget != null;
+
         ValidationPlan plan = config.getPlan(crossTarget);
         RuleExecutor ruleExecutor = context.getRuleExecutor();
+
         for (IsPlanStep nextStep : plan.getCrossPlanSteps()) {
-            if (!context.isStepCategoryActive(nextStep)) continue;
+            if (!context.isStepCategoryActive(nextStep)) {
+                continue;
+            }
             nextStep.getRule().execute(ruleExecutor, crossTarget);
         }
         context.setFinished(crossTarget);
@@ -395,22 +415,26 @@ public final class ValidationDriver implements AttachEvent.Handler, Validator {
             // up-traverse
             HasVisibility vis = (HasVisibility) target;
             // quick win
-            if (!vis.isVisible()) return false;
+            if (!vis.isVisible()) {
+                return false;
+            }
 
             Widget widget = target.asWidget();
             // unattached widgets are considered invisibile
-            if (!widget.isAttached()) return false;
+            if (!widget.isAttached()) {
+                return false;
+            }
 
             while (widget.getParent() != null) {
 
                 if (widget == scanpoint) {
                     // we've just reached the topmost parent - reflect its visibility
                     return scanpoint.isVisible();
+
                 } else if (!widget.isVisible()) {
                     // invisible
                     return false;
                 }
-
                 widget = widget.getParent();
             }
         }
@@ -428,7 +452,7 @@ public final class ValidationDriver implements AttachEvent.Handler, Validator {
      */
     private void scanDom() {
 
-        // DebugUtils.trace("Validator: [DOM] Scan Started");
+        LOG.fine("DOM scan started");
         LinkedList<Widget> queue = new LinkedList<Widget>();
 
         for (Widget widget : scanpoint) {
@@ -463,7 +487,7 @@ public final class ValidationDriver implements AttachEvent.Handler, Validator {
             } else if (widget instanceof Composite) {
                 // special case for composites:
                 // need to get its top-most widget in order to scan in-depth
-                Widget topLevelWidget = compositeVisitor.getWidgetOfComposite((Composite) widget);
+                Widget topLevelWidget = compositeAdapter.getCompositeWidget((Composite) widget);
                 if (topLevelWidget instanceof HasWidgets) {
                     for (Widget o : (HasWidgets) topLevelWidget) {
                         queue.add(o);
@@ -476,8 +500,8 @@ public final class ValidationDriver implements AttachEvent.Handler, Validator {
 
     @SuppressWarnings("unchecked")
     private void processConverter(ValidatableWidget validatableWidget) {
-        if (validatableWidget == null ||
-                validatableWidget.getSourceWidget() == null) {
+
+        if (validatableWidget == null || validatableWidget.getSourceWidget() == null) {
             return;
         }
         ValidationPlan plan = config.getPlan(validatableWidget);
@@ -495,11 +519,15 @@ public final class ValidationDriver implements AttachEvent.Handler, Validator {
     }
 
     private TextConverter forceConverter(Widget sourceWidget, TextConverter givenConverter) {
+
         TextConverter<?> result = givenConverter;
+
         if (sourceWidget != null && sourceWidget instanceof ValueBoxBase) {
             ValueBoxBase valueBox = (ValueBoxBase) sourceWidget;
+
             if (givenConverter != null) {
                 services.getConverterPlugin().plugIn(valueBox, givenConverter);
+
             } else {
                 TextConverter autoConverter = services.getValueBoxConverters().forBox(valueBox);
                 if (autoConverter != null) {
@@ -512,9 +540,11 @@ public final class ValidationDriver implements AttachEvent.Handler, Validator {
     }
 
     private void acceptPanel(ValidationPanel validationPanel) {
+
         assert validationPanel != null;
+
         // stop scanning this sub-tree - we have an inner validator
-        // DebugUtils.trace("Validator: [DOM Scan] Panel");
+        LOG.fine("Validaton panel detected");
         final Validator validator = validationPanel.validator;
         if (validator != null && validator instanceof ValidationDriver) {
             config.acceptValidator((ValidationDriver) validator);
@@ -522,11 +552,13 @@ public final class ValidationDriver implements AttachEvent.Handler, Validator {
     }
 
     private void acceptWidget(ValidatableWidget target) {
+
         assert target != null;
+
         if (config.getPlan(target) == null || !config.isDomConfigured(target)) {
             // we never scan DOM configuration twice for the same target
             // since we know that frequent attach/unattach requests will take place
-            // DebugUtils.trace("Validator: [DOM] Validatable");
+            LOG.fine("Validatable widget detected");
             config.mergePlanIn(domPlanScanner.scan(target, planFor(target)), true);
             processConverter(target);
         }

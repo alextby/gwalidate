@@ -11,7 +11,7 @@ public final class MatchRule extends RegexpRule {
     private final String msgKey;
 
     @Inject
-    MatchRule(@Assisted com.github.alextby.ui.gwt.gwalidate.core.rule.Patterns pattern) {
+    MatchRule(@Assisted Patterns pattern) {
         super(pattern.get());
         msgKey = pattern.msgKey();
     }

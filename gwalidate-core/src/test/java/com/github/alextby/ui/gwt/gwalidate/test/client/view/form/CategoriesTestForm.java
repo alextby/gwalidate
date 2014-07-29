@@ -4,7 +4,7 @@ import com.github.alextby.ui.gwt.gwalidate.core.dom.Category;
 import com.google.gwt.uibinder.client.UiField;
 
 /**
- * View for {@code SimpleFormViewTest}.
+ * Form for {@code SimpleFormViewTest}.
  */
 public class CategoriesTestForm extends SimpleTestForm {
 

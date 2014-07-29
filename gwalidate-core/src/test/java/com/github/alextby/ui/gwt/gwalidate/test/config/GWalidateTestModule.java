@@ -4,7 +4,7 @@ import com.github.alextby.ui.gwt.gwalidate.core.config.GWalidateModule;
 import com.github.alextby.ui.gwt.gwalidate.core.convert.ConverterFactory;
 import com.github.alextby.ui.gwt.gwalidate.core.convert.ConverterPlugin;
 import com.github.alextby.ui.gwt.gwalidate.core.convert.TextConverter;
-import com.github.alextby.ui.gwt.gwalidate.core.engine.CompositeVisitor;
+import com.github.alextby.ui.gwt.gwalidate.core.engine.CompositeAdapter;
 import com.github.alextby.ui.gwt.gwalidate.core.msg.MessagesResolver;
 import com.github.alextby.ui.gwt.gwalidate.core.rule.ValidationRuleFactory;
 import com.github.alextby.ui.gwt.gwalidate.test.client.msg.DummyMessageResolver;
@@ -41,7 +41,7 @@ public class GWalidateTestModule extends JukitoModule {
 
                 @Override
                 protected void bindCompositeVisitor() {
-                    bind(CompositeVisitor.class).to(ReflectionCompositeVisitor.class).in(Singleton.class);
+                    bind(CompositeAdapter.class).to(ReflectionCompositeAdapter.class).in(Singleton.class);
                 }
             }
         ));
@@ -51,12 +51,12 @@ public class GWalidateTestModule extends JukitoModule {
         install(new FactoryModuleBuilder().build(ValidationRuleFactory.class));
     }
 
-    private static class ReflectionCompositeVisitor implements CompositeVisitor {
+    private static class ReflectionCompositeAdapter implements CompositeAdapter {
 
         private static final String FIELD_WIDGET = "widget";
 
         @Override
-        public Widget getWidgetOfComposite(Composite composite) {
+        public Widget getCompositeWidget(Composite composite) {
             return GwtReflectionUtils.getPrivateFieldValue(composite, FIELD_WIDGET);
         }
     }

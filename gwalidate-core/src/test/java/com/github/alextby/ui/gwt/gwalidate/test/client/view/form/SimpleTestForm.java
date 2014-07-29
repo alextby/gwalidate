@@ -1,6 +1,8 @@
 package com.github.alextby.ui.gwt.gwalidate.test.client.view.form;
 
 import com.github.alextby.ui.gwt.gwalidate.core.dom.Range;
+import com.github.alextby.ui.gwt.gwalidate.core.engine.HasValidatorDelegate;
+import com.github.alextby.ui.gwt.gwalidate.core.engine.ValidatorDelegate;
 import com.github.alextby.ui.gwt.gwalidate.test.client.widget.ValidatedTextField;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -14,13 +16,21 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 /**
- * View for {@code SimpleFormViewTest}.
+ * Form for {@code SimpleFormViewTest}.
  */
-public class SimpleTestForm extends Composite {
+public class SimpleTestForm extends Composite implements HasValidatorDelegate {
 
     public static final String DEFAULT_NAME = "default-test-name";
 
     public static final String DEFAULT_AGE = "89";
+
+    public static final int NAME_LENGTH_MAX = 30;
+
+    public static final String S_NAME_LENGTH_MAX = String.valueOf(NAME_LENGTH_MAX);
+
+    public static final int AGE_MIN = 1;
+
+    public static final int AGE_MAX = 150;
 
     interface TestPanelBinder extends UiBinder<FlowPanel, SimpleTestForm> {
     }
@@ -52,8 +62,8 @@ public class SimpleTestForm extends Composite {
     protected void initRules() {
         name.setRequired(true);
         age.setRequired(true);
-        ageRange.setMin(0);
-        ageRange.setMax(150);
+        ageRange.setMin(AGE_MIN);
+        ageRange.setMax(AGE_MAX);
     }
 
     private static <T extends Widget> T createAttached(T widget) {
@@ -76,5 +86,16 @@ public class SimpleTestForm extends Composite {
 
     public TextBox getAgeBox() {
         return age.getSourceWidget();
+    }
+
+    private ValidatorDelegate delegate;
+
+    @Override
+    public void setDelegate(ValidatorDelegate delegate) {
+        this.delegate = delegate;
+    }
+
+    public ValidatorDelegate getDelegate() {
+        return this.delegate;
     }
 }

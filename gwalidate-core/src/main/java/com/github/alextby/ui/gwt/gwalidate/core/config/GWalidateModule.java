@@ -10,9 +10,9 @@ import com.github.alextby.ui.gwt.gwalidate.core.convert.LongConverter;
 import com.github.alextby.ui.gwt.gwalidate.core.convert.NativeConverterPlugin;
 import com.github.alextby.ui.gwt.gwalidate.core.convert.TextToStringConverter;
 import com.github.alextby.ui.gwt.gwalidate.core.dom.DomPlanScanner;
-import com.github.alextby.ui.gwt.gwalidate.core.engine.CompositeVisitor;
+import com.github.alextby.ui.gwt.gwalidate.core.engine.CompositeAdapter;
 import com.github.alextby.ui.gwt.gwalidate.core.engine.InactiveValidator;
-import com.github.alextby.ui.gwt.gwalidate.core.engine.NativeCompositeVisitor;
+import com.github.alextby.ui.gwt.gwalidate.core.engine.NativeCompositeAdapter;
 import com.github.alextby.ui.gwt.gwalidate.core.engine.ValidationDriver;
 import com.github.alextby.ui.gwt.gwalidate.core.engine.ValidationPanel;
 import com.github.alextby.ui.gwt.gwalidate.core.engine.ValidationServices;
@@ -114,6 +114,6 @@ public class GWalidateModule extends AbstractGinModule {
     }
 
     protected void bindCompositeVisitor() {
-        bind(CompositeVisitor.class).to(NativeCompositeVisitor.class).in(Singleton.class);
+        bind(CompositeAdapter.class).to(NativeCompositeAdapter.class).in(Singleton.class);
     }
 }

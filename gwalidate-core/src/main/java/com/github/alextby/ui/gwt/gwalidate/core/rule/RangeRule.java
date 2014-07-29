@@ -27,17 +27,22 @@ public final class RangeRule extends IntervalRule<Object, Long> {
 
         Long longValue;
         MessagesResolver messageResolver = context.messages();
+
         if (value instanceof String) {
             LongConverter converter = context.converters().forLong();
             try {
                 longValue = converter.parse((String) value);
+
             } catch (ParseException excpt) {
                 throw new RuleException(messageResolver.getMessage(LongConverter.ID, value));
             }
+
         } else if (value instanceof Number) {
             longValue = ((Number) value).longValue();
+
         } else if (value instanceof Collection) {
             longValue = (long) ((Collection) value).size();
+
         } else {
             // warn this
             return;
@@ -47,19 +52,26 @@ public final class RangeRule extends IntervalRule<Object, Long> {
         final long max = getMax();
 
         if (min == max && (isMinOut() || isMaxOut())) {
-            throw new RuleException(messageResolver.getMessage(
+            throw new RuleException(
+                deriveMessage(
+                    messageResolver,
                     getMessageKey(),
-                    getLabelSafely(target),
                     converter.render(getMin()),
-                    converter.render(getMax())));
+                    converter.render(getMax())
+                )
+            );
 
         } else if (longValue < (!isMinOut() ? min : min + 1) ||
-                longValue > (!isMaxOut() ? max : max - 1)) {
-            throw new RuleException(messageResolver.getMessage(
+                   longValue > (!isMaxOut() ? max : max - 1)) {
+
+            throw new RuleException(
+                deriveMessage(
+                    messageResolver,
                     getMessageKey(),
-                    getLabelSafely(target),
                     converter.render(getMin()),
-                    converter.render(getMax())));
+                    converter.render(getMax())
+                )
+            );
         }
     }
 

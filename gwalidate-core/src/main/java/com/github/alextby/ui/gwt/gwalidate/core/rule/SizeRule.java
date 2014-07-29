@@ -48,14 +48,13 @@ public final class SizeRule extends IntervalRule<Object, Integer> {
 
         MessagesResolver messageResolver = context.messages();
         if (value instanceof String) {
-
             if (sizeIsWrong(((String) value).length())) {
-                throw new RuleException(messageResolver.getMessage(MSG_STRING_SIZE, converter.render(getMax())));
+                throw new RuleException(deriveMessage(messageResolver, MSG_STRING_SIZE, converter.render(getMax())));
             }
-        } else if (value instanceof Collection) {
 
+        } else if (value instanceof Collection) {
             if (sizeIsWrong(((Collection) value).size())) {
-                throw new RuleException(messageResolver.getMessage(MSG_COLLECTION_SIZE, converter.render(getMax())));
+                throw new RuleException(deriveMessage(messageResolver, MSG_COLLECTION_SIZE, converter.render(getMax())));
             }
         }
     }

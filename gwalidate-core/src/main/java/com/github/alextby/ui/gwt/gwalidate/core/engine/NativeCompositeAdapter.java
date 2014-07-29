@@ -4,13 +4,13 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * JSNI-based {@code CompositeVisitor}.
+ * JSNI-based {@code CompositeAdapter}.
  */
-public class NativeCompositeVisitor implements CompositeVisitor {
+public class NativeCompositeAdapter implements CompositeAdapter {
 
     @Override
-    public Widget getWidgetOfComposite(Composite composite) {
-        return nativeGetWidgetOfComposite(composite);
+    public Widget getCompositeWidget(Composite composite) {
+        return nativeGetCompositeWidget(composite);
     }
 
     /**
@@ -20,7 +20,7 @@ public class NativeCompositeVisitor implements CompositeVisitor {
      * @param composite - {@code Composite}
      * @return - {@code Widget}
      */
-    private native Widget nativeGetWidgetOfComposite(Composite composite) /*-{
+    private native Widget nativeGetCompositeWidget(Composite composite) /*-{
         return composite.@com.google.gwt.user.client.ui.Composite::getWidget()();
     }-*/;
 }

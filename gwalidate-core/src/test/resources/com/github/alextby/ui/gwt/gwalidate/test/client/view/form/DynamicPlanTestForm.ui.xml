@@ -5,7 +5,7 @@
              xmlns:widget="urn:import:com.github.alextby.ui.gwt.gwalidate.test.client.widget"
         >
 
-        <ui:import field="com.github.alextby.ui.gwt.gwalidate.test.client.view.form.SimpleTestForm.*"/>
+        <ui:import field="com.github.alextby.ui.gwt.gwalidate.test.client.view.form.DynamicPlanTestForm.*"/>
 
         <g:FlowPanel>
 
@@ -13,7 +13,7 @@
                 <v:Size max="{S_NAME_LENGTH_MAX}"/>
             </widget:ValidatedTextField>
 
-            <widget:ValidatedTextField ui:field="age">
+            <widget:ValidatedTextField ui:field="age" required="true">
                 <v:Range ui:field="ageRange"/>
             </widget:ValidatedTextField>
 

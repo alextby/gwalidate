@@ -78,17 +78,22 @@ public class ValidationConfig implements FieldRegistry {
      * @param scanned - has this element been dom-scanned?
      */
     public void mergePlanIn(ValidationPlan plan, boolean scanned) {
+
         assert plan != null;
+
         ValidatableWidget target = plan.getTarget();
         if (validatables.containsKey(target)) {
             validatables.get(target).merge(plan);
+
         } else {
             // this is a completely new target
             validatables.put(target, plan);
         }
+
         if (!StringUtils.isBlank(plan.getAlias())) {
             fieldsByAlias.put(plan.getAlias(), target);
         }
+
         // mark as non-DOM-revisitable
         if (scanned) {
             domScanned.add(target);

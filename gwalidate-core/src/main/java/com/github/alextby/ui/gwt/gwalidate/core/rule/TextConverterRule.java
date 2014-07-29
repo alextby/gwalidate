@@ -34,7 +34,7 @@ public class TextConverterRule<T> extends SingleFieldRule implements TextConvers
             return converter.parse(value);
 
         } catch (ConverterException e) {
-            // this mean the error message is already there
+            // this means the error message is already there
             throw new RuleException(e.getMessage());
 
         } catch (ParseException e) {
@@ -45,8 +45,8 @@ public class TextConverterRule<T> extends SingleFieldRule implements TextConvers
 
             } else {
                 throw new RuleException(
-                        // derive the message based on the converter id or the given static message
-                        deriveMessage(context.messages(), converter.getId(), getLabelSafely(target))
+                    // derive the message based on the converter id or the given static message
+                    deriveMessage(context.messages(), converter.getId())
                 );
             }
         }

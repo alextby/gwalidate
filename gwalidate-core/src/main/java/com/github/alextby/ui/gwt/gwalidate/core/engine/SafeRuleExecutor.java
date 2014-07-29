@@ -46,18 +46,23 @@ public class SafeRuleExecutor implements RuleExecutor {
      * Executes the given {@code CrossFieldRule}
      *
      * @param crossFieldRule - cross field rule
-     * @param target         - target
+     * @param target - target
      */
     @Override
     public void execute(CrossFieldRule crossFieldRule, ValidatableWidget target) {
-        if (!context.isValid(target)) return;
-        crossFieldRule.setContext(context);
-        try {
-            crossFieldRule.check(target, secureContext);
-        } catch (RuleException e) {
-            context.reportViolation(new Violation(target, e.getMessage()));
-        } catch (Exception t) {
-            reportUnexpectedFailure(t, target);
+
+        if (context.isValid(target)) {
+
+            crossFieldRule.setContext(context);
+            try {
+                crossFieldRule.check(target, secureContext);
+
+            } catch (RuleException e) {
+                context.reportViolation(new Violation(target, e.getMessage()));
+
+            } catch (Exception t) {
+                reportUnexpectedFailure(t, target);
+            }
         }
     }
 
@@ -65,27 +70,35 @@ public class SafeRuleExecutor implements RuleExecutor {
      * Executes the given {@code ValidationRule}
      *
      * @param singleFieldRule - single field rule
-     * @param target          - target
+     * @param target - target
      */
     @Override
     public void execute(ValidationRule singleFieldRule, ValidatableWidget target) {
-        if (context.isFinished(target)) return;
-        check(singleFieldRule, target, secureContext);
+
+        if (!context.isFinished(target)) {
+            check(singleFieldRule, target, secureContext);
+        }
     }
 
     /**
      * Executes the given {@code TextConversionRule}
      *
      * @param converterRule - converter rule
-     * @param target        - target
+     * @param target - target
      */
     @Override
     @SuppressWarnings("unchecked")
     public void execute(TextConversionRule converterRule, ValidatableWidget target) {
+
         try {
-            context.setConverted(target, converterRule.convert((String) target.getSourceValue(), target, secureContext));
+            context.setConverted(
+                target,
+                converterRule.convert((String) target.getSourceValue(), target, secureContext)
+            );
+
         } catch (RuleException e) {
             context.reportViolation(new Violation(target, e.getMessage()));
+
         } catch (Exception t) {
             reportUnexpectedFailure(t, target);
         }
@@ -95,20 +108,24 @@ public class SafeRuleExecutor implements RuleExecutor {
      * Executes the given {@code RequiredRule}
      *
      * @param requiredRule - required rule
-     * @param target       - validatable target
+     * @param target - validatable target
      */
     @Override
     public void execute(RequiredRule requiredRule, ValidatableWidget target) {
+
         if (target.isRequired()) {
             // check for emptiness
             try {
                 // requiredRule validates the source value
                 requiredRule.check(target.getSourceValue(), target, context);
+
             } catch (RuleException e) {
                 context.reportViolation(new Violation(target, e.getMessage()));
+
             } catch (Exception t) {
                 reportUnexpectedFailure(t, target);
             }
+
         } else if (RequiredRule.isEmpty(target.getSourceValue())) {
             // this is an empty optional field - stop processing
             context.setFinished(target);
@@ -124,11 +141,14 @@ public class SafeRuleExecutor implements RuleExecutor {
      */
     @SuppressWarnings("unchecked")
     private void check(ValidationRule rule, ValidatableWidget target, RuleContext ruleContext) {
+
         try {
             Object converted = context.getConverted(target);
             rule.check(converted != null ? converted : target.getSourceValue(), target, ruleContext);
+
         } catch (RuleException e) {
             context.reportViolation(new Violation(target, e.getMessage()));
+
         } catch (Exception t) {
             reportUnexpectedFailure(t, target);
         }
@@ -137,7 +157,7 @@ public class SafeRuleExecutor implements RuleExecutor {
     /**
      * Logs an error and reports a violation with generic explanation.
      *
-     * @param t      - throwable
+     * @param t - throwable
      * @param target - validation target
      */
     private void reportUnexpectedFailure(Throwable t, ValidatableWidget target) {

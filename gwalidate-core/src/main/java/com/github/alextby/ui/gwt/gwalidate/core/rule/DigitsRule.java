@@ -31,7 +31,9 @@ public class DigitsRule extends SingleFieldRule implements ValidationRule<Object
     private int fraction;
 
     @Inject
-    DigitsRule(@Assisted("integer") Integer integer, @Assisted("fraction") Integer fraction) {
+    DigitsRule(@Assisted("integer") Integer integer,
+               @Assisted("fraction") Integer fraction) {
+
         this.integer = integer;
         this.fraction = fraction;
     }
@@ -55,7 +57,9 @@ public class DigitsRule extends SingleFieldRule implements ValidationRule<Object
     @Override
     public void check(Object value, Validatable target, RuleContext context) throws RuleException {
 
-        if (value == null) return;
+        if (value == null) {
+            return;
+        }
 
         if (value instanceof String) {
             checkValid(new BigDecimal((String) value).stripTrailingZeros(), context);
@@ -77,16 +81,19 @@ public class DigitsRule extends SingleFieldRule implements ValidationRule<Object
         final int fractionPart = bigDecimal.scale() < 0 ? 0 : bigDecimal.scale();
 
         if ((integer > UNLIMITED && intPart > integer) ||
-                (fraction > UNLIMITED && fractionPart > fraction)) {
+            (fraction > UNLIMITED && fractionPart > fraction)) {
 
             String msg;
             if (integer <= UNLIMITED) {
                 msg = deriveMessage(context.messages(), ID_FRACTION, fraction);
+
             } else if (fraction <= UNLIMITED) {
                 msg = deriveMessage(context.messages(), ID_INTEGER, integer);
+
             } else {
                 msg = deriveMessage(context.messages(), ID, integer, fraction);
             }
+
             throw new RuleException(msg);
         }
     }

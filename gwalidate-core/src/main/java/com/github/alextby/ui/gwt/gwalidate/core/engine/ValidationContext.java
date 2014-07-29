@@ -212,7 +212,9 @@ public class ValidationContext
      * @return - converted value
      */
     public Object getConverted(ValidatableWidget validatable) {
-        if (validatable == null) throw new IllegalArgumentException();
+        if (validatable == null) {
+            throw new IllegalArgumentException();
+        }
         Memento memento = mapping.get(validatable);
         return (memento != null && memento.getConvertedValue() != null) ?
                 memento.getConvertedValue() : null;
@@ -238,6 +240,7 @@ public class ValidationContext
         ValidatableWidget target = violation.getCause();
         if (byCauseViolations.containsKey(target)) {
             byCauseViolations.get(target).add(violation);
+
         } else {
             List<Violation> newBag = new LinkedList<Violation>();
             newBag.add(violation);

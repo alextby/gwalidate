@@ -1,6 +1,7 @@
 package com.github.alextby.ui.gwt.gwalidate.test;
 
 import com.github.alextby.ui.gwt.gwalidate.core.engine.ValidationPanel;
+import com.github.alextby.ui.gwt.gwalidate.core.engine.ValidatorDelegate;
 import com.github.alextby.ui.gwt.gwalidate.core.model.ValidatableWidget;
 import com.github.alextby.ui.gwt.gwalidate.core.model.ValidationStatus;
 import com.github.alextby.ui.gwt.gwalidate.core.model.Violation;
@@ -27,20 +28,23 @@ import static org.junit.Assert.assertTrue;
 @GwtModule("com.github.alextby.ui.gwt.gwalidate.test.GWalidateTestModule")
 public abstract class GWalidateFormViewTest extends GwtTestWithMockito {
 
+    public static final String S_NAN = "not-a-number";
+
     private ValidatorTestFormView view;
 
     @Inject
     protected ValidationPanel validationPanel;
 
+    protected ValidatorDelegate validatorDelegate;
+
     @Before
     public void beforeTestCase() throws Exception {
-        this.view = new ValidatorTestFormView(createTestForm(), validationPanel);
+        this.view = new ValidatorTestFormView(createTestCaseForm(), validationPanel);
         assertNotNull(validationPanel);
         assertNotNull(view);
-        assertNotNull(view.getValidatorDelegate());
     }
 
-    protected Widget createTestForm() {
+    protected Widget createTestCaseForm() {
         throw new IllegalStateException();
     }
 
@@ -52,14 +56,18 @@ public abstract class GWalidateFormViewTest extends GwtTestWithMockito {
         assertTrue(validationPanel.validate().isValid());
     }
 
-    protected void assertNotValid(ValidatableWidget... widgets) {
+    protected ValidationStatus assertNotValid(ValidatableWidget... widgets) {
         ValidationStatus status = validationPanel.validate();
         assertFalse(status.isValid());
         Set<ValidatableWidget> failedWidgets = Sets.newHashSet(widgets);
         for (Violation violation : status.getViolations()) {
             ValidatableWidget cause = violation.getCause();
-            assertTrue(failedWidgets.remove(cause));
+            assertTrue("Widget is not expected to be valid", failedWidgets.remove(cause));
         }
-        assertTrue(failedWidgets.isEmpty());
+        assertTrue(
+            String.format("Validator assertion: %d widgets remaining unasserted", failedWidgets.size()),
+            failedWidgets.isEmpty()
+        );
+        return status;
     }
 }

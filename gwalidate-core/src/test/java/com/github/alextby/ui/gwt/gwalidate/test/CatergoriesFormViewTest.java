@@ -11,7 +11,8 @@ import java.util.Random;
 
 import static com.github.alextby.ui.gwt.gwalidate.test.client.view.form.CategoriesTestForm.CATEGORY_ADULTS;
 import static com.github.alextby.ui.gwt.gwalidate.test.client.view.form.CategoriesTestForm.CATEGORY_MEN;
-
+import static com.github.alextby.ui.gwt.gwalidate.test.client.view.form.SimpleTestForm.DEFAULT_AGE;
+import static com.github.alextby.ui.gwt.gwalidate.test.client.view.form.SimpleTestForm.DEFAULT_NAME;
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -27,7 +28,7 @@ public class CatergoriesFormViewTest extends GWalidateFormViewTest {
     }
 
     @Override
-    protected CategoriesTestForm createTestForm() {
+    protected CategoriesTestForm createTestCaseForm() {
         testForm = new CategoriesTestForm();
         return testForm;
     }
@@ -36,20 +37,21 @@ public class CatergoriesFormViewTest extends GWalidateFormViewTest {
     @Override
     public void beforeTestCase() throws Exception {
         super.beforeTestCase();
-        validatorDelegate = getView().getValidatorDelegate();
+        validatorDelegate = testForm.getDelegate();
+        assertNotNull(validatorDelegate);
     }
 
     @Test
     public void mustValidateWhenAtLeastOneCategoryActive() {
         validatorDelegate.categories().setCategories(CATEGORY_ADULTS);
-        testForm.getNameBox().setText("some-good-name");
-        testForm.getAgeBox().setText("96");
+        testForm.getNameBox().setText(DEFAULT_NAME);
+        testForm.getAgeBox().setText(DEFAULT_AGE);
         assertValid();
     }
 
     @Test
     public void mustSkipWidgetsWithCategoriesWhenNoneSet() {
-        testForm.getNameBox().setText("some-good-name");
+        testForm.getNameBox().setText(DEFAULT_NAME);
         assertValid();
     }
 
@@ -93,7 +95,6 @@ public class CatergoriesFormViewTest extends GWalidateFormViewTest {
         } else {
             assertValid();
         }
-
         // 2nd case: there will be one active category in any case
         categoryManager.setCategories(CATEGORY_ADULTS, CATEGORY_MEN);
         categoryManager.ensureCategories(rand.nextBoolean(), CATEGORY_ADULTS);
@@ -104,17 +105,26 @@ public class CatergoriesFormViewTest extends GWalidateFormViewTest {
     @Test
     public void mustParseCategoriesStringTrimmed() {
 
-        testForm.getAgeCategories().setIn("        " + CATEGORY_ADULTS + "     ,  " + CATEGORY_MEN + " ");
-        testForm.getAgeBox().setText(null);
-        validationPanel.rescan();
+        testForm.getNameBox().setText(null);
+        testForm.getAgeBox().setText("");
 
         CategoryManager categoryManager = validatorDelegate.categories();
-        categoryManager.clearCategories();
         categoryManager.setCategories(CATEGORY_MEN);
-        assertNotValid(testForm.getAgeWidget());
+        assertNotValid(testForm.getNameWidget(), testForm.getAgeWidget());
 
         categoryManager.clearCategories();
-        categoryManager.setCategories(CATEGORY_ADULTS);
-        assertNotValid(testForm.getAgeWidget());
+        assertValid();
+    }
+
+    @Test
+    public void mustNotReactToNonExistingCategories() {
+
+        testForm.getNameBox().setText(null);
+        testForm.getAgeBox().setText("");
+
+        CategoryManager categoryManager = validatorDelegate.categories();
+        categoryManager.setCategories(String.valueOf(System.currentTimeMillis()));
+        assertValid();
+
     }
 }

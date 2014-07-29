@@ -10,7 +10,8 @@
         <g:FlowPanel>
 
             <widget:ValidatedTextField ui:field="name">
-                <v:Size max="30"/>
+                <v:Size max="{S_NAME_LENGTH_MAX}"/>
+                <v:Category ui:field="nameCategories" in="  ,,    ,   , {CATEGORY_ADULTS}   , {CATEGORY_MEN}    "/>
             </widget:ValidatedTextField>
 
             <widget:ValidatedTextField ui:field="age" required="true">
@@ -19,6 +20,5 @@
             </widget:ValidatedTextField>
 
         </g:FlowPanel>
-
 
 </ui:UiBinder>

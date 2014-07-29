@@ -38,8 +38,8 @@ public final class RequiredRule extends SingleFieldRule implements ValidationRul
      */
     public static boolean isEmpty(Object value) {
         return value == null ||
-                (value instanceof String && StringUtils.isBlank((String) value)) ||
-                (value instanceof Collection && ((Collection) value).isEmpty());
+            (value instanceof String && StringUtils.isBlank((String) value)) ||
+            (value instanceof Collection && ((Collection) value).isEmpty());
     }
 
     @Override

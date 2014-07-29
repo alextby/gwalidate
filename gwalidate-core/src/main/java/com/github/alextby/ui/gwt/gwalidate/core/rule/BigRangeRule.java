@@ -44,6 +44,7 @@ public class BigRangeRule extends IntervalRule<Object, BigDecimal> {
 
         } else if (value instanceof BigDecimal) {
             bdValue = ((BigDecimal) value);
+
         } else {
             // put a warn here
             return;
@@ -54,7 +55,6 @@ public class BigRangeRule extends IntervalRule<Object, BigDecimal> {
 
             throw new RuleException(messageResolver.getMessage(
                     getMessageKey(),
-                    getLabelSafely(target),
                     converter.render(getMin()),
                     converter.render(getMax())));
         }
