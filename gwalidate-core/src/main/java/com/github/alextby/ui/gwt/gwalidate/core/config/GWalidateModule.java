@@ -28,7 +28,8 @@ import com.google.inject.Singleton;
 /**
  * GWalidate GIN Module.<br/>
  * <ul>
- *   <li>binds {@code DefaultMessageResolver}</li>
+ *   <li>binds {@code MessagesResolver}</li>
+ *   <li>binds {@code CompositeAdapter}</li>
  *   <li>binds converters</li>
  *   <li>installs {@code ValidationRuleFactory}</li>
  *   <li>binds validations rules</li>
@@ -65,7 +66,7 @@ public class GWalidateModule extends AbstractGinModule {
 
         bind(ValidationServices.class).in(Singleton.class);
 
-        bindCompositeVisitor();
+        bindCompositeAdapter();
 
         if (off) {
             bind(Validator.class).to(InactiveValidator.class);
@@ -113,7 +114,7 @@ public class GWalidateModule extends AbstractGinModule {
         bind(MessagesResolver.class).to(DefaultMessageResolver.class).in(Singleton.class);
     }
 
-    protected void bindCompositeVisitor() {
+    protected void bindCompositeAdapter() {
         bind(CompositeAdapter.class).to(NativeCompositeAdapter.class).in(Singleton.class);
     }
 }

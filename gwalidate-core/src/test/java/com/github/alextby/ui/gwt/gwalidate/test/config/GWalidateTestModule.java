@@ -40,7 +40,7 @@ public class GWalidateTestModule extends JukitoModule {
                 }
 
                 @Override
-                protected void bindCompositeVisitor() {
+                protected void bindCompositeAdapter() {
                     bind(CompositeAdapter.class).to(ReflectionCompositeAdapter.class).in(Singleton.class);
                 }
             }

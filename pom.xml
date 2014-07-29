@@ -115,11 +115,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.google.gwt</groupId>
-            <artifactId>gwt-dev</artifactId>
-        </dependency>
-
-        <dependency>
             <artifactId>gin</artifactId>
             <groupId>com.google.gwt.inject</groupId>
         </dependency>
