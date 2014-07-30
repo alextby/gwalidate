@@ -1,9 +1,9 @@
 package com.github.alextby.ui.gwt.gwalidate.test.client.view.form;
 
 import com.github.alextby.ui.gwt.gwalidate.core.dom.Range;
-import com.github.alextby.ui.gwt.gwalidate.core.engine.HasValidatorDelegate;
 import com.github.alextby.ui.gwt.gwalidate.core.engine.ValidatorDelegate;
-import com.github.alextby.ui.gwt.gwalidate.test.client.widget.ValidatedTextField;
+import com.github.alextby.ui.gwt.gwalidate.test.client.widget.TextBoxField;
+import com.github.alextby.ui.gwt.gwalidate.test.client.widget.ValidatedField;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -18,7 +18,9 @@ import static org.mockito.Mockito.when;
 /**
  * Form for {@code SimpleFormViewTest}.
  */
-public class SimpleTestForm extends Composite implements HasValidatorDelegate {
+public class SimpleTestForm
+       extends Composite
+       implements ValidatedTestForm {
 
     public static final String DEFAULT_NAME = "default-test-name";
 
@@ -37,31 +39,35 @@ public class SimpleTestForm extends Composite implements HasValidatorDelegate {
     interface TestPanelBinder extends UiBinder<FlowPanel, SimpleTestForm> {
     }
 
-    private static TestPanelBinder uiBinder = GWT.create(TestPanelBinder.class);
+    private static TestPanelBinder UI_BINDER = GWT.create(TestPanelBinder.class);
 
     @UiField(provided = true)
-    ValidatedTextField name;
+    TextBoxField name;
 
     @UiField(provided = true)
-    ValidatedTextField age;
+    TextBoxField age;
 
     @UiField
     Range ageRange;
 
+    private ValidatorDelegate delegate;
+
     public SimpleTestForm() {
         initFields();
-        initWidget(uiBinder.createAndBindUi(this));
+        initWidget(UI_BINDER.createAndBindUi(this));
         initRules();
     }
 
-    protected void initFields() {
-        name = createAttached(new ValidatedTextField());
-        age = createAttached(new ValidatedTextField());
+    @Override
+    public void initFields() {
+        name = createAttached(new TextBoxField());
+        age = createAttached(new TextBoxField());
         name.getSourceWidget().setText(DEFAULT_NAME);
         age.getSourceWidget().setText(DEFAULT_AGE);
     }
 
-    protected void initRules() {
+    @Override
+    public void initRules() {
         name.setRequired(true);
         age.setRequired(true);
         ageRange.setMin(AGE_MIN);
@@ -74,11 +80,11 @@ public class SimpleTestForm extends Composite implements HasValidatorDelegate {
         return spiedWidget;
     }
 
-    public ValidatedTextField getNameWidget() {
+    public ValidatedField getNameWidget() {
         return name;
     }
 
-    public ValidatedTextField getAgeWidget() {
+    public ValidatedField getAgeWidget() {
         return age;
     }
 
@@ -90,14 +96,13 @@ public class SimpleTestForm extends Composite implements HasValidatorDelegate {
         return age.getSourceWidget();
     }
 
-    private ValidatorDelegate delegate;
-
     @Override
-    public void setDelegate(ValidatorDelegate delegate) {
+    public void setValidatorDelegate(ValidatorDelegate delegate) {
         this.delegate = delegate;
     }
 
-    public ValidatorDelegate getDelegate() {
+    @Override
+    public ValidatorDelegate getValidatorDelegate() {
         return this.delegate;
     }
 }

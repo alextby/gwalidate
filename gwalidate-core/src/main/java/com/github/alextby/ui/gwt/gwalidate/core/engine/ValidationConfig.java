@@ -65,7 +65,7 @@ public class ValidationConfig implements FieldRegistry {
     void injectDelegate(ValidatorDelegate delegate, HasValidatorDelegate withDelegate) {
         if (!withDelegates.contains(withDelegate)) {
             // DebugUtils.trace("Validator: ValidatorDelegate injected");
-            withDelegate.setDelegate(delegate);
+            withDelegate.setValidatorDelegate(delegate);
             withDelegates.add(withDelegate);
         }
         // ignore the previously injected ones

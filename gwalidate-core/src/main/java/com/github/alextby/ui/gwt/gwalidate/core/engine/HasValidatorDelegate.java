@@ -11,5 +11,5 @@ public interface HasValidatorDelegate {
      *
      * @param delegate - {@code ValidatorDelegate}
      */
-    void setDelegate(ValidatorDelegate delegate);
+    void setValidatorDelegate(ValidatorDelegate delegate);
 }

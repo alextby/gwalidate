@@ -2,14 +2,11 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
              xmlns:g="urn:import:com.google.gwt.user.client.ui"
              xmlns:vpanel="urn:import:com.github.alextby.ui.gwt.gwalidate.core.engine"
-             xmlns:widget="urn:import:com.github.alextby.ui.gwt.gwalidate.test.client.widget"
         >
 
     <g:HTMLPanel>
 
         <vpanel:ValidationPanel ui:field="validationPanel">
-
-            <widget:ValidatorDelegateLink ui:field="validatorDelegateLink"/>
 
             <g:FlowPanel>
 

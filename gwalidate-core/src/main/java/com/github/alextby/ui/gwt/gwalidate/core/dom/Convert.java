@@ -1,5 +1,6 @@
 package com.github.alextby.ui.gwt.gwalidate.core.dom;
 
+import com.github.alextby.ui.gwt.gwalidate.core.convert.ConverterType;
 import com.github.alextby.ui.gwt.gwalidate.core.convert.TextConverter;
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.ui.SimplePanel;
@@ -14,10 +15,14 @@ public class Convert extends SimplePanel implements HasDomConfiguration {
     // optional custom message
     private String msg;
 
-    @UiConstructor
     public Convert(Class<? extends TextConverter> type) {
         this.type = type;
         super.setVisible(false);
+    }
+
+    @UiConstructor
+    public Convert(ConverterType type) {
+        this(type.getConverterClass());
     }
 
     @Override

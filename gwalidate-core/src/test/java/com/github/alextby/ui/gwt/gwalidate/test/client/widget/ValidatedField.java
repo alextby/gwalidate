@@ -8,6 +8,7 @@ import com.github.alextby.ui.gwt.gwalidate.core.model.Violation;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.SpanElement;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
@@ -15,7 +16,8 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.ValueBoxBase;
 import com.google.gwt.user.client.ui.Widget;
 
 import java.util.Iterator;
@@ -24,11 +26,11 @@ import java.util.List;
 /**
  * A simple form field with {@code ValidatableWidget} features
  */
-public class ValidatedTextField
+public class ValidatedField<T>
        extends Composite
        implements ValidatableWidget, HasWidgets, HasValidatorDelegate {
 
-    interface FormFieldBinder extends UiBinder<HTMLPanel, ValidatedTextField> {
+    interface FormFieldBinder extends UiBinder<HTMLPanel, ValidatedField> {
     }
 
     private final FormFieldBinder BINDER = GWT.create(FormFieldBinder.class);
@@ -42,7 +44,9 @@ public class ValidatedTextField
     Label label;
 
     @UiField
-    TextBox textBox;
+    SimplePanel valueBoxSpot;
+
+    ValueBoxBase<T> valueBox;
 
     @UiField
     SpanElement help;
@@ -53,13 +57,18 @@ public class ValidatedTextField
     ValidatorDelegate validatorDelegate;
 
     @UiConstructor
-    public ValidatedTextField() {
+    public ValidatedField() {
         initWidget(BINDER.createAndBindUi(this));
     }
 
+    public ValidatedField(ValueBoxBase<T> valueBox) {
+        this();
+        addValueBox(valueBox);
+    }
+
     @Override
-    public TextBox getSourceWidget() {
-        return textBox;
+    public ValueBoxBase<T> getSourceWidget() {
+        return valueBox;
     }
 
     @Override
@@ -76,9 +85,13 @@ public class ValidatedTextField
     public void sinkViolationsTo(ShowsViolations sink) {
     }
 
+    public T getValue() {
+        return valueBox.getValue();
+    }
+
     @Override
-    public Object getSourceValue() {
-        return textBox.getText();
+    public String getSourceValue() {
+        return valueBox.getText();
     }
 
     @Override
@@ -104,6 +117,12 @@ public class ValidatedTextField
         this.required = required;
     }
 
+    @UiChild(tagname = "valuebox", limit = 1)
+    public void addValueBox(ValueBoxBase<T> valueBox) {
+        this.valueBox = valueBox;
+        this.valueBoxSpot.setWidget(valueBox);
+    }
+
     @Override
     public void add(Widget widget) {
         body.add(widget);
@@ -125,7 +144,7 @@ public class ValidatedTextField
     }
 
     @Override
-    public void setDelegate(ValidatorDelegate delegate) {
+    public void setValidatorDelegate(ValidatorDelegate delegate) {
         this.validatorDelegate = delegate;
     }
 

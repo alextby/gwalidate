@@ -3,9 +3,8 @@ package com.github.alextby.ui.gwt.gwalidate.test.cases;
 import com.github.alextby.ui.gwt.gwalidate.core.model.ValidatableWidget;
 import com.github.alextby.ui.gwt.gwalidate.test.client.view.form.DynamicPlanTestForm;
 import com.github.alextby.ui.gwt.gwalidate.test.client.view.form.SimpleTestForm;
-import com.github.alextby.ui.gwt.gwalidate.test.client.widget.ValidatedTextField;
+import com.github.alextby.ui.gwt.gwalidate.test.client.widget.ValidatedField;
 import com.github.alextby.ui.gwt.gwalidate.test.config.GWalidateTestModule;
-import org.junit.Before;
 import org.junit.Test;
 
 import static com.github.alextby.ui.gwt.gwalidate.test.client.util.TestUtils.sGreater;
@@ -27,14 +26,6 @@ public class DynamicPlanFormViewTest extends GWalidateFormViewTest {
     protected DynamicPlanTestForm createTestCaseForm() {
         testForm = new DynamicPlanTestForm();
         return testForm;
-    }
-
-    @Before
-    @Override
-    public void beforeTestCase() throws Exception {
-        super.beforeTestCase();
-        validatorDelegate = testForm.getDelegate();
-        assertNotNull(validatorDelegate);
     }
 
     @Test
@@ -108,7 +99,7 @@ public class DynamicPlanFormViewTest extends GWalidateFormViewTest {
     public void mustApplyAliasesToWidgetOnDemand() {
 
         final String TEST_ALIAS = "name_field_alias";
-        final ValidatedTextField nameField = testForm.getNameWidget();
+        final ValidatedField nameField = testForm.getNameWidget();
         assertNull(validatorDelegate.fields().byAlias(TEST_ALIAS));
         validatorDelegate.planFor(nameField).alias(TEST_ALIAS).done();
         ValidatableWidget lookedUp = validatorDelegate.fields().byAlias(TEST_ALIAS);

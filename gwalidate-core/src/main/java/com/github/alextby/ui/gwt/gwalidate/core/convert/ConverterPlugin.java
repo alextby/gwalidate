@@ -9,6 +9,10 @@ import com.google.gwt.user.client.ui.ValueBoxBase;
  */
 public interface ConverterPlugin {
 
+    public static final String FIELD_RENDERER = "renderer";
+
+    public static final String FIELD_PARSER = "parser";
+
     /**
      * Plugs given {@code TextConverter} into the given widget
      * @param box - widget

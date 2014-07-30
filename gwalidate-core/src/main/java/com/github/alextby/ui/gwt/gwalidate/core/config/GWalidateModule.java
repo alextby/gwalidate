@@ -56,6 +56,8 @@ public class GWalidateModule extends AbstractGinModule {
 
         bindConverters();
 
+        bindConverterPlugin();
+
         // validation rules factory
         install(new GinFactoryModuleBuilder().build(ValidationRuleFactory.class));
 
@@ -95,8 +97,6 @@ public class GWalidateModule extends AbstractGinModule {
         bind(IntegerConverter.class).in(Singleton.class);
         bind(BigIntegerConverter.class).in(Singleton.class);
         bind(DoubleConverter.class).in(Singleton.class);
-
-        bindConverterPlugin();
 
         bind(ConverterProvider.class).in(Singleton.class);
 

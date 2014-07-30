@@ -9,15 +9,15 @@
 
         <g:FlowPanel>
 
-            <widget:ValidatedTextField ui:field="name">
+            <widget:TextBoxField ui:field="name">
                 <v:Size max="{S_NAME_LENGTH_MAX}"/>
                 <v:Category ui:field="nameCategories" in="  ,,    ,   , {CATEGORY_ADULTS}   , {CATEGORY_MEN}    "/>
-            </widget:ValidatedTextField>
+            </widget:TextBoxField>
 
-            <widget:ValidatedTextField ui:field="age" required="true">
+            <widget:TextBoxField ui:field="age" required="true">
                 <v:Range ui:field="ageRange"/>
                 <v:Category ui:field="ageCategories" in="{CATEGORY_ADULTS}, {CATEGORY_MEN}"/>
-            </widget:ValidatedTextField>
+            </widget:TextBoxField>
 
         </g:FlowPanel>
 

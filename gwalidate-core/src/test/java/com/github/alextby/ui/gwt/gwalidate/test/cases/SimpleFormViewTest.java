@@ -6,9 +6,8 @@ import com.github.alextby.ui.gwt.gwalidate.core.model.Violation;
 import com.github.alextby.ui.gwt.gwalidate.core.rule.RangeRule;
 import com.github.alextby.ui.gwt.gwalidate.core.rule.SizeRule;
 import com.github.alextby.ui.gwt.gwalidate.test.client.view.form.SimpleTestForm;
-import com.github.alextby.ui.gwt.gwalidate.test.client.widget.ValidatedTextField;
+import com.github.alextby.ui.gwt.gwalidate.test.client.widget.ValidatedField;
 import com.github.alextby.ui.gwt.gwalidate.test.config.GWalidateTestModule;
-import com.google.gwt.user.client.ui.Widget;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,7 +26,7 @@ public class SimpleFormViewTest extends GWalidateFormViewTest {
     }
 
     @Override
-    protected Widget createTestCaseForm() {
+    protected SimpleTestForm createTestCaseForm() {
         simpleTestForm = new SimpleTestForm();
         return simpleTestForm;
     }
@@ -38,8 +37,6 @@ public class SimpleFormViewTest extends GWalidateFormViewTest {
         super.beforeTestCase();
         assertNotNull(simpleTestForm.getNameWidget().getValidatorDelegate());
         assertNotNull(simpleTestForm.getAgeWidget().getValidatorDelegate());
-        validatorDelegate = simpleTestForm.getDelegate();
-        assertNotNull(validatorDelegate);
     }
 
     @Test
@@ -88,7 +85,7 @@ public class SimpleFormViewTest extends GWalidateFormViewTest {
     @Test
     public void mustReactToRequiredStatusChange() {
         // set optional
-        ValidatedTextField nameWidget = simpleTestForm.getNameWidget();
+        ValidatedField nameWidget = simpleTestForm.getNameWidget();
         nameWidget.setRequired(false);
         // check empty
         simpleTestForm.getNameBox().setText("");
@@ -116,7 +113,7 @@ public class SimpleFormViewTest extends GWalidateFormViewTest {
         String msg = "Custom name message with size {0}";
         SizeRule sizeRuleWithMsg = validatorDelegate.rules().size(NAME_LENGTH_MAX);
         sizeRuleWithMsg.setMessage(msg);
-        final ValidatedTextField nameField = simpleTestForm.getNameWidget();
+        final ValidatedField nameField = simpleTestForm.getNameWidget();
         validatorDelegate.evict(nameField);
         validatorDelegate.planFor(nameField).rule(sizeRuleWithMsg).done();
         simpleTestForm.getNameBox().setText(longerString(NAME_LENGTH_MAX));
@@ -129,7 +126,7 @@ public class SimpleFormViewTest extends GWalidateFormViewTest {
         msg = "Custom age message with min {0} and max {1}";
         RangeRule rangeRuleWithMsg = validatorDelegate.rules().range(AGE_MIN, AGE_MAX);
         rangeRuleWithMsg.setMessage(msg);
-        final ValidatedTextField ageField = simpleTestForm.getAgeWidget();
+        final ValidatedField ageField = simpleTestForm.getAgeWidget();
         validatorDelegate.evict(ageField);
         validatorDelegate.planFor(ageField).rule(rangeRuleWithMsg).done();
         simpleTestForm.getAgeBox().setText(sGreater(AGE_MAX));

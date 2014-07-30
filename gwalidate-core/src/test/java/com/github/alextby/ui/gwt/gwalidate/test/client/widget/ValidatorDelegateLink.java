@@ -21,7 +21,7 @@ public class ValidatorDelegateLink extends Anchor implements HasValidatorDelegat
     }
 
     @Override
-    public void setDelegate(ValidatorDelegate delegate) {
+    public void setValidatorDelegate(ValidatorDelegate delegate) {
         this.validator = delegate;
     }
 

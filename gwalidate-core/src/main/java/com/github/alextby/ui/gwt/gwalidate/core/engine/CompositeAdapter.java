@@ -8,6 +8,8 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public interface CompositeAdapter {
 
+    public static final String FIELD_WIDGET = "widget";
+
     /**
      * Extracts the topmost widget of the given {@code Composite}
      * @param composite - composite

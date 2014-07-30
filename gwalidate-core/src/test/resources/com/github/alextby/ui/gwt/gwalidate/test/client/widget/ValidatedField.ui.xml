@@ -6,7 +6,7 @@
 
         <g:Label ui:field="label"/>
         <div>
-            <g:TextBox ui:field="textBox"/>
+            <g:SimplePanel ui:field="valueBoxSpot"/>
             <span ui:field="help"/>
         </div>
         <!-- keeps the validation config -->

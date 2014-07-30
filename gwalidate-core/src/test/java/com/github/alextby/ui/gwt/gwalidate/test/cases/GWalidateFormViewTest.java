@@ -6,8 +6,8 @@ import com.github.alextby.ui.gwt.gwalidate.core.model.ValidatableWidget;
 import com.github.alextby.ui.gwt.gwalidate.core.model.ValidationStatus;
 import com.github.alextby.ui.gwt.gwalidate.core.model.Violation;
 import com.github.alextby.ui.gwt.gwalidate.test.client.view.ValidatorTestFormView;
+import com.github.alextby.ui.gwt.gwalidate.test.client.view.form.ValidatedTestForm;
 import com.google.common.collect.Sets;
-import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.googlecode.gwt.test.GwtModule;
 import com.googlecode.gwt.test.GwtTestWithMockito;
@@ -42,9 +42,12 @@ public abstract class GWalidateFormViewTest extends GwtTestWithMockito {
         this.view = new ValidatorTestFormView(createTestCaseForm(), validationPanel);
         assertNotNull(validationPanel);
         assertNotNull(view);
+        assertNotNull(view.getForm());
+        validatorDelegate =  view.getForm().getValidatorDelegate();
+        assertNotNull(validatorDelegate);
     }
 
-    protected Widget createTestCaseForm() {
+    protected ValidatedTestForm createTestCaseForm() {
         throw new IllegalStateException();
     }
 

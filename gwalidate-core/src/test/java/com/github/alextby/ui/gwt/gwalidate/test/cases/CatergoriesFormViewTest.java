@@ -1,10 +1,8 @@
 package com.github.alextby.ui.gwt.gwalidate.test.cases;
 
-import com.github.alextby.ui.gwt.gwalidate.core.engine.ValidatorDelegate;
 import com.github.alextby.ui.gwt.gwalidate.core.model.CategoryManager;
 import com.github.alextby.ui.gwt.gwalidate.test.client.view.form.CategoriesTestForm;
 import com.github.alextby.ui.gwt.gwalidate.test.config.GWalidateTestModule;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Random;
@@ -13,14 +11,11 @@ import static com.github.alextby.ui.gwt.gwalidate.test.client.view.form.Categori
 import static com.github.alextby.ui.gwt.gwalidate.test.client.view.form.CategoriesTestForm.CATEGORY_MEN;
 import static com.github.alextby.ui.gwt.gwalidate.test.client.view.form.SimpleTestForm.DEFAULT_AGE;
 import static com.github.alextby.ui.gwt.gwalidate.test.client.view.form.SimpleTestForm.DEFAULT_NAME;
-import static org.junit.Assert.assertNotNull;
 
 /**
  * Validation Categories Test
  */
 public class CatergoriesFormViewTest extends GWalidateFormViewTest {
-
-    private ValidatorDelegate validatorDelegate;
 
     private CategoriesTestForm testForm;
 
@@ -33,16 +28,8 @@ public class CatergoriesFormViewTest extends GWalidateFormViewTest {
         return testForm;
     }
 
-    @Before
-    @Override
-    public void beforeTestCase() throws Exception {
-        super.beforeTestCase();
-        validatorDelegate = testForm.getDelegate();
-        assertNotNull(validatorDelegate);
-    }
-
     @Test
-    public void mustValidateWhenAtLeastOneCategoryActive() {
+    public void mustValidateWhenAtLeastOneSupportedCategoryIsActive() {
         validatorDelegate.categories().setCategories(CATEGORY_ADULTS);
         testForm.getNameBox().setText(DEFAULT_NAME);
         testForm.getAgeBox().setText(DEFAULT_AGE);
@@ -95,7 +82,7 @@ public class CatergoriesFormViewTest extends GWalidateFormViewTest {
         } else {
             assertValid();
         }
-        // 2nd case: there will be one active category in any case
+        // 2nd case: there will be one active category
         categoryManager.setCategories(CATEGORY_ADULTS, CATEGORY_MEN);
         categoryManager.ensureCategories(rand.nextBoolean(), CATEGORY_ADULTS);
         // the age is missing in any case since there is at least MEN category active
@@ -117,12 +104,13 @@ public class CatergoriesFormViewTest extends GWalidateFormViewTest {
     }
 
     @Test
-    public void mustNotReactToNonExistingCategories() {
+    public void mustNotReactToNonSupportedCategories() {
 
         testForm.getNameBox().setText(null);
         testForm.getAgeBox().setText("");
 
         CategoryManager categoryManager = validatorDelegate.categories();
+        // this will give us a fairly unique category
         categoryManager.setCategories(String.valueOf(System.currentTimeMillis()));
         assertValid();
 

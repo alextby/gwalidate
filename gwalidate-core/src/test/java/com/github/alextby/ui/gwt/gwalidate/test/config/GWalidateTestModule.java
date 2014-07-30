@@ -12,7 +12,7 @@ import com.google.gwt.inject.rebind.adapter.GinModuleAdapter;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.ValueBoxBase;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.inject.Singleton;
+import com.google.inject.Provides;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.googlecode.gwt.test.utils.GwtReflectionUtils;
 import org.jukito.JukitoModule;
@@ -31,17 +31,17 @@ public class GWalidateTestModule extends JukitoModule {
 
                 @Override
                 protected void bindMessageResolver() {
-                    bind(MessagesResolver.class).to(DummyMessageResolver.class).in(Singleton.class);
+                    bind(MessagesResolver.class).to(DummyMessageResolver.class).asEagerSingleton();
                 }
 
                 @Override
                 protected void bindConverterPlugin() {
-                    bind(ConverterPlugin.class).to(ReflectionConverterPlugin.class).in(Singleton.class);
+                    bind(ConverterPlugin.class).to(ReflectionConverterPlugin.class).asEagerSingleton();
                 }
 
                 @Override
                 protected void bindCompositeAdapter() {
-                    bind(CompositeAdapter.class).to(ReflectionCompositeAdapter.class).in(Singleton.class);
+                    bind(CompositeAdapter.class).to(ReflectionCompositeAdapter.class).asEagerSingleton();
                 }
             }
         ));
@@ -51,9 +51,12 @@ public class GWalidateTestModule extends JukitoModule {
         install(new FactoryModuleBuilder().build(ValidationRuleFactory.class));
     }
 
-    private static class ReflectionCompositeAdapter implements CompositeAdapter {
+    @Provides
+    public ReflectionConverterPlugin reflectionConverterPlugin() {
+        return new ReflectionConverterPlugin();
+    }
 
-        private static final String FIELD_WIDGET = "widget";
+    private static class ReflectionCompositeAdapter implements CompositeAdapter {
 
         @Override
         public Widget getCompositeWidget(Composite composite) {
@@ -62,10 +65,6 @@ public class GWalidateTestModule extends JukitoModule {
     }
 
     public class ReflectionConverterPlugin implements ConverterPlugin {
-
-        private static final String FIELD_RENDERER = "renderer";
-
-        private static final String FIELD_PARSER = "parser";
 
         @Override
         public void plugIn(ValueBoxBase box, TextConverter converter) {
