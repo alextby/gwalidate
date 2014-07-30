@@ -56,6 +56,9 @@ public class ConverterFormViewTest extends GWalidateFormViewTest {
         assertValid();
         assertTrue(sampleValue == integerBox.getValue());
 
+        integerBox.setValue(sampleValue);
+        assertTrue(integerBox.getText().length() > 0);
+
         integerBox.setText(S_NAN);
         assertNotValid(testForm.getIntegerField());
     }
@@ -70,6 +73,9 @@ public class ConverterFormViewTest extends GWalidateFormViewTest {
         testForm.getLongBox().setText(String.valueOf(sampleValue));
         assertValid();
         assertTrue(sampleValue == testForm.getLongBox().getValue());
+
+        longBox.setValue(sampleValue);
+        assertTrue(longBox.getText().length() > 0);
 
         testForm.getLongBox().setText(S_NAN);
         assertNotValid(testForm.getLongField());
@@ -86,6 +92,9 @@ public class ConverterFormViewTest extends GWalidateFormViewTest {
         assertValid();
         assertTrue(sampleValue == doubleBox.getValue());
 
+        doubleBox.setValue(sampleValue);
+        assertTrue(doubleBox.getText().length() > 0);
+
         doubleBox.setText(S_NAN);
         assertNotValid(testForm.getDoubleField());
     }
@@ -101,6 +110,9 @@ public class ConverterFormViewTest extends GWalidateFormViewTest {
         assertValid();
         assertTrue(new BigInteger(sampleValue).compareTo(bigIntegerBox.getValue()) == 0);
 
+        bigIntegerBox.setValue(new BigInteger(sampleValue));
+        assertTrue(bigIntegerBox.getText().length() > 0);
+
         bigIntegerBox.setText(S_NAN);
         assertNotValid(testForm.getBigIntegerField());
     }
@@ -115,6 +127,9 @@ public class ConverterFormViewTest extends GWalidateFormViewTest {
         bigDecimalBox.setText(sampleValue);
         assertValid();
         assertTrue(new BigDecimal(sampleValue).compareTo(bigDecimalBox.getValue()) == 0);
+
+        bigDecimalBox.setValue(new BigDecimal(sampleValue));
+        assertTrue(bigDecimalBox.getText().length() > 0);
 
         bigDecimalBox.setText(S_NAN);
         assertNotValid(testForm.getBigDecimalField());
