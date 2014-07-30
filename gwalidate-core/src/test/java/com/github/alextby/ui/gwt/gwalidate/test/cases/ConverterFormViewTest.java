@@ -2,12 +2,14 @@ package com.github.alextby.ui.gwt.gwalidate.test.cases;
 
 import com.github.alextby.ui.gwt.gwalidate.core.convert.BigDecimalConverter;
 import com.github.alextby.ui.gwt.gwalidate.core.convert.BigIntegerConverter;
+import com.github.alextby.ui.gwt.gwalidate.core.convert.ConverterException;
 import com.github.alextby.ui.gwt.gwalidate.core.convert.ConverterPlugin;
 import com.github.alextby.ui.gwt.gwalidate.core.convert.DoubleConverter;
 import com.github.alextby.ui.gwt.gwalidate.core.convert.IntegerConverter;
 import com.github.alextby.ui.gwt.gwalidate.core.convert.LongConverter;
 import com.github.alextby.ui.gwt.gwalidate.core.convert.TextConverter;
 import com.github.alextby.ui.gwt.gwalidate.core.convert.TextToStringConverter;
+import com.github.alextby.ui.gwt.gwalidate.core.model.ValidationStatus;
 import com.github.alextby.ui.gwt.gwalidate.test.client.view.form.ConverterTestForm;
 import com.github.alextby.ui.gwt.gwalidate.test.client.widget.BigDecimalBox;
 import com.github.alextby.ui.gwt.gwalidate.test.client.widget.BigIntegerBox;
@@ -21,6 +23,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.text.ParseException;
 
 import static com.googlecode.gwt.test.utils.GwtReflectionUtils.getPrivateFieldValue;
 import static org.junit.Assert.assertEquals;
@@ -127,20 +130,41 @@ public class ConverterFormViewTest extends GWalidateFormViewTest {
         testForm.getStringBox().setText(sampleValue);
         assertValid();
         assertEquals(sampleValue, testForm.getStringBox().getValue());
-        validatorDelegate.planFor(testForm.getStringField()).convert(new TextToStringConverter() {
-            @Override
-            public String parse(CharSequence text) {
-                return text != null ? text.toString().trim() : null;
-            }
-        }).done();
+        validatorDelegate.planFor(testForm.getStringField()).convert(new TestTrimmingConverter()).done();
+        assertConverter(stringBox, TestTrimmingConverter.class);
         assertValid();
         // not the new converter will trim the sampled value - assert that
         assertEquals(sampleValue.trim(), testForm.getStringBox().getValue());
+    }
+
+    @Test
+    public void mustTranslateCustomConverterExceptionsIntoRuleExceptions() {
+
+        TextBox stringBox = testForm.getStringBox();
+        validatorDelegate.planFor(testForm.getStringField()).convert(new TestTrimmingConverter()).done();
+        assertConverter(stringBox, TestTrimmingConverter.class);
+        stringBox.setText("a");
+        ValidationStatus status = assertNotValid(testForm.getStringField());
+        assertEquals(status.getViolations().get(0).getMessage(), TestTrimmingConverter.CONVERTER_ERROR_MSG);
     }
 
     private <T> void assertConverter(ValueBoxBase<T> widget, Class<? extends TextConverter<T>> classOfConverter) {
         // make sure we've got the converter auto-inserted
         assertTrue(getPrivateFieldValue(widget, ConverterPlugin.FIELD_PARSER).getClass() == classOfConverter);
         assertTrue(getPrivateFieldValue(widget, ConverterPlugin.FIELD_RENDERER).getClass() == classOfConverter);
+    }
+
+    private static class TestTrimmingConverter extends TextToStringConverter {
+
+        public static final String CONVERTER_ERROR_MSG = "something went wrong";
+
+        @Override
+        public String parse(CharSequence text) throws ParseException {
+            if (text != null && text.length() > 3) {
+                return text.toString().trim();
+            } else {
+                throw new ConverterException(CONVERTER_ERROR_MSG);
+            }
+        }
     }
 }

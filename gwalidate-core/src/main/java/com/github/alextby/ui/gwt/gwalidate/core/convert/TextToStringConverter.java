@@ -1,5 +1,7 @@
 package com.github.alextby.ui.gwt.gwalidate.core.convert;
 
+import java.text.ParseException;
+
 /**
  * Null-safe String-to-String (translator) converter.<br/>
  * It is not supposed to throw any exceptions at runtime.<br/>
@@ -20,7 +22,7 @@ public class TextToStringConverter extends GenericTextConverter<String> {
     }
 
     @Override
-    public String parse(CharSequence text) {
+    public String parse(CharSequence text) throws ParseException {
         if (text == null || text.length() == 0) {
             return "";
         }
