@@ -1,12 +1,12 @@
 package com.github.alextby.ui.gwt.gwalidate.core.dom;
 
 import com.github.alextby.ui.gwt.gwalidate.core.rule.RangeRule;
+import com.google.gwt.uibinder.client.UiConstructor;
 
 /**
  * Range rule supporting up to 8-byte(long) range boundaries.<br/>
- * Min = 0; Max=Long.MAX_VALUE by default.
  *
- * @see com.github.alextby.ui.gwt.gwalidate.core.dom.Rule
+ * @see Rule
  */
 public class Range extends Rule {
 
@@ -17,6 +17,15 @@ public class Range extends Rule {
     private boolean minOut = RangeRule.DEFAULT_EXCLUSIVE;
 
     private boolean maxOut = RangeRule.DEFAULT_EXCLUSIVE;
+
+    @UiConstructor
+    public Range() {
+    }
+
+    public Range(int min, int max) {
+        this.min = min;
+        this.max = max;
+    }
 
     public long getMin() {
         return min;

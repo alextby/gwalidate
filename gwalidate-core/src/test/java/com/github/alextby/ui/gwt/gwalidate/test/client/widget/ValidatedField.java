@@ -73,12 +73,7 @@ public class ValidatedField<T>
 
     @Override
     public void putViolations(List<Violation> violations) {
-        if (violations == null || violations.isEmpty()) {
-            help.setInnerText("");
-        } else {
-            Violation firstViolation = violations.iterator().next();
-            help.setInnerText(firstViolation.getMessage());
-        }
+        // we not gonna test this since it's fully up to the widget
     }
 
     @Override

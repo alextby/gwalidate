@@ -10,10 +10,8 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.Widget;
 
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
+import static com.github.alextby.ui.gwt.gwalidate.test.client.util.TestUtils.mockWidget;
 
 /**
  * Form for {@code SimpleFormViewTest}.
@@ -60,8 +58,8 @@ public class SimpleTestForm
 
     @Override
     public void initFields() {
-        name = createAttached(new TextBoxField());
-        age = createAttached(new TextBoxField());
+        name = mockWidget(new TextBoxField());
+        age = mockWidget(new TextBoxField());
         name.getSourceWidget().setText(DEFAULT_NAME);
         age.getSourceWidget().setText(DEFAULT_AGE);
     }
@@ -72,12 +70,6 @@ public class SimpleTestForm
         age.setRequired(true);
         ageRange.setMin(AGE_MIN);
         ageRange.setMax(AGE_MAX);
-    }
-
-    private static <T extends Widget> T createAttached(T widget) {
-        T spiedWidget = spy(widget);
-        when(spiedWidget.isAttached()).thenReturn(true);
-        return spiedWidget;
     }
 
     public ValidatedField getNameWidget() {

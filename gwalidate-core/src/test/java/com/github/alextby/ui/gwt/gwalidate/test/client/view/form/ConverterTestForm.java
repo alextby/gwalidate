@@ -16,13 +16,11 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.IntegerBox;
 import com.google.gwt.user.client.ui.LongBox;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.Widget;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
+import static com.github.alextby.ui.gwt.gwalidate.test.client.util.TestUtils.mockWidget;
 
 /**
  * Converter Test Form
@@ -63,18 +61,12 @@ public class ConverterTestForm extends Composite
 
     @Override
     public void initFields() {
-        stringField = createAttached(new TextBoxField());
-        integerField = createAttached(new ValidatedField<Integer>(new IntegerBox()));
-        longField = createAttached(new ValidatedField<Long>(new LongBox()));
-        doubleField = createAttached(new ValidatedField<Double>(new DoubleBox()));
-        bigIntegerField = createAttached(new ValidatedField<BigInteger>(new BigIntegerBox()));
-        bigDecimalField = createAttached(new ValidatedField<BigDecimal>(new BigDecimalBox()));
-    }
-
-    private static <T extends Widget> T createAttached(T widget) {
-        T spiedWidget = spy(widget);
-        when(spiedWidget.isAttached()).thenReturn(true);
-        return spiedWidget;
+        stringField = mockWidget(new TextBoxField());
+        integerField = mockWidget(new ValidatedField<Integer>(new IntegerBox()));
+        longField = mockWidget(new ValidatedField<Long>(new LongBox()));
+        doubleField = mockWidget(new ValidatedField<Double>(new DoubleBox()));
+        bigIntegerField = mockWidget(new ValidatedField<BigInteger>(new BigIntegerBox()));
+        bigDecimalField = mockWidget(new ValidatedField<BigDecimal>(new BigDecimalBox()));
     }
 
     @Override

@@ -1,12 +1,29 @@
 package com.github.alextby.ui.gwt.gwalidate.test.client.util;
 
+import com.google.gwt.user.client.ui.Widget;
+
 import java.math.BigDecimal;
 import java.util.Arrays;
+
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
 /**
  * Test Utils
  */
 public class TestUtils {
+
+    /**
+     * Spies on the given widget by stubbing its {@code Widget#isAttached} to true.
+     * @param widget - widget
+     * @param <T> - widget type
+     * @return - spied widget
+     */
+    public static <T extends Widget> T mockWidget(T widget) {
+        T spiedWidget = spy(widget);
+        when(spiedWidget.isAttached()).thenReturn(true);
+        return spiedWidget;
+    }
 
     public static BigDecimal bdEqual(String value) {
         return new BigDecimal(value);
@@ -57,7 +74,7 @@ public class TestUtils {
     }
 
     /**
-     * Generates a random string one symbol longer than the given length
+     * Generates a string 'zz...' one symbol longer than the given length
      */
     public static String longerString(int maxLength) {
         final char[] generated = new char[maxLength + 1];

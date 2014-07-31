@@ -60,6 +60,7 @@ public abstract class GWalidateFormViewTest extends GwtTestWithMockito {
     }
 
     protected ValidationStatus assertNotValid(ValidatableWidget... widgets) {
+
         ValidationStatus status = validationPanel.validate();
         assertFalse(status.isValid());
         Set<ValidatableWidget> failedWidgets = Sets.newHashSet(widgets);

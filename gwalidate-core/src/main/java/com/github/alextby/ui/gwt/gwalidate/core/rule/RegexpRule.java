@@ -34,7 +34,7 @@ public class RegexpRule extends SingleFieldRule implements ValidationRule<String
             return;
         }
         if (!value.matches(pattern)) {
-            throw new RuleException(deriveMessage(context.messages(), getMessageKey(), pattern));
+            throw new RuleException(deriveMessage(context.messages(), getMessageKey()));
         }
     }
 
