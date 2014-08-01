@@ -1,10 +1,18 @@
 package com.github.alextby.ui.gwt.gwalidate.test.cases;
 
+import com.github.alextby.ui.gwt.gwalidate.core.model.RuleContext;
+import com.github.alextby.ui.gwt.gwalidate.core.model.RuleException;
+import com.github.alextby.ui.gwt.gwalidate.core.model.Validatable;
+import com.github.alextby.ui.gwt.gwalidate.core.model.ValidatableWidget;
+import com.github.alextby.ui.gwt.gwalidate.core.model.ValidationStatus;
+import com.github.alextby.ui.gwt.gwalidate.core.rule.CrossFieldRule;
+import com.github.alextby.ui.gwt.gwalidate.core.rule.CustomRule;
 import com.github.alextby.ui.gwt.gwalidate.core.rule.MatchRule;
 import com.github.alextby.ui.gwt.gwalidate.core.rule.RegexpRule;
 import com.github.alextby.ui.gwt.gwalidate.core.rule.UrlRule;
 import com.github.alextby.ui.gwt.gwalidate.test.client.view.form.RulesTestForm;
 import com.github.alextby.ui.gwt.gwalidate.test.client.widget.BigDecimalBox;
+import com.github.alextby.ui.gwt.gwalidate.test.client.widget.BigIntegerBox;
 import com.github.alextby.ui.gwt.gwalidate.test.client.widget.ValidatedField;
 import com.github.alextby.ui.gwt.gwalidate.test.config.GWalidateTestModule;
 import com.google.gwt.user.client.ui.DoubleBox;
@@ -13,9 +21,12 @@ import com.google.gwt.user.client.ui.TextBox;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 import static com.github.alextby.ui.gwt.gwalidate.test.client.util.TestUtils.*;
 import static com.github.alextby.ui.gwt.gwalidate.test.client.view.form.RulesTestForm.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 /**
  * Rules Form View Test
@@ -72,6 +83,17 @@ public class RulesFormViewTest extends GWalidateFormViewTest {
         assertValid();
 
         rangeBox.setText( String.valueOf(RANGE_MIN + (RANGE_MAX - RANGE_MIN) / 2) );
+        assertValid();
+
+        final ValidatedField<BigInteger> bigIntegerField = testForm.getBigIntegerField();
+        final BigIntegerBox bigIntegerBox = testForm.getBigIntegerBox();
+        bigIntegerBox.setText(BIG_INTEGER_MIN);
+        assertNotValid(bigIntegerField);
+
+        bigIntegerBox.setText(BIG_INTEGER_MAX);
+        assertNotValid(bigIntegerField);
+
+        bigIntegerBox.setText(bdLess(BIG_INTEGER_MAX).toPlainString());
         assertValid();
     }
 
@@ -191,10 +213,75 @@ public class RulesFormViewTest extends GWalidateFormViewTest {
     @Test
     public void mustApplyCustomRulesProperly() {
 
+        final String CUSTOM_RULE_MSG = "Odd numbers are not expected";
+
+        final ValidatedField<String> sizeField = testForm.getSizeRuleField();
+        final TextBox sizeBox = testForm.getSizeRuleBox();
+        validatorDelegate.evict(sizeField);
+
+        validatorDelegate.planFor(sizeField).rule(new CustomRule<String>() {
+
+            @Override
+            public void check(String value, Validatable target, RuleContext context) throws RuleException {
+                int size = Integer.parseInt(value);
+                if (size % 2 == 0) {
+                    throw new RuleException(CUSTOM_RULE_MSG);
+                }
+            }
+        }).done();
+
+        sizeBox.setText("8");
+        ValidationStatus validationStatus = assertNotValid(sizeField);
+        assertEquals(CUSTOM_RULE_MSG, validationStatus.getViolations().get(0).getMessage());
     }
 
     @Test
     public void mustApplyCrossFieldRulesProperly() {
 
+        final String CROSS_FIELD_MESSAGE = "The size must be greater than the range";
+
+        final ValidatedField<Long> rangeRuleField = testForm.getRangeRuleField();
+        final LongBox rangeRuleBox = testForm.getRangeRuleBox();
+        final ValidatedField<String> sizeRuleField = testForm.getSizeRuleField();
+        sizeRuleField.setRequired(true);
+        final TextBox sizeRuleBox = testForm.getSizeRuleBox();
+
+        validatorDelegate.planFor(rangeRuleField).crossrule(new CrossFieldRule() {
+
+            // Rule's logic:
+            // trigger if the range rule box is correct; then check whether the size box
+            // actually parses to integer and if it does check that it's strictly bigger
+            // than the range value (if it's not - throw an exception).
+            @Override
+            public void check(ValidatableWidget target, RuleContext context) throws RuleException {
+
+                if (isValid(sizeRuleField)) {
+                    // we'd only try to run this field if the size rule field was correct
+                    Long rangeValue = (Long) getValue(target);
+                    String strSize = (String) getValue(sizeRuleField);
+                    if (strSize == null || strSize.length() == 0 ||
+                        Integer.parseInt(strSize) <= rangeValue) {
+                        throw new RuleException(CROSS_FIELD_MESSAGE);
+                    }
+                }
+            }
+        }).done();
+
+        rangeRuleBox.setText("8");
+        sizeRuleBox.setText("7");
+        ValidationStatus status = assertNotValid(rangeRuleField);
+        assertEquals(status.getViolations().get(0).getMessage(), CROSS_FIELD_MESSAGE);
+
+        sizeRuleBox.setText("");
+        assertNotValid(sizeRuleField);
+
+        rangeRuleBox.setText(S_NAN);
+        sizeRuleBox.setText("5");
+        status = assertNotValid(rangeRuleField);
+        assertNotEquals(status.getViolations().get(0).getMessage(), CROSS_FIELD_MESSAGE);
+
+        rangeRuleBox.setText("8");
+        sizeRuleBox.setText("9");
+        assertValid();
     }
 }

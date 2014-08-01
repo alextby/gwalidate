@@ -21,11 +21,9 @@
             </widget:ValidatedField>
 
             <widget:ValidatedField ui:field="regexpRuleField">
-
             </widget:ValidatedField>
 
             <widget:ValidatedField ui:field="bigIntegerField">
-
             </widget:ValidatedField>
 
         </g:FlowPanel>

@@ -3,9 +3,6 @@ package com.github.alextby.ui.gwt.gwalidate.core.util;
 import com.google.gwt.regexp.shared.MatchResult;
 import com.google.gwt.regexp.shared.RegExp;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
@@ -34,22 +31,6 @@ public final class StringUtils {
      */
     public static <T> String format(String template, String key, T value) {
         return template.replaceAll("\\{" + key + "\\}", value.toString());
-    }
-
-    public static String format(String value, String... items) {
-        final Map<String, Object> mapOfItems = new HashMap<String, Object>();
-        for (int i = 0; i < items.length - 1; i++) {
-            mapOfItems.put(items[i], items[i + 1]);
-        }
-        return format(value, mapOfItems);
-    }
-
-    public static String format(String value, Map<String, Object> params) {
-        String result = value;
-        for (Map.Entry<String, Object> entry : params.entrySet()) {
-            result = result.replaceAll("\\{" + entry.getKey() + "\\}", entry.getValue().toString());
-        }
-        return result;
     }
 
     /**

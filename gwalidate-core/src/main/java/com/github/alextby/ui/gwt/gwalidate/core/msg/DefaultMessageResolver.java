@@ -10,7 +10,7 @@ import java.util.MissingResourceException;
  */
 public class DefaultMessageResolver implements MessagesResolver {
 
-    public static final String KEY_INFO_SUFFIX = ".info";
+    private static final String KEY_INFO_SUFFIX = "_info";
 
     @Inject
     private ValidationMessages messages;

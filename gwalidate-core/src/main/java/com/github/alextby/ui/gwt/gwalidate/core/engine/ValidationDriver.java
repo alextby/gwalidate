@@ -104,7 +104,9 @@ public final class ValidationDriver implements AttachEvent.Handler, Validator {
             throw new IllegalArgumentException("Null scan starting point is not allowed");
         }
         // we've got this scan point already
-        if (scanpoint == this.scanpoint) return;
+        if (scanpoint == this.scanpoint) {
+            return;
+        }
 
         if (attachHandler != null) {
             attachHandler.removeHandler();
@@ -168,10 +170,10 @@ public final class ValidationDriver implements AttachEvent.Handler, Validator {
 
         // propogate field errors
         Map<ValidatableWidget, List<Violation>> violations = context.getViolationsGrouped();
-        for (ValidatableWidget inError : violations.keySet()) {
-            if (inError != null) {
-                List<Violation> fieldViolations = violations.get(inError);
-                inError.putViolations(violations.get(inError));
+        for (Map.Entry<ValidatableWidget, List<Violation>> entry : violations.entrySet()) {
+            if (entry != null) {
+                List<Violation> fieldViolations = entry.getValue();
+                entry.getKey().putViolations(fieldViolations);
                 totalResult.violations.addAll(fieldViolations);
             }
         }

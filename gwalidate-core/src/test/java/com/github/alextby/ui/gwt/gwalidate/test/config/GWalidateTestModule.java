@@ -7,7 +7,7 @@ import com.github.alextby.ui.gwt.gwalidate.core.convert.TextConverter;
 import com.github.alextby.ui.gwt.gwalidate.core.engine.CompositeAdapter;
 import com.github.alextby.ui.gwt.gwalidate.core.msg.MessagesResolver;
 import com.github.alextby.ui.gwt.gwalidate.core.rule.ValidationRuleFactory;
-import com.github.alextby.ui.gwt.gwalidate.test.client.msg.DummyMessageResolver;
+import com.github.alextby.ui.gwt.gwalidate.test.client.msg.ResourceBundleMessageResolver;
 import com.google.gwt.inject.rebind.adapter.GinModuleAdapter;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.ValueBoxBase;
@@ -31,7 +31,7 @@ public class GWalidateTestModule extends JukitoModule {
 
                 @Override
                 protected void bindMessageResolver() {
-                    bind(MessagesResolver.class).to(DummyMessageResolver.class).asEagerSingleton();
+                    bind(MessagesResolver.class).to(ResourceBundleMessageResolver.class).asEagerSingleton();
                 }
 
                 @Override

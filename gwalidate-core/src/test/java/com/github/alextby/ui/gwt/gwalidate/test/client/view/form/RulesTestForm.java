@@ -98,6 +98,10 @@ public class RulesTestForm extends Composite
         bigRangeRuleField.add(bigRange);
         Digits digitsRule = new Digits(DIGITS_INTEGER, DIGITS_FRACTION);
         digitsRuleField.add(digitsRule);
+        BigRange bigIntegerRangeRule = new BigRange(BIG_INTEGER_MIN, BIG_INTEGER_MAX);
+        bigIntegerRangeRule.setMinOut(true);
+        bigIntegerRangeRule.setMaxOut(true);
+        bigIntegerField.add(bigIntegerRangeRule);
     }
 
     @Override

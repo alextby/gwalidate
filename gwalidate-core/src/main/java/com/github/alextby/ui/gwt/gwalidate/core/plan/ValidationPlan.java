@@ -127,6 +127,7 @@ public class ValidationPlan {
 
         // merge the steps
         steps.addAll(plan.getPlanSteps());
+        crossSteps.addAll(plan.getCrossPlanSteps());
         if (plan.converterRule != null) {
             converterRule = plan.converterRule;
         }
