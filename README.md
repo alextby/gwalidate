@@ -9,5 +9,5 @@ to specify extended validation configurations in a per-widget manner.
 ```sh
   mvn clean install
   cd gwalidate-playgrond/
-  mvn jetty:run-war
+  mvn jetty:deploy-war
 ```
