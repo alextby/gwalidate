@@ -8,6 +8,6 @@ to specify extended validation configurations in a per-widget manner.
 <h3>Demo</h3>
 ```sh
   mvn clean install
-  cd gwalidate-playgrond/
+  cd gwalidate-playground/
   mvn jetty:deploy-war
 ```
