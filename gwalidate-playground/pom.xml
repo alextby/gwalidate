@@ -154,7 +154,6 @@
 
             <id>dev</id>
             <properties>
-                <gwt.draft.compile>true</gwt.draft.compile>
                 <gwalidate.demo.gwt.module.name>com.github.alextby.ui.gwt.gwalidate.demo.GWalidateDemoDev</gwalidate.demo.gwt.module.name>
                 <skipTests>true</skipTests>
             </properties>
