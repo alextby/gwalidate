@@ -70,7 +70,9 @@ public class DemoMainLayoutView extends Composite {
 
         initWidget(binder.createAndBindUi(this));
 
-        gwalidateVersion.setInnerText("v" + contextProperties.gwalidate_version());
+        if (contextProperties != null) {
+            gwalidateVersion.setInnerText("v" + contextProperties.gwalidate_version());
+        }
 
         eventBus.addHandler(PlaceChangeEvent.TYPE, new PlaceChangeEvent.Handler() {
             @Override
