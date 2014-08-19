@@ -34,7 +34,7 @@
                             </li>
                             <li>
                                 Add/evict validatable widgets newly added to the DOM:
-                                the <i>Attributes</i> section allows to insert/remove a few more required text boxes.
+                                the <i>Attributes</i> section allows to insert/remove a few more text boxes with a "no spaces" rule.
                             </li>
                         </ul>
                     </p>
@@ -48,6 +48,8 @@
 
                     <g:HTMLPanel tag="fieldset">
 
+                        <br/>
+
                         <div class="controls">
                             <bs:CheckBox ui:field="nameRequiredCheckBox" text="Name Required?"/>
                         </div>
@@ -58,7 +60,8 @@
                             <v:Size max="10"/>
                         </demo:ValidatedField>
 
-                        <br/>
+                        <hr/>
+
                         <div class="controls">
                             <bs:CheckBox ui:field="phoneAndEmailValidatedCheckBox" text="'Phone' and 'Email' fields validated?"/>
                         </div>
@@ -78,7 +81,8 @@
                             <v:Category in="PHONE_AND_EMAIL"/>
                         </demo:ValidatedField>
 
-                        <br/>
+                        <hr/>
+
                         <demo:ValidatedField label="Gender" ui:field="genderField" required="true">
                             <demo:widget>
                                 <bs:ValueListBox ui:field="genderListBox"/>
@@ -91,20 +95,23 @@
                             </demo:widget>
                         </demo:ValidatedField>
 
-                        <br/>
+                        <hr/>
+
                         <g:Label text="Attributes:" addStyleNames="controls"/>
                         <g:FlowPanel ui:field="urlsPanel">
                         </g:FlowPanel>
                         <div class="controls">
-                            <bs:Button styleName="btn" ui:field="addUrlButton" size="SMALL" icon="PLUS"/>
-                            <bs:Button styleName="btn" ui:field="minusUrlButton" size="SMALL" icon="MINUS"/>
+                            <bs:Button styleName="btn" ui:field="addUrlButton" size="SMALL" icon="PLUS" text="Add"/>
+                            <bs:Button styleName="btn" ui:field="minusUrlButton" size="SMALL" icon="MINUS" text="Remove"/>
                         </div>
 
                         <br/>
-                        <br/>
+                        <hr/>
+
                         <div class="controls">
-                            <g:SubmitButton styleName="btn btn-success btn-large" ui:field="validateBtn">Validate</g:SubmitButton>
+                            <g:SubmitButton ui:field="validateBtn"/>
                         </div>
+                        <br/>
 
                     </g:HTMLPanel>
 

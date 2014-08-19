@@ -56,6 +56,8 @@
 
                     <g:HTMLPanel tag="fieldset">
 
+                        <br/>
+
                         <demo:ValidatedField label="Name" required="true">
                             <demo:widget>
                                 <bs:TextBox/>
@@ -84,10 +86,11 @@
                         </demo:ValidatedField>
 
                         <br/>
-                        <br/>
+                        <hr/>
                         <div class="controls">
-                            <g:SubmitButton styleName="btn btn-success btn-large" ui:field="validateBtn">Validate</g:SubmitButton>
+                            <g:SubmitButton ui:field="validateBtn"/>
                         </div>
+                        <br/>
 
                     </g:HTMLPanel>
 
