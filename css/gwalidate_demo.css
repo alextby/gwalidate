@@ -1,0 +1,85 @@
+body {
+    background-color: rgb(245, 245, 245);
+}
+
+a {
+    outline: none !important;
+}
+
+button {
+    outline: none !important;
+}
+
+#nav.affix {
+    position: fixed;
+    top: 0;
+    width: 100%
+}
+
+#nav > .navbar-inner {
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -o-border-radius: 0;
+}
+
+.navbar-cases {
+    position: absolute;
+    top: 40px;
+}
+
+.subcontainer {
+    position: absolute;
+    top: 40px;
+    width: 100%;
+}
+
+.cases-container-inner {
+    padding-left: 20px;
+}
+
+.validation-panel {
+    width: 1000px;
+}
+
+.bs-docs-example:after {
+    background-color: #F5F5F5;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px 0 4px 0;
+    color: #9DA0A4;
+    content: "Validation Panel";
+    font-size: 12px;
+    font-weight: bold;
+    left: -1px;
+    padding: 3px 7px;
+    position: absolute;
+    top: -1px;
+}
+form.bs-docs-example {
+    padding-bottom: 19px;
+}
+
+.bs-docs-example {
+    background-color: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px 4px 4px 4px;
+    padding: 39px 19px 14px;
+    position: relative;
+}
+
+.left-help-panel {
+    width: 400px;
+    margin-right: 20px;
+}
+
+div.topmenu ul.nav a.gwalidate-version {
+    color: rgb(122, 180, 226) !important;
+    margin-left: -20px;
+    padding-left: 10px;
+}
+
+div.topmenu ul.nav li.active a {
+    background-color: rgb(91, 103, 116) !important;
+}
