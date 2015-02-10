@@ -80,6 +80,111 @@
 
     </build>
 
+   <profiles>
+
+       <profile>
+
+           <!--  This profile is intended to support running EMMA coverage reports over the GWT-compatible code  -->
+           <!--  It requires the patched version of EMMA installed; one has to download and install it first.    -->
+           <!--  Checkout the EMMA dependency below                                                              -->
+           <id>emma</id>
+
+           <build>
+
+               <plugins>
+
+                   <plugin>
+                       <groupId>org.apache.maven.plugins</groupId>
+                       <artifactId>maven-surefire-plugin</artifactId>
+                       <version>2.6</version>
+                       <configuration>
+                           <useManifestOnlyJar>false</useManifestOnlyJar>
+                           <forkMode>always</forkMode>
+                           <argLine>-Xmx1024m</argLine>
+                           <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                           <includes>
+                               <include>**/gwalidate/test/cases/*Test.java</include>
+                           </includes>
+                           <systemPropertyVariables>
+                               <emma.coverage.out.file>${project.basedir}/target/emma.ec</emma.coverage.out.file>
+                           </systemPropertyVariables>
+                       </configuration>
+                   </plugin>
+
+                   <plugin>
+
+                       <artifactId>maven-antrun-plugin</artifactId>
+                       <version>1.7</version>
+
+                       <executions>
+
+                           <execution>
+                               <id>Emma instrumentation</id>
+                               <phase>process-classes</phase>
+                               <configuration>
+                                   <target>
+                                       <java fork="true" classpathref="maven.test.classpath" classname="emma">
+                                           <arg value="instr" />
+                                           <arg value="-cp"/>
+                                           <arg value="target/classes"/>
+                                           <arg value="-m"/>
+                                           <arg value="overwrite"/>
+                                           <arg value="-out" />
+                                           <arg value="target/emma.em"/>
+                                       </java>
+                                   </target>
+                               </configuration>
+                               <goals>
+                                   <goal>run</goal>
+                               </goals>
+                           </execution>
+
+                           <execution>
+                               <id>Emma Report</id>
+                               <phase>prepare-package</phase>
+                               <configuration>
+                                   <target>
+                                       <mkdir dir="${project.basedir}/target/site/emma"/>
+                                       <java dir="${project.basedir}/target/site/emma" fork="true"
+                                             classpathref="maven.test.classpath" classname="emma">
+                                           <arg value="report" />
+                                           <arg value="-sp" />
+                                           <arg value="${project.basedir}/src/main/java" />
+                                           <arg value="-r"/>
+                                           <arg value="html"/>
+                                           <arg value="-in" />
+                                           <arg value="${project.basedir}/target/emma.em,${project.basedir}/target/emma.ec" />
+                                       </java>
+                                   </target>
+                               </configuration>
+                               <goals>
+                                   <goal>run</goal>
+                               </goals>
+                           </execution>
+
+                       </executions>
+
+                   </plugin>
+
+               </plugins>
+ 
+           </build>
+
+           <dependencies>
+
+               <dependency>
+                   <groupId>${dependency.emma.patched.groupId}</groupId>
+                   <artifactId>${dependency.emma.patched.artifactId}</artifactId>
+                   <version>${dependency.emma.patched.version}</version>
+                   <scope>test</scope>
+               </dependency>
+
+           </dependencies>
+
+       </profile>
+
+   </profiles>
+
     <dependencies>
 
         <dependency>
