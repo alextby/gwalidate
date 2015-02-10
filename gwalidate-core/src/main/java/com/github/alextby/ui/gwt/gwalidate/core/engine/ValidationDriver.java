@@ -304,12 +304,7 @@ public final class ValidationDriver implements AttachEvent.Handler, Validator {
      */
     @Override
     public void rescan(boolean force) {
-
-        // convert if attached
-        if (!scanpoint.isAttached() && !force) {
-            throw new IllegalStateException("The scan start point has to be attached to DOM");
-        }
-        reset(false);
+        reset(force);
         scanDom();
     }
 
@@ -320,7 +315,7 @@ public final class ValidationDriver implements AttachEvent.Handler, Validator {
      */
     protected void rescan(Panel scanPoint) {
         setScanpoint(scanPoint);
-        rescan(false);
+        rescan(true);
     }
 
     protected ValidationConfig getConfig() {

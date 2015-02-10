@@ -106,4 +106,14 @@ public class DynamicPlanFormViewTest extends GWalidateFormViewTest {
         assertNotNull(lookedUp);
         assertEquals(lookedUp, nameField);
     }
+    
+    @Test
+    public void mustRescanValidatedWidgetsOnRequest() {
+
+        validationPanel.skipHidden(true); // do not assume hidden/unattached widgets
+        assertValid();
+        testForm.getAgeBox().setText(S_NAN);
+        assertNotValid(testForm.getAgeWidget());
+        validationPanel.rescan();
+    }
 }

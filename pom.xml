@@ -23,7 +23,7 @@
 
         <dependency.gwt.version>2.6.1</dependency.gwt.version>
         <dependency.gin.version>2.1.2</dependency.gin.version>
-        <dependency.guava.gwt.version>17.0</dependency.guava.gwt.version>
+        <dependency.guava.gwt.version>18.0</dependency.guava.gwt.version>
         <dependency.slf4j.verion>1.7.7</dependency.slf4j.verion>
 
     </properties>
@@ -59,13 +59,6 @@
     <dependencyManagement>
 
         <dependencies>
-
-            <!-- gwt -->
-            <dependency>
-                <artifactId>gwt-user</artifactId>
-                <groupId>com.google.gwt</groupId>
-                <version>${dependency.gwt.version}</version>
-            </dependency>
 
             <!-- gwt-user -->
             <dependency>

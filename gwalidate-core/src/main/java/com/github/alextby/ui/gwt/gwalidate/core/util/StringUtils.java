@@ -13,8 +13,8 @@ public final class StringUtils {
     /**
      * Checks whether the given string is either null or empty
      *
-     * @param value - tested candidate
-     * @return - true/false
+     * @param value tested candidate
+     * @return true/false
      */
     public static boolean isBlank(String value) {
         return value == null || value.trim().length() == 0;
@@ -23,10 +23,10 @@ public final class StringUtils {
     /**
      * Replaces key-marked placeholders with the given value in the given template string
      *
-     * @param template - string template
-     * @param key      - key
-     * @param value    - value
-     * @param <T>      - type of the value
+     * @param template string template
+     * @param key key
+     * @param value value
+     * @param <T> type of the value
      * @return - formated string
      */
     public static <T> String format(String template, String key, T value) {
@@ -38,8 +38,8 @@ public final class StringUtils {
      * This implementation is rather naive and inefficient; one should not consider using it
      * for number of arguments > 3!
      *
-     * @param template - original template string
-     * @param params   - parameters
+     * @param template original template string
+     * @param params parameters
      * @return - formatted string
      */
     public static String formatIndexed(String template, Object... params) {
@@ -57,9 +57,9 @@ public final class StringUtils {
      * Tokenizes the given string with the given token regexp.<br/>
      * Returns an empty array for an empty string.
      *
-     * @param value - value
-     * @param token - token
-     * @return - array of tokens
+     * @param value value
+     * @param token token
+     * @return array of tokens
      * @throws IllegalArgumentException if either value or token is null
      */
     public static String[] tokenize(String value, String token) {
@@ -75,8 +75,8 @@ public final class StringUtils {
      * Greps a substring at a given group index.
      * By default assumes the group index = 1 (the very first match) and "i" (ignore case) as a match flag.
      *
-     * @param text    - source text
-     * @param pattern - match pattern
+     * @param text source text
+     * @param pattern match pattern
      * @return matched substring or null if nothing found
      */
     public static String grepGroup(String text, String pattern) {
@@ -90,11 +90,11 @@ public final class StringUtils {
     /**
      * Greps a substring at a given group index.
      *
-     * @param text       - source text
-     * @param pattern    - match pattern
-     * @param groupIndex - group index (0 for the full match)
-     * @param flags      - match flags
-     * @return - matched substring or null if nothing found
+     * @param text source text
+     * @param pattern match pattern
+     * @param groupIndex group index (0 for the full match)
+     * @param flags match flags
+     * @return matched substring or null if nothing found
      */
     public static String grepGroup(String text, String pattern, int groupIndex, String flags) {
         checkNotNull(text);

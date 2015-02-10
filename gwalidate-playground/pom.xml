@@ -40,6 +40,9 @@
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
             </resource>
+            <resource>
+                <directory>target/classes</directory>
+            </resource>
         </resources>
 
         <plugins>
@@ -61,7 +64,7 @@
                 </configuration>
 
             </plugin>
-
+            
             <plugin>
 
                 <groupId>org.codehaus.mojo</groupId>
@@ -157,6 +160,15 @@
                 <gwalidate.demo.gwt.module.name>com.github.alextby.ui.gwt.gwalidate.demo.GWalidateDemoDev</gwalidate.demo.gwt.module.name>
                 <skipTests>true</skipTests>
             </properties>
+
+        </profile>
+
+        <profile>
+
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
 
         </profile>
 
