@@ -13,6 +13,7 @@ Project Pages:<br>
 <h3>Build Instructions</h3>
  - Java7 is preferably the one to go with.
  - Building `gwalidate-core` with Java8 won't let the tests run, so make sure to `-DskipTests=true` if Java8 is required (the rest of the code compiles/runs as expected).
+ - `gwalidate-playground` has `-P dev` for faster developer builds (less permutations and tests skipped)
 
 <h3>Standalone Demo</h3>
 ```sh
