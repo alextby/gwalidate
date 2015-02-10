@@ -9,9 +9,15 @@ to specify extended validation configurations in a per-widget manner.
 Project Pages:<br>
 <a href="http://alextby.github.io/gwalidate/">http://alextby.github.io/gwalidate/</a>
 </p>
+
+<h3>Build Instructions</h3>
+ - Java7 is preferably the one to go with.
+ - Building `gwalidate-core` with Java8 won't let the tests run, so make sure to `-DskipTests=true` if Java8 is required (the rest of the code compiles/runs as expected).
+
 <h3>Standalone Demo</h3>
 ```sh
   mvn clean install
   cd gwalidate-playground/
   mvn jetty:deploy-war
 ```
+check out <a href="http://localhost:10008">http://localhost:10008/</a>
