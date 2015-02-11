@@ -111,6 +111,8 @@ public class ValidationConfig implements FieldRegistry {
         validators.clear();
         validatables.clear();
         domScanned.clear();
+        withDelegates.clear();
+        fieldsByAlias.clear();
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.view;
 
-import com.github.alextby.ui.gwt.gwalidate.demo.client.GWalidateContext;
 import com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.place.AboutPlace;
 import com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.place.BasicUseCasePlace;
 import com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.place.DynamicUseCasePlace;
@@ -25,9 +24,6 @@ import java.util.Map;
  */
 @Singleton
 public class DemoMainLayoutView extends Composite {
-
-    @Inject
-    GWalidateContext contextProperties;
 
     @UiField
     AnchorElement gwalidateVersion;
@@ -69,10 +65,6 @@ public class DemoMainLayoutView extends Composite {
 
 
         initWidget(binder.createAndBindUi(this));
-
-        if (contextProperties != null) {
-            gwalidateVersion.setInnerText("v" + contextProperties.gwalidate_version());
-        }
 
         eventBus.addHandler(PlaceChangeEvent.TYPE, new PlaceChangeEvent.Handler() {
             @Override

@@ -38,15 +38,11 @@
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-            <resource>
-                <directory>target/classes</directory>
             </resource>
         </resources>
 
         <plugins>
-
+            
             <plugin>
 
                 <groupId>org.apache.maven.plugins</groupId>
@@ -73,7 +69,6 @@
                 <executions>
                     <execution>
                         <goals>
-                            <goal>i18n</goal>
                             <goal>resources</goal>
                             <goal>compile</goal>
                         </goals>
@@ -84,15 +79,13 @@
                     <localWorkers>${gwt.local.workers}</localWorkers>
                     <draftCompile>${gwt.draft.compile}</draftCompile>
                     <extraJvmArgs>-Xmx1024m</extraJvmArgs>
-                    <i18nConstantsWithLookupBundles>
-                        <i18nConstantsWithLookupBundle>
-                            com.github.alextby.ui.gwt.gwalidate.demo.client.GWalidateContext
-                        </i18nConstantsWithLookupBundle>
-                    </i18nConstantsWithLookupBundles>
                     <encoding>UTF-8</encoding>
                     <modules>
                         <module>${gwalidate.demo.gwt.module.name}</module>
                     </modules>
+                    <includes>
+                        
+                    </includes>
                     <logLevel>INFO</logLevel>
                     <failOnError>true</failOnError>
                 </configuration>
