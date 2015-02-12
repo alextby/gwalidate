@@ -44,6 +44,10 @@ public final class ValidationPanel extends FlowPanel {
         this.validator.rescan(true);
     }
 
+    public void rescan(boolean force) {
+        this.validator.rescan(force);
+    }
+
     public ValidatorDelegate getDelegate() {
         return this.validator;
     }

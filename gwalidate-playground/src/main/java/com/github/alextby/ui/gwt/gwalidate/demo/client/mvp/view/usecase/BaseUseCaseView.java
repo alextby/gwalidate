@@ -2,6 +2,7 @@ package com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.view.usecase;
 
 import com.github.alextby.ui.gwt.gwalidate.core.engine.ValidationPanel;
 import com.github.alextby.ui.gwt.gwalidate.core.engine.ValidatorDelegate;
+import com.github.gwtbootstrap.client.ui.Button;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiField;
@@ -21,7 +22,16 @@ public abstract class BaseUseCaseView extends Composite {
 
     @UiField(provided = true)
     SubmitButton validateBtn;
+    
+    @UiField
+    Button resetBtn;
 
+    @UiField
+    Button hardRescanBtn;
+    
+    @UiField
+    Button rescanBtn;
+    
     private Element validateBtnElement;
 
     public BaseUseCaseView(ValidationPanel panel) {
@@ -43,7 +53,22 @@ public abstract class BaseUseCaseView extends Composite {
             validateBtnElement.addClassName("btn-danger");
         }
     }
+    
+    @UiHandler("resetBtn")
+    public void onResetBtnClick(ClickEvent event) {
+        validationPanel.nullify();
+    }
 
+    @UiHandler("hardRescanBtn")
+    public void onHardRescanBtnClick(ClickEvent event) {
+        validationPanel.rescan(true);
+    }
+    
+    @UiHandler("rescanBtn")
+    public void onRescanBtnClick(ClickEvent event) {
+        validationPanel.rescan(false);
+    }
+    
     @Override
     protected void onLoad() {
         super.onLoad();

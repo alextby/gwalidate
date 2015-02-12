@@ -48,6 +48,20 @@
 
                 </div>
 
+                <div class="alert alert-info">
+                    <h3>Panel Functions</h3>
+                    <ul>
+                        <li><i>Nullify</i> will simply clear any validation errors (validation context)</li>
+                        <li>
+                            <i>Hard Rescan</i> will purge the existing validation config and rescan everything from scratch.
+                            Any dynamically added validation rules (incl. cross-field rules) will go away and must be restored.
+                        </li>
+                        <li>
+                            <i>Rescan</i> simply scans the DOM for newly added widgets.
+                        </li>
+                    </ul>
+                </div>
+
             </g:HTMLPanel>
 
             <vpanel:ValidationPanel ui:field="validationPanel" styleName="validation-panel pull-left">
@@ -87,8 +101,18 @@
 
                         <br/>
                         <hr/>
+                        
                         <div class="controls">
-                            <g:SubmitButton ui:field="validateBtn"/>
+                            <div class="row">
+                                <div class="span2">
+                                    <g:SubmitButton ui:field="validateBtn"/>
+                                </div>
+                                <div>
+                                    <bs:Button ui:field="resetBtn" styleName="btn btn-large btn-info">Nullify</bs:Button>
+                                    <bs:Button ui:field="hardRescanBtn" styleName="btn btn-large btn-info">Hard Rescan</bs:Button>
+                                    <bs:Button ui:field="rescanBtn" styleName="btn btn-large btn-info">Rescan</bs:Button>
+                                </div>
+                            </div>
                         </div>
                         <br/>
 

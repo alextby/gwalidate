@@ -5,7 +5,6 @@ import com.github.alextby.ui.gwt.gwalidate.demo.client.gin.GWalidateDemoMvpFacto
 import com.github.alextby.ui.gwt.gwalidate.demo.client.gin.ViewFactory;
 import com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.GWalidateDemoPlaceHistoryMapper;
 import com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.place.BasicUseCasePlace;
-import com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.place.BasicUseCasePlace;
 import com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.view.DemoMainLayoutView;
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.core.client.EntryPoint;
