@@ -10,6 +10,14 @@ Project Pages:<br>
 <a href="http://alextby.github.io/gwalidate/">http://alextby.github.io/gwalidate/</a>
 </p>
 
+<h3>Key Features</h3>
+ - Per-widget style of configuration
+ - Dynamic/programmatic configuration and control
+ - Cross-field validation rules
+ - Faily easy to integrate in a typical GWT view; little extra code required
+ - A number of basic validation rules bundled
+ - GIN-powered
+
 <h3>Build Instructions</h3>
  - Java7 is preferably the one to go with.
  - Building `gwalidate-core` with Java8 won't let the tests run, so make sure to `-DskipTests=true` if Java8 is required (the rest of the code compiles/runs as expected).
