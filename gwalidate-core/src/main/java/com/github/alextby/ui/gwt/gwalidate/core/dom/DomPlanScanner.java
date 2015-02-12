@@ -46,13 +46,9 @@ public class DomPlanScanner {
         this.builder = builder;
         if (target instanceof HasWidgets) {
             HasWidgets targetHasWidgets = (HasWidgets) target;
-            Iterator<Widget> children = targetHasWidgets.iterator();
-            while (children.hasNext()) {
-                Widget child = children.next();
+            for (Widget child : targetHasWidgets) {
                 if (child instanceof HasDomConfiguration) {
                     ((HasDomConfiguration) child).read(this);
-                    // make sure to remove this element from DOM
-                    children.remove();
                 }
             }
         }
