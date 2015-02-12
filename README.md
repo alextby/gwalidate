@@ -17,6 +17,7 @@ Project Pages:<br>
  - Compiling `gwalidate-core` (GWalidate.gwt.xml imported) included in a GWT 2.7 project is perfectly possible and supported. `gwalidate` still has gwt version 2.6.1 in the pom, but that's mostly because the unitests won't run under gwt version 2.7. There is a mid-term plan to migrate to either 2.7 or 3.0.
 
 <h3>Standalone Demo</h3>
+Is for looking into the usage details of the framework. Steps to launch at localhost:
 ```sh
   mvn clean install
   cd gwalidate-playground/
