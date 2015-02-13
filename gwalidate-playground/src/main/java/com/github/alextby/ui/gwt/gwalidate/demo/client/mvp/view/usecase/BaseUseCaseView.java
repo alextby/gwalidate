@@ -2,13 +2,12 @@ package com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.view.usecase;
 
 import com.github.alextby.ui.gwt.gwalidate.core.engine.ValidationPanel;
 import com.github.alextby.ui.gwt.gwalidate.core.engine.ValidatorDelegate;
-import com.github.gwtbootstrap.client.ui.Button;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.event.dom.client.ClickEvent;
+import com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.view.CommomHtml;
+import com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.view.PanelButtons;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.SubmitButton;
+import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Base Use-Case View
@@ -19,54 +18,23 @@ public abstract class BaseUseCaseView extends Composite {
     ValidationPanel validationPanel;
 
     ValidatorDelegate delegate;
-
+    
     @UiField(provided = true)
-    SubmitButton validateBtn;
-    
-    @UiField
-    Button resetBtn;
+    PanelButtons panelButtons;
 
     @UiField
-    Button hardRescanBtn;
+    HTMLPanel functionsPanel;
     
-    @UiField
-    Button rescanBtn;
-    
-    private Element validateBtnElement;
-
     public BaseUseCaseView(ValidationPanel panel) {
         this.validationPanel = panel;
-        validateBtn = new SubmitButton();
-        validateBtn.setText("Validate");
-        validateBtnElement = validateBtn.getElement();
-        validateBtnElement.addClassName("btn btn-large btn-primary");
+        this.panelButtons = new PanelButtons(panel);
     }
 
-    @UiHandler("validateBtn")
-    public void onValidateBtnCick(ClickEvent event) {
-        validateBtnElement.removeClassName("btn-primary");
-        if (validationPanel.validate().isValid()) {
-            validateBtnElement.removeClassName("btn-danger");
-            validateBtnElement.addClassName("btn-success");
-        } else {
-            validateBtnElement.removeClassName("btn-success");
-            validateBtnElement.addClassName("btn-danger");
-        }
-    }
-    
-    @UiHandler("resetBtn")
-    public void onResetBtnClick(ClickEvent event) {
-        validationPanel.nullify();
-    }
-
-    @UiHandler("hardRescanBtn")
-    public void onHardRescanBtnClick(ClickEvent event) {
-        validationPanel.rescan(true);
-    }
-    
-    @UiHandler("rescanBtn")
-    public void onRescanBtnClick(ClickEvent event) {
-        validationPanel.rescan(false);
+    @Override
+    protected void initWidget(Widget widget) {
+        super.initWidget(widget);
+        functionsPanel.setStyleName("alert alert-info");
+        functionsPanel.getElement().setInnerHTML(CommomHtml.functionsPanel().asString());
     }
     
     @Override

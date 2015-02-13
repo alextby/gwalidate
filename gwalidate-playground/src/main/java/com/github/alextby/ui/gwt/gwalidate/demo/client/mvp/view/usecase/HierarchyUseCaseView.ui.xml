@@ -92,6 +92,7 @@
                         <hr/>
 
                         <view:PanelButtons ui:field="panelButtons"/>
+                        
                         <br/>
 
                     </g:HTMLPanel>

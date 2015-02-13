@@ -4,7 +4,8 @@
              xmlns:demo="urn:import:com.github.alextby.ui.gwt.gwalidate.demo.client.validate.widget"
              xmlns:v="urn:import:com.github.alextby.ui.gwt.gwalidate.core.dom"
              xmlns:vpanel="urn:import:com.github.alextby.ui.gwt.gwalidate.core.engine"
-             xmlns:bs="urn:import:com.github.gwtbootstrap.client.ui">
+             xmlns:bs="urn:import:com.github.gwtbootstrap.client.ui"
+             xmlns:view="urn:import:com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.view">
 
     <g:HTMLPanel>
 
@@ -21,7 +22,7 @@
                         The form on the right allows to:<br/>
                         <ul>
                             <li>
-                                Set/unset the <i>Name</i> field required.
+                                Set/unset the <b>Name</b> field required.
                             </li>
                             <li>
                                 Turn on/off validation on multiple fields: <i>Phone</i> and <i>Email</i>
@@ -29,30 +30,20 @@
                             </li>
                             <li>
                                 Perform cross-field validation:
-                                field <i>Category</i> does not allow <i>BIKINI</i> selected in combination with
-                                <i>MALE</i> selected in field <i>Gender</i>.
+                                field <b>Category</b> does not allow <b>BIKINI</b> selected in combination with
+                                <b>MALE</b> selected in field <b>Gender</b>. This cross-field rule is programmatically
+                                added and clicking <b>Hard Rescan</b> button will remove it. Use the <i>Restore</i> button
+                                in order to re-set it again.
                             </li>
                             <li>
                                 Add/evict validatable widgets newly added to the DOM:
-                                the <i>Attributes</i> section allows to insert/remove a few more text boxes with a "no spaces" rule.
+                                the <b>Attributes</b> section allows to insert/remove a few more text boxes with a "no spaces" rule.
                             </li>
                         </ul>
                     </p>
                 </div>
 
-                <div class="alert alert-info">
-                    <h3>Panel Functions</h3>
-                    <ul>
-                        <li><i>Nullify</i> will simply clear any validation errors (validation context)</li>
-                        <li>
-                            <i>Hard Rescan</i> will purge the existing validation config and rescan everything from scratch.
-                            Any dynamically added validation rules (incl. cross-field rules) will go away and must be restored.
-                        </li>
-                        <li>
-                            <i>Rescan</i> simply scans the DOM for newly added widgets.
-                        </li>
-                    </ul>
-                </div>
+                <g:HTMLPanel ui:field="functionsPanel"/>
 
             </g:HTMLPanel>
 
@@ -102,12 +93,16 @@
                                 <bs:ValueListBox ui:field="genderListBox"/>
                             </demo:widget>
                         </demo:ValidatedField>
-
+            
                         <demo:ValidatedField label="Category" required="true" ui:field="categoryField">
                             <demo:widget>
                                 <bs:ValueListBox ui:field="categoryListBox"/>
                             </demo:widget>
                         </demo:ValidatedField>
+
+                        <div class="controls control-group">
+                            <bs:Button addStyleNames="pull-left" ui:field="restoreBikiniRuleBtn">Set Bikini Rule</bs:Button>
+                        </div>
 
                         <hr/>
 
@@ -122,18 +117,7 @@
                         <br/>
                         <hr/>
 
-                        <div class="controls">
-                            <div class="row">
-                                <div class="span2">
-                                    <g:SubmitButton ui:field="validateBtn"/>
-                                </div>
-                                <div>
-                                    <bs:Button ui:field="resetBtn" styleName="btn btn-large btn-info">Nullify</bs:Button>
-                                    <bs:Button ui:field="hardRescanBtn" styleName="btn btn-large btn-info">Hard Rescan</bs:Button>
-                                    <bs:Button ui:field="rescanBtn" styleName="btn btn-large btn-info">Rescan</bs:Button>
-                                </div>
-                            </div>
-                        </div>
+                        <view:PanelButtons ui:field="panelButtons"/>
                         <br/>
 
                     </g:HTMLPanel>

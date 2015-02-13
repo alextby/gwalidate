@@ -64,7 +64,21 @@ public class DynamicUseCaseView extends BaseUseCaseView implements IDynamicUseCa
 
     @UiField
     Button minusUrlButton;
+    
+    @UiField
+    Button restoreBikiniRuleBtn;
 
+    private final CrossFieldRule NON_BIKINI_RULE = new CrossFieldRule() {
+        @Override
+        public void check(ValidatableWidget target, RuleContext context) throws RuleException {
+
+            if (isValid(genderField) &&
+                genderListBox.getValue() == Gender.MALE && categoryListBox.getValue() == Category.BIKINI) {
+                throw new RuleException("Men are not supposed to wear bikini");
+            }
+        }
+    };
+    
     @Inject
     public DynamicUseCaseView(DynamicUseCaseBinder binder, ValidationPanel validationPanel) {
         super(validationPanel);
@@ -93,21 +107,16 @@ public class DynamicUseCaseView extends BaseUseCaseView implements IDynamicUseCa
             phoneAndEmailValidatedCheckBox.getValue(), CATEGORY_PHONE_AND_EMAIL
         );
     }
+    
+    @UiHandler("restoreBikiniRuleBtn")
+    void onRestoreBikiniRuleClick(ClickEvent event) {
+        validationPanel.getDelegate().evict(categoryField);
+        validationPanel.getDelegate().planFor(categoryField).crossrule(NON_BIKINI_RULE).done();
+    }
 
     @Override
     protected void onValidationReady() {
-
-        delegate.planFor(categoryField).crossrule(new CrossFieldRule() {
-
-            @Override
-            public void check(ValidatableWidget target, RuleContext context) throws RuleException {
-
-                if (isValid(genderField) &&
-                    genderListBox.getValue() == Gender.MALE && categoryListBox.getValue() == Category.BIKINI) {
-                    throw new RuleException("Men are not supposed to wear bikini");
-                }
-            }
-        }).done();
+        delegate.planFor(categoryField).crossrule(NON_BIKINI_RULE).done();
     }
 
     @UiHandler("addUrlButton")
