@@ -18,7 +18,7 @@ Project Pages:<br>
  - A number of basic validation rules bundled
  - GIN-powered
 
-<h2>TODO list</h2>
+<h4>TODO</h4>
  - Add support for rule priorities
  - Redesign the internal widget validation states with a finite-state automata
 
