@@ -18,6 +18,10 @@ Project Pages:<br>
  - A number of basic validation rules bundled
  - GIN-powered
 
+<h2>TODO list</h2>
+ - Add support for rule priorities
+ - Redesign the internal widget validation states with a finite state automata
+
 <h3>Build Instructions</h3>
  - Java7 is preferably the one to go with.
  - Building `gwalidate-core` with Java8 won't let the tests run, so make sure to `-DskipTests=true` if Java8 is required (the rest of the code compiles/runs as expected).
