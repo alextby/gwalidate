@@ -20,7 +20,7 @@ Project Pages:<br>
 
 <h2>TODO list</h2>
  - Add support for rule priorities
- - Redesign the internal widget validation states with a finite state automata
+ - Redesign the internal widget validation states with a finite-state automata
 
 <h3>Build Instructions</h3>
  - Java7 is preferably the one to go with.
