@@ -16,7 +16,7 @@
                 <div class="alert alert-info">
                     <h3>Case Description</h3>
                     <p>
-                        The purpose of this case is to demonstrate dynamic capabilities of <b>GWalidate</b>.
+                        The purpose of this case is to demonstrate <strong>dynamic capabilities</strong> of <b>GWalidate</b>.
                     </p>
                     <p>
                         The form on the right allows to:<br/>
@@ -32,7 +32,7 @@
                                 Perform cross-field validation:
                                 field <b>Category</b> does not allow <b>BIKINI</b> selected in combination with
                                 <b>MALE</b> selected in field <b>Gender</b>. This cross-field rule is programmatically
-                                added and clicking <b>Hard Rescan</b> button will remove it. Use the <i>Restore</i> button
+                                added and clicking <b>Hard Rescan</b> button will remove it. Use the <i>Set Bikini Rule</i> button
                                 in order to re-set it again.
                             </li>
                             <li>

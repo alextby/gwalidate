@@ -37,6 +37,9 @@
                                 <li ui:field="dynamicCaseLink">
                                     <a href="#dynamic_case:">Dynamic Case</a>
                                 </li>
+                                <li ui:field="hierarchyCaseLink">
+                                    <a href="#hierarchy_case:">Hierarchy Case</a>
+                                </li>
                             </ul>
                         </div>
                     </div>

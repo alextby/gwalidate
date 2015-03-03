@@ -159,7 +159,7 @@ public final class ValidationDriver implements AttachEvent.Handler, Validator {
         context.reset();
 
         MultiValidationStatus totalResult = new MultiValidationStatus(context);
-        Set<Validator> validators = config.getValidators();
+        Set<ValidationDriver> validators = config.getInnerValidators();
         // call the inner validators
         for (Validator validator : validators) {
             ValidationStatus result = validator.run();
@@ -282,14 +282,13 @@ public final class ValidationDriver implements AttachEvent.Handler, Validator {
      * @param hard - soft or hard
      */
     protected void reset(boolean hard) {
-        context.reset();
-        if (hard) {
-            config.reset();
+        for (ValidationDriver validator : config.getInnerValidators()) {
+            validator.reset(hard); // clear context for inner validators first
         }
-    }
-
-    protected void clear() {
-        reset(true);
+        context.reset(hard); // clear self context
+        if (hard) {
+            config.reset(); // reset the config if in hard mode
+        }
     }
 
     @Override
@@ -537,21 +536,17 @@ public final class ValidationDriver implements AttachEvent.Handler, Validator {
     }
 
     private void acceptPanel(ValidationPanel validationPanel) {
-
-        assert validationPanel != null;
-
         // stop scanning this sub-tree - we have an inner validator
         LOG.fine("Validaton panel detected");
         final Validator validator = validationPanel.validator;
         if (validator != null && validator instanceof ValidationDriver) {
-            config.acceptValidator((ValidationDriver) validator);
+            ValidationDriver validationDriver = (ValidationDriver) validator;
+            config.acceptValidator(validationDriver);
+            validationDriver.scanDom(); // force scan dom
         }
     }
 
     private void acceptWidget(ValidatableWidget target) {
-
-        assert target != null;
-
         if (config.getPlan(target) == null || !config.isDomConfigured(target)) {
             // we never scan DOM configuration twice for the same target
             // since we know that frequent attach/unattach requests will take place

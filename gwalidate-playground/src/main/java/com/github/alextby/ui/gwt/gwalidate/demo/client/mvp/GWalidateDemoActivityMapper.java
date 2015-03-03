@@ -4,6 +4,7 @@ import com.github.alextby.ui.gwt.gwalidate.demo.client.gin.ActivityFactory;
 import com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.place.AboutPlace;
 import com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.place.BasicUseCasePlace;
 import com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.place.DynamicUseCasePlace;
+import com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.place.HierarchyUseCasePlace;
 import com.google.common.collect.Maps;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;
@@ -21,6 +22,7 @@ public class GWalidateDemoActivityMapper implements ActivityMapper {
         placesMapping.put(null, null);
         placesMapping.put(BasicUseCasePlace.class, activityFactory.basicUseCaseActivity());
         placesMapping.put(DynamicUseCasePlace.class, activityFactory.dynamicUseCaseActivity());
+        placesMapping.put(HierarchyUseCasePlace.class, activityFactory.hierarchyUseCaseActivity());
         placesMapping.put(AboutPlace.class, activityFactory.aboutActivity());
     }
 

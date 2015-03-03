@@ -33,14 +33,14 @@ public class ValidationConfig implements FieldRegistry {
     private Set<ValidatableWidget> domScanned;
 
     // inner validators
-    private Set<Validator> validators;
+    private Set<ValidationDriver> validators;
 
     // by-alias index
     private Map<String, ValidatableWidget> fieldsByAlias;
 
     public ValidationConfig() {
         validatables = new LinkedHashMap<ValidatableWidget, ValidationPlan>();
-        validators = new HashSet<Validator>();
+        validators = new HashSet<ValidationDriver>();
         fieldsByAlias = new HashMap<String, ValidatableWidget>();
         domScanned = new HashSet<ValidatableWidget>();
         withDelegates = new HashSet<HasValidatorDelegate>();
@@ -64,7 +64,6 @@ public class ValidationConfig implements FieldRegistry {
 
     void injectDelegate(ValidatorDelegate delegate, HasValidatorDelegate withDelegate) {
         if (!withDelegates.contains(withDelegate)) {
-            // DebugUtils.trace("Validator: ValidatorDelegate injected");
             withDelegate.setValidatorDelegate(delegate);
             withDelegates.add(withDelegate);
         }
@@ -120,7 +119,7 @@ public class ValidationConfig implements FieldRegistry {
         return fieldsByAlias.get(alias);
     }
 
-    public Set<Validator> getValidators() {
+    Set<ValidationDriver> getInnerValidators() {
         return Collections.unmodifiableSet(validators);
     }
 

@@ -3,6 +3,7 @@ package com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.view;
 import com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.place.AboutPlace;
 import com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.place.BasicUseCasePlace;
 import com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.place.DynamicUseCasePlace;
+import com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.place.HierarchyUseCasePlace;
 import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.dom.client.LIElement;
 import com.google.gwt.place.shared.Place;
@@ -63,6 +64,14 @@ public class DemoMainLayoutView extends Composite {
             }
         });
 
+        menuHandlers.put(HierarchyUseCasePlace.class, new MenuHandler() {
+            @Override
+            public void onPlaceChanged() {
+                clearActive();
+                hierarchyCaseLink.addClassName(CSS_ACTIVE);
+            }
+        });
+
 
         initWidget(binder.createAndBindUi(this));
 
@@ -92,6 +101,9 @@ public class DemoMainLayoutView extends Composite {
 
     @UiField
     LIElement dynamicCaseLink;
+    
+    @UiField
+    LIElement hierarchyCaseLink;
 
     public SimplePanel getContainer() {
         return casesContainer;
@@ -101,6 +113,7 @@ public class DemoMainLayoutView extends Composite {
         aboutLink.removeClassName(CSS_ACTIVE);
         basicCaseLink.removeClassName(CSS_ACTIVE);
         dynamicCaseLink.removeClassName(CSS_ACTIVE);
+        hierarchyCaseLink.removeClassName(CSS_ACTIVE);
     }
 
     private interface MenuHandler {

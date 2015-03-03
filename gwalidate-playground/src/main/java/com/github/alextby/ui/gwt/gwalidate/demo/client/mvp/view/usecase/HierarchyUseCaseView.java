@@ -1,18 +1,16 @@
 package com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.view.usecase;
 
-import com.github.alextby.ui.gwt.gwalidate.core.convert.ToStringRenderer;
 import com.github.alextby.ui.gwt.gwalidate.core.engine.ValidationPanel;
-import com.github.gwtbootstrap.client.ui.ValueListBox;
+import com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.view.ValidatedSimpleForm;
+import com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.view.ValidatedCompositeForm;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
-import java.util.Arrays;
-
 @Singleton
-public class HierarchyUseCaseView extends BaseUseCaseView implements IBasicUseCaseView {
+public class HierarchyUseCaseView extends BaseUseCaseView implements IHierarchyUseCaseView {
 
     interface SimpleUseCaseBinder extends UiBinder<Widget, HierarchyUseCaseView> {
     }
@@ -20,19 +18,23 @@ public class HierarchyUseCaseView extends BaseUseCaseView implements IBasicUseCa
     private Presenter presenter;
 
     @UiField(provided = true)
-    ValueListBox<Gender> genderListBox;
-
+    ValidatedCompositeForm form1;
+    
+    @UiField(provided = true)
+    ValidatedSimpleForm form2;
+    
     @Override
     public void setPresenter(Presenter presenter) {
         this.presenter = presenter;
     }
 
     @Inject
-    public HierarchyUseCaseView(SimpleUseCaseBinder binder, ValidationPanel validationPanel) {
+    public HierarchyUseCaseView(SimpleUseCaseBinder binder, ValidationPanel validationPanel, 
+                                ValidatedCompositeForm form1, ValidatedSimpleForm form2) {
         super(validationPanel);
+        this.form1 = form1;
+        this.form2 = form2;   
         this.validationPanel.scanOnAttach(true);
-        this.genderListBox = new ValueListBox<Gender >(new ToStringRenderer<Gender>());
         initWidget(binder.createAndBindUi(this));
-        genderListBox.setAcceptableValues(Arrays.asList(Gender.values()));
     }
 }

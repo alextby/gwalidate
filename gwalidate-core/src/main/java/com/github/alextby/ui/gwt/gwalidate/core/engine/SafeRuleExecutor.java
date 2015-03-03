@@ -45,8 +45,8 @@ public class SafeRuleExecutor implements RuleExecutor {
     /**
      * Executes the given {@code CrossFieldRule}
      *
-     * @param crossFieldRule - cross field rule
-     * @param target - target
+     * @param crossFieldRule cross field rule
+     * @param target target
      */
     @Override
     public void execute(CrossFieldRule crossFieldRule, ValidatableWidget target) {
@@ -69,8 +69,8 @@ public class SafeRuleExecutor implements RuleExecutor {
     /**
      * Executes the given {@code ValidationRule}
      *
-     * @param singleFieldRule - single field rule
-     * @param target - target
+     * @param singleFieldRule single field rule
+     * @param target target
      */
     @Override
     public void execute(ValidationRule singleFieldRule, ValidatableWidget target) {
@@ -83,8 +83,8 @@ public class SafeRuleExecutor implements RuleExecutor {
     /**
      * Executes the given {@code TextConversionRule}
      *
-     * @param converterRule - converter rule
-     * @param target - target
+     * @param converterRule converter rule
+     * @param target target
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -107,8 +107,8 @@ public class SafeRuleExecutor implements RuleExecutor {
     /**
      * Executes the given {@code RequiredRule}
      *
-     * @param requiredRule - required rule
-     * @param target - validatable target
+     * @param requiredRule required rule
+     * @param target validatable target
      */
     @Override
     public void execute(RequiredRule requiredRule, ValidatableWidget target) {
@@ -135,9 +135,9 @@ public class SafeRuleExecutor implements RuleExecutor {
     /**
      * Checks the given {@code ValidationRule}
      *
-     * @param rule        - validation rule
-     * @param target      - validation target
-     * @param ruleContext - rule execution context
+     * @param rule        validation rule
+     * @param target      validation target
+     * @param ruleContext rule execution context
      */
     @SuppressWarnings("unchecked")
     private void check(ValidationRule rule, ValidatableWidget target, RuleContext ruleContext) {
@@ -157,8 +157,8 @@ public class SafeRuleExecutor implements RuleExecutor {
     /**
      * Logs an error and reports a violation with generic explanation.
      *
-     * @param t - throwable
-     * @param target - validation target
+     * @param t throwable
+     * @param target validation target
      */
     private void reportUnexpectedFailure(Throwable t, ValidatableWidget target) {
         context.reportViolation(new Violation(target, context.messages().getMessage(GENERIC_ERROR_ID)));

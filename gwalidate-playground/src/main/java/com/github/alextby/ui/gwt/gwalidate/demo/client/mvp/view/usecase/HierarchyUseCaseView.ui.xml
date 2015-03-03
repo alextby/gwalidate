@@ -16,37 +16,20 @@
 
                 <div class="alert alert-info">
                     <h3>Case Description</h3>
-                    <p>The purpose of this use case is to give a good feeling of what <b><i>GWalidate</i></b> actully does.</p>
-                    <p>
-                        The form on the right contains fields:
-                        <br/>
-                        <ul>
-                            <li>
-                                <i>Required</i>
-                                <b>Name</b>
-                                field with the maximum allowed length=10
-                            </li>
-                            <li>
-                                <i>Optional</i>
-                                <b>Age</b>
-                                field with the (0, 150] allowed integer interval
-                            </li>
-                            <li>
-                                <i>Required</i>
-                                <b>Gender</b>
-                                field
-                            </li>
-                            <li>
-                                <i>Optional</i>
-                                <b>Comment</b>
-                                field with the maximum allowed length=32
-                            </li>
-                        </ul>
+                    <p>The purpose of this use case is to demonstrate <strong>hierarchical layouts</strong> 
+                        and <strong>sub-form validations</strong>.
                     </p>
                     <p>
-                        Click the <b>Validate</b> button in order to check the inputs.
+                        The view on the right has the following layout: the global validation panel with 
+                        extended button set includes a single simple validated panel and a composite validation panel 
+                        including one more validation panel along with some local fields. 
+                        Each of the forms on the right has its own <strong>Validate</strong> button that triggers 
+                        panel-local validation.
                     </p>
-
+                    <p>
+                        The global <strong>Nullify</strong> button will clear validation errors from all the fields; 
+                        the <strong>Rescan</strong> buttons will trigger rescans for all the panels.
+                    </p>
                 </div>
 
                 <g:HTMLPanel ui:field="functionsPanel"/>
@@ -57,9 +40,7 @@
 
                 <g:HTMLPanel styleName="bs-docs-example form-inline form-horizontal">
 
-                    <g:HTMLPanel tag="fieldset">
-
-                        <br/>
+                    <g:HTMLPanel>
 
                         <demo:ValidatedField label="Name" required="true">
                             <demo:widget>
@@ -75,20 +56,10 @@
                             <v:Range min="0" max="150" minOut="true" maxOut="false"/>
                         </demo:ValidatedField>
 
-                        <demo:ValidatedField label="Gender" required="true">
-                            <demo:widget>
-                                <bs:ValueListBox ui:field="genderListBox"/>
-                            </demo:widget>
-                        </demo:ValidatedField>
+                        <view:ValidatedCompositeForm ui:field="form1"/>
 
-                        <demo:ValidatedField label="Comment">
-                            <demo:widget>
-                                <bs:TextArea size="5" height="100px"/>
-                            </demo:widget>
-                            <v:Size max="32"/>
-                        </demo:ValidatedField>
-
-                        <br/>
+                        <view:ValidatedSimpleForm ui:field="form2"/>
+                        
                         <hr/>
 
                         <view:PanelButtons ui:field="panelButtons"/>

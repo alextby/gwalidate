@@ -11,7 +11,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
-import com.google.gwt.user.client.ui.RootLayoutPanel;
+import com.google.gwt.user.client.ui.RootPanel;
 
 /**
  * The {@code EntryPoint} for the GWalidate Demo App.
@@ -36,7 +36,7 @@ public class DemoMain implements EntryPoint {
         PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(historyMapper);
         historyHandler.register(placeController, gwalidateMvpFactory.eventBus(), new BasicUseCasePlace());
 
-        RootLayoutPanel.get().add(mainLayout);
+        RootPanel.get().add(mainLayout);
 
         historyHandler.handleCurrentHistory();
     }

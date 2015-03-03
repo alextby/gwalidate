@@ -22,8 +22,12 @@ public class GWalidateDemoGinModule extends AbstractGinModule {
 
         install(new GinFactoryModuleBuilder().build(ActivityFactory.class));
         bind(ActivityFactory.class).asEagerSingleton();
+        
         install(new GinFactoryModuleBuilder().build(ViewFactory.class));
+        install(new GinFactoryModuleBuilder().build(WidgetFactory.class));
+        
         bind(ViewFactory.class).asEagerSingleton();
+        bind(WidgetFactory.class).asEagerSingleton();
 
         install(new GWalidateModule());
     }

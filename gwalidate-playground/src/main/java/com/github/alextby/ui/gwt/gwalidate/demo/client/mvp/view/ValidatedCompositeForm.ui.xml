@@ -1,0 +1,42 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:demo="urn:import:com.github.alextby.ui.gwt.gwalidate.demo.client.validate.widget"
+             xmlns:view="urn:import:com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.view"
+             xmlns:v="urn:import:com.github.alextby.ui.gwt.gwalidate.core.dom"
+             xmlns:vpanel="urn:import:com.github.alextby.ui.gwt.gwalidate.core.engine"
+             xmlns:bs="urn:import:com.github.gwtbootstrap.client.ui">
+
+
+    <g:HTMLPanel styleName="control-group validated-subform sub-form">
+        
+        <vpanel:ValidationPanel ui:field="validationPanel" styleName="validation-panel pull-left">
+
+            <g:HTMLPanel styleName="form-inline form-horizontal">
+
+                <div class="row-fluid">
+                    <view:ValidatedSimpleForm ui:field="validatedSimpleForm" addStyleNames="sub-form-white"/>
+                </div>
+               
+                <div class="row-fluid">
+                    <g:HTMLPanel tag="fieldset">
+    
+                        <demo:ValidatedField label="Name" required="true">
+                            <demo:widget>
+                                <bs:TextBox/>
+                            </demo:widget>
+                            <v:Size max="10"/>
+                        </demo:ValidatedField>
+    
+                        <bs:Button ui:field="validateButton" type="PRIMARY" addStyleNames="controls">Validate</bs:Button>
+    
+                    </g:HTMLPanel>
+                </div>
+
+            </g:HTMLPanel>
+
+        </vpanel:ValidationPanel>
+
+    </g:HTMLPanel>
+
+</ui:UiBinder>
