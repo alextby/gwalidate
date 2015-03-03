@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<module rename-to="gwalidate_demo">
+
+    <inherits name="com.github.alextby.ui.gwt.gwalidate.demo.GWalidateDemo"/>
+
+    <set-property name="user.agent" value="gecko1_8"/>
+    <set-property name="locale" value="default"/>
+
+</module>

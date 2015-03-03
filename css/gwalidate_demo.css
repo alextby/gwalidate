@@ -38,14 +38,36 @@ button {
 
 .cases-container-inner {
     padding-left: 20px;
+    margin-bottom: 40px;
 }
 
 .validation-panel {
     width: 1000px;
 }
 
+.validated-subform {
+    border: 1px solid #DDDDDD;
+    border-radius: 5px;
+    padding: 30px;
+}
+
+.validated-simpleform {
+    width: 700px;
+    border: 1px solid #DDDDDD;
+    border-radius: 5px;
+    padding: 30px;
+}
+
+.sub-form-white {
+    background-color: #ffffff !important;
+}
+
+.sub-form {
+    background-color: #fafafa;
+}
+
 .bs-docs-example:after {
-    background-color: #F5F5F5;
+    background-color: #fefefe;
     border: 1px solid #DDDDDD;
     border-radius: 4px 0 4px 0;
     color: #9DA0A4;
@@ -70,7 +92,7 @@ form.bs-docs-example {
 }
 
 .left-help-panel {
-    width: 400px;
+    width: 550px;
     margin-right: 20px;
 }
 

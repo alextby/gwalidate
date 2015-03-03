@@ -1,0 +1,3 @@
+# Module gwalidate_demo
+# RPC service class, partial path of RPC policy file
+com.google.gwt.logging.shared.RemoteLoggingService, D8354F129B90BCD8991531844AB1022F.gwt.rpc
