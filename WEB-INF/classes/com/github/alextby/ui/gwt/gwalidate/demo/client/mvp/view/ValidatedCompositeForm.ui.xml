@@ -15,7 +15,7 @@
             <g:HTMLPanel styleName="form-inline form-horizontal">
 
                 <div class="row-fluid">
-                    <view:ValidatedSimpleForm ui:field="validatedSimpleForm" styleName="sub-form-white"/>
+                    <view:ValidatedSimpleForm ui:field="validatedSimpleForm" addStyleNames="sub-form-white"/>
                 </div>
                
                 <div class="row-fluid">
