@@ -12,6 +12,8 @@
     <inherits name="com.google.gwt.place.Place"/>
     <inherits name="com.google.common.collect.Collect"/>
 
+    <inherits name="com.arcbees.analytics.Analytics"/>
+    
     <inherits name="com.github.alextby.ui.gwt.gwalidate.GWalidate"/>
 
     <inherits name="com.github.gwtbootstrap.BootstrapNoResources"/>
@@ -21,8 +23,6 @@
     <entry-point class="com.github.alextby.ui.gwt.gwalidate.demo.client.DemoMain"/>
 
     <set-property name="gwt.logging.logLevel" value="SEVERE"/>
-    <set-property name="gwt.logging.simpleRemoteHandler" value="ENABLED"/>
-    <set-property name="gwt.logging.popupHandler" value="DISABLED"/>
 
     <set-configuration-property name="UiBinder.useSafeHtmlTemplates" value="true"/>
 

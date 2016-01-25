@@ -1,5 +1,6 @@
 package com.github.alextby.ui.gwt.gwalidate.demo.client.gin;
 
+import com.arcbees.analytics.client.AnalyticsModule;
 import com.github.alextby.ui.gwt.gwalidate.core.config.GWalidateModule;
 import com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.GWalidateDemoActivityMapper;
 import com.github.alextby.ui.gwt.gwalidate.demo.client.mvp.GWalidateDemoPlaceHistoryMapper;
@@ -29,6 +30,9 @@ public class GWalidateDemoGinModule extends AbstractGinModule {
         bind(ViewFactory.class).asEagerSingleton();
         bind(WidgetFactory.class).asEagerSingleton();
 
+        // Google Universal Analytics
+        install(new AnalyticsModule.Builder("UA-72802739-1").build());
+        
         install(new GWalidateModule());
     }
 }
