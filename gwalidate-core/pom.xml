@@ -18,14 +18,16 @@
     <artifactId>gwalidate-core</artifactId>
 
     <properties>
+        
         <gwalidate.gwt.module.name>com.github.alextby.ui.gwt.gwalidate.GWalidate</gwalidate.gwt.module.name>
         <gwt.local.workers>2</gwt.local.workers>
         <gwt.draft.compile>false</gwt.draft.compile>
         <gwt.module.suffix/>
         <dependency.junit.version>4.11</dependency.junit.version>
         <dependency.mockito.version>1.9.5</dependency.mockito.version>
-        <dependency.gwt.test.utils.version>0.47</dependency.gwt.test.utils.version>
+        <dependency.gwt.test.utils.version>0.48</dependency.gwt.test.utils.version>
         <dependency.jukito.version>1.4</dependency.jukito.version>
+        <dependency.javassist.version>3.20.0-GA</dependency.javassist.version>
 
         <dependency.emma.patched.groupId>emma</dependency.emma.patched.groupId>
         <dependency.emma.patched.artifactId>emma</dependency.emma.patched.artifactId>
@@ -76,6 +78,27 @@
 
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.4</version>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <groupId>com.googlecode.gwt-test-utils</groupId>
+                            <artifactId>gwt-test-utils</artifactId>
+                            <version>${dependency.gwt.test.utils.version}</version>
+                            <packaging>jar</packaging>
+                            <file>${basedir}/lib/gwt-test-utils-0.48.jar</file>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            
         </plugins>
 
     </build>
@@ -213,6 +236,21 @@
             <artifactId>gwt-test-utils</artifactId>
             <version>${dependency.gwt.test.utils.version}</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.javassist</groupId>
+                    <artifactId>javassist</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- gwt-test-utils depends on old version javassist.
+            It is overridden in test scope for java 8 support. -->
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <scope>test</scope>
+            <version>${dependency.javassist.version}</version>
         </dependency>
 
     </dependencies>
