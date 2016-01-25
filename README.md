@@ -23,10 +23,8 @@ Project Pages:<br>
  - Redesign the internal widget validation states with a finite-state automata
 
 <h3>Build Instructions</h3>
- - Java7 is preferably the one to go with.
- - Building `gwalidate-core` with Java8 won't let the tests run, so make sure to `-DskipTests=true` if Java8 is required (the rest of the code compiles/runs as expected). Fixing this is work in progress at the moment.
  - `gwalidate-playground` has `-P dev` for faster developer builds (less permutations and tests skipped)
- - Compiling `gwalidate-core` (GWalidate.gwt.xml imported) included in a GWT 2.7 project is perfectly possible and supported. `gwalidate` still has gwt version 2.6.1 in the pom, but that's mostly because the unitests won't run under gwt version 2.7. There is a mid-term plan to migrate to either 2.7 or 2.8
+ - Compiling `gwalidate-core` (GWalidate.gwt.xml imported) included in a GWT 2.7 project is perfectly possible and supported. `gwalidate` still has gwt version 2.6.1 in the pom, but that's mostly because the unitests won't run under gwt version 2.7. There is a mid-term plan to migrate to either 2.7 or 2.8.
 
 <h3>Standalone Demo</h3>
 Is for looking into the usage details of the framework. Steps to launch at localhost:
