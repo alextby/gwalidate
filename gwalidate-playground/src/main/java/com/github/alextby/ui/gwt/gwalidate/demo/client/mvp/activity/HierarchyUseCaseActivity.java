@@ -26,6 +26,7 @@ public class HierarchyUseCaseActivity extends AbstractActivity implements IHiera
         final IHierarchyUseCaseView view = viewFactory.hierarchyUseCaseView();
         view.setPresenter(this);
         container.setWidget(view.asWidget());
+        onSendPageView();
     }
 
     @Override

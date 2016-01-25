@@ -26,10 +26,11 @@ public class AboutActivity extends AbstractActivity implements IAboutView.Presen
         final IAboutView view = viewFactory.aboutView();
         view.setPresenter(this);
         container.setWidget(view.asWidget());
+        onSendPageView();
     }
 
     @Override
     public void onSendPageView() {
-        analytics.sendPageView().documentPath("/about").go();
+        analytics.sendPageView().documentPath("/about").documentHostName("alext-ubu3").go();
     }
 }

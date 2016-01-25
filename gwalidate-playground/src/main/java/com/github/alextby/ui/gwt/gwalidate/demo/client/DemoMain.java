@@ -1,5 +1,7 @@
 package com.github.alextby.ui.gwt.gwalidate.demo.client;
 
+import com.arcbees.analytics.shared.Analytics;
+import com.arcbees.analytics.shared.AnalyticsPlugin;
 import com.github.alextby.ui.gwt.gwalidate.demo.client.gin.GWalidateDemoGinjector;
 import com.github.alextby.ui.gwt.gwalidate.demo.client.gin.GWalidateDemoMvpFactory;
 import com.github.alextby.ui.gwt.gwalidate.demo.client.gin.ViewFactory;
@@ -25,6 +27,8 @@ public class DemoMain implements EntryPoint {
 
         final ViewFactory viewFactory = DI.viewFactory();
         final GWalidateDemoMvpFactory gwalidateMvpFactory = DI.mvpFactory();
+        
+        initUniversalAnalytics(DI.analytics());
 
         final DemoMainLayoutView mainLayout = viewFactory.mainLayoutView();
         PlaceController placeController = gwalidateMvpFactory.placeController();
@@ -39,5 +43,12 @@ public class DemoMain implements EntryPoint {
         RootPanel.get().add(mainLayout);
 
         historyHandler.handleCurrentHistory();
+        
+    }
+    
+    private void initUniversalAnalytics(Analytics analytics) {
+        analytics.create().go();
+        analytics.enablePlugin(AnalyticsPlugin.DISPLAY); // (optional) Provides demographics information.
+        analytics.sendPageView().go(); // (recommended) track the initial pageview
     }
 }

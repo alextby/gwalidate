@@ -26,6 +26,7 @@ public class DynamicUseCaseActivity extends AbstractActivity implements IDynamic
         final IDynamicUseCaseView view = viewFactory.dynamicUseCaseView();
         view.setPresenter(this);
         container.setWidget(view.asWidget());
+        onSendPageView();
     }
 
     @Override

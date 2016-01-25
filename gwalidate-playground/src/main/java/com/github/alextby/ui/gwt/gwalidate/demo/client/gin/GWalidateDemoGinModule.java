@@ -31,7 +31,8 @@ public class GWalidateDemoGinModule extends AbstractGinModule {
         bind(WidgetFactory.class).asEagerSingleton();
 
         // Google Universal Analytics
-        install(new AnalyticsModule.Builder("UA-72802739-1").build());
+        
+        install(new AnalyticsModule.Builder("UA-72802739-1").autoCreate(false).build());
         
         install(new GWalidateModule());
     }

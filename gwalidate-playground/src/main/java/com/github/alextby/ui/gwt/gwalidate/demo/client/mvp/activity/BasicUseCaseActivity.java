@@ -26,6 +26,7 @@ public class BasicUseCaseActivity extends AbstractActivity implements IBasicUseC
         final IBasicUseCaseView view = viewFactory.simpleUseCaseView();
         view.setPresenter(this);
         container.setWidget(view.asWidget());
+        onSendPageView();
     }
 
     @Override
